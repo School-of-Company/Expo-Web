@@ -60,7 +60,7 @@ export default function EventStatsRow() {
   return (
     <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
       <StatCard
-        href="/about/directions"
+        href="/guide/directions"
         icon="users"
         label="행사장 혼잡도"
         badge="실시간 (예시)"

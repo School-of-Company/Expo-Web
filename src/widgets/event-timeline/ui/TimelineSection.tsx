@@ -4,7 +4,7 @@ const DATES = ["10.31(토)", "11.1(일)"] as const;
 
 export default function TimelineSection() {
   return (
-    <div className="overflow-x-auto rounded-xlarge border border-border-default">
+    <div className="scroll-shadow-x overflow-x-auto rounded-xlarge border border-border-default">
       <table className="w-full min-w-[640px] table-fixed border-collapse text-left text-body-s">
         <colgroup>
           <col className="w-[10%]" />

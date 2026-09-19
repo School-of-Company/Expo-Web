@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import PageHero from "@/shared/ui/PageHero";
-import { LocalNav } from "@/widgets/local-nav";
+import LocalNav from "@/widgets/local-nav/ui/LocalNav";
 import Icon from "@/shared/ui/Icon";
 import { noticeNavItems } from "@/shared/config/notice-nav";
 import { notices } from "@/entities/notice/model/data";
@@ -47,7 +47,7 @@ export default function NoticeDetailPage({ id }: { id: string }) {
                       className="flex items-center gap-3 rounded-medium border border-border-default bg-bg-canvas px-4 py-3 transition-colors duration-150 ease-out hover:border-primary-50 hover:bg-primary-10"
                     >
                       <span className="flex h-8 w-8 shrink-0 items-center justify-center text-primary-60">
-                        <Icon name="clipboard" className="h-5 w-5" />
+                        <Icon name="download" className="h-5 w-5" />
                       </span>
                       <span className="min-w-0 truncate text-body-s font-medium text-fg-1">{file.name}</span>
                       <span className="shrink-0 text-body-xs text-fg-3">{file.size}</span>

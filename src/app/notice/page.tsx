@@ -1,13 +1,6 @@
-import { NoticePage } from "@/views/notice";
+import NoticePage from "@/views/notice/ui/NoticePage";
 
-export default async function Page({
-  searchParams,
-}: {
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
-}) {
-  const { page } = await searchParams;
-  const pageParam = Array.isArray(page) ? page[0] : page;
-  const pageNumber = Number(pageParam) || 1;
-
-  return <NoticePage page={pageNumber} />;
+export default async function Page(props: PageProps<"/notice">) {
+  const { page } = await props.searchParams;
+  return <NoticePage page={typeof page === "string" ? Number(page) : 1} />;
 }

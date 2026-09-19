@@ -1,10 +1,8 @@
 import PageHero from "@/shared/ui/PageHero";
-import { LocalNav } from "@/widgets/local-nav";
+import LocalNav from "@/widgets/local-nav/ui/LocalNav";
 import ProgramInfoPanel from "@/shared/ui/ProgramInfoPanel";
-import { ExternalApplyPanel } from "@/widgets/external-apply";
 import { teachersNavItems } from "@/shared/config/teachers-nav";
 import { trainingPrograms } from "@/entities/training-program/model/data";
-import { EXTERNAL_APPLY_LINKS } from "@/shared/config/external-apply-links";
 
 export default function TeachersTrainingPage() {
   return (
@@ -27,18 +25,8 @@ export default function TeachersTrainingPage() {
               { label: "내용", text: "삼성·애플·구글과 함께하는 교원 대상 협력 연수 프로그램" },
               { label: "운영방식", text: "세션별 정원 한정, 세부 일정은 홈페이지를 통해 추후 공지" },
             ]}
-            cta={{ href: EXTERNAL_APPLY_LINKS.teacherTraining, label: "연수 신청 바로가기" }}
+            cta={{ href: "/apply/teacher-training", label: "연수 신청하기" }}
           />
-
-          <div className="mt-10">
-            <ExternalApplyPanel
-              href={EXTERNAL_APPLY_LINKS.teacherTraining}
-              label="연수 신청하기"
-              title="교사 연수 신청"
-              tagline="세션별 정원 한정, 지금 바로 신청하세요"
-              body={"삼성·애플·구글 3개 세션 중 최대 2개까지 신청할 수 있습니다.\n외부 신청 페이지에서 신청서를 작성해 주세요."}
-            />
-          </div>
         </div>
       </div>
     </div>

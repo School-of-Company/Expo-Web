@@ -16,8 +16,7 @@ const VARIANT_CLASS: Record<Variant, string> = {
   tertiary: "bg-bg-canvas text-fg-1 border border-border-default hover:bg-bg-subtle",
 };
 
-const DISABLED_CLASS =
-  "disabled:bg-bg-subtle disabled:text-fg-4 disabled:border-transparent disabled:cursor-not-allowed disabled:hover:bg-bg-subtle";
+const DISABLED_CLASS = "disabled:bg-bg-subtle disabled:text-fg-4 disabled:border-transparent disabled:cursor-not-allowed disabled:hover:bg-bg-subtle";
 
 const BASE = "inline-flex items-center justify-center gap-2 font-bold transition-colors duration-150 ease-out";
 
