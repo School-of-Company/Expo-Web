@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
+import { CONGESTION_STYLE, overallCongestionLevel, type CongestionLevel } from "@/entities/congestion/model/data";
 import { SITE } from "@/shared/config/site";
 import Icon from "@/shared/ui/Icon";
 
@@ -15,11 +16,11 @@ import MegaMenu from "./MegaMenu";
 const PINNED_KEY = "menu";
 
 interface HeaderProps {
-  /** 실시간 혼잡도 라벨. 추후 실시간 현황 API 연동 시 주입한다. */
-  congestion?: string;
+  /** 실시간 혼잡도. 기본값은 목데이터 기준 최악 구역 레벨이며, API 연동 시 주입한다. */
+  congestion?: CongestionLevel;
 }
 
-export default function Header({ congestion = "혼잡" }: HeaderProps) {
+export default function Header({ congestion = overallCongestionLevel }: HeaderProps) {
   const pathname = usePathname();
   const [openKey, setOpenKey] = useState<string | null>(null);
   const [openSeq, setOpenSeq] = useState(0);
@@ -75,7 +76,7 @@ export default function Header({ congestion = "혼잡" }: HeaderProps) {
           <div className="hidden items-center gap-2 md:flex">
             <span className="flex items-center gap-1.5 whitespace-nowrap rounded-pill bg-bg-subtle px-3 py-1 text-body-xs font-semibold text-fg-2">
               실시간 현황
-              <span aria-hidden="true" className="h-2 w-2 shrink-0 rounded-full bg-danger" />
+              <span aria-hidden="true" className={`h-2 w-2 shrink-0 rounded-full ${CONGESTION_STYLE[congestion].dot}`} />
               {congestion}
             </span>
             <Link
