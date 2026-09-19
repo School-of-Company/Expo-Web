@@ -1,9 +1,7 @@
 import PageHero from "@/shared/ui/PageHero";
-import { LocalNav } from "@/widgets/local-nav";
+import LocalNav from "@/widgets/local-nav/ui/LocalNav";
 import ProgramInfoPanel from "@/shared/ui/ProgramInfoPanel";
-import { ExternalApplyPanel } from "@/widgets/external-apply";
 import { teachersNavItems } from "@/shared/config/teachers-nav";
-import { EXTERNAL_APPLY_LINKS } from "@/shared/config/external-apply-links";
 
 export default function TeachersLecturePage() {
   return (
@@ -26,18 +24,8 @@ export default function TeachersLecturePage() {
               { label: "내용", text: "미래교육 특강 (세부 주제 추후 안내)" },
               { label: "운영방식", text: "선착순 300명, 사전신청 권장" },
             ]}
-            cta={{ href: EXTERNAL_APPLY_LINKS.teacherLecture, label: "특강 신청 바로가기" }}
+            cta={{ href: "/apply/teacher-lecture", label: "특강 신청하기" }}
           />
-
-          <div className="mt-10">
-            <ExternalApplyPanel
-              href={EXTERNAL_APPLY_LINKS.teacherLecture}
-              label="특강 신청하기"
-              title="미래교육 특강 신청"
-              tagline="선착순 300명, 지금 바로 신청하세요"
-              body={"학생·교사·일반 시민 누구나 참여할 수 있는 미래교육 특강입니다.\n외부 신청 페이지에서 신청서를 작성해 주세요."}
-            />
-          </div>
         </div>
       </div>
     </div>
