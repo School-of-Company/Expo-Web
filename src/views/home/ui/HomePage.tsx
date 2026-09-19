@@ -1,9 +1,8 @@
 import Link from "next/link";
-import { PromoVideo } from "@/widgets/promo-video";
-import { EventStatsRow } from "@/widgets/event-stats";
-import { TimelineSection } from "@/widgets/event-timeline";
-import { QuickApplyGroups } from "@/widgets/quick-apply";
-import { RecentNotices } from "@/widgets/recent-notices";
+import PromoVideo from "@/widgets/promo-video/ui/PromoVideo";
+import TimelineSection from "@/widgets/event-timeline/ui/TimelineSection";
+import QuickApplyGroups from "@/widgets/quick-apply/ui/QuickApplyGroups";
+import RecentNotices from "@/widgets/recent-notices/ui/RecentNotices";
 import Button from "@/shared/ui/Button";
 import Badge from "@/shared/ui/Badge";
 import Icon from "@/shared/ui/Icon";
@@ -54,16 +53,6 @@ export default function HomePage() {
       </section>
 
       <section className="mx-auto max-w-6xl px-4 pb-4 pt-10 sm:px-6 sm:pt-14">
-        <h2 className="text-heading-s font-bold text-fg-1">실시간 참여 현황</h2>
-        <p className="mt-1 text-body-s text-fg-3">
-          행사장 혼잡도, 주차, 사전등록 현황을 한눈에 확인하세요.
-        </p>
-        <div className="mt-4">
-          <EventStatsRow />
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-6xl px-4 pb-4 pt-6 sm:px-6 sm:pt-8">
         <h2 className="text-heading-s font-bold text-fg-1">지금, 미래를 만나보세요</h2>
         <p className="mt-1 text-body-s text-fg-3">
           AI로 연결되는 배움의 장, 2026 전남광주통합특별시교육청 AI미래교육박람회. 학생, 교사, 지역사회가 함께 만드는 특별한 경험에 지금 참여하세요.
@@ -76,7 +65,7 @@ export default function HomePage() {
       <section className="mx-auto max-w-6xl px-4 py-10 sm:px-6">
         <div className="flex items-center justify-between gap-3">
           <h2 className="text-heading-s font-bold text-fg-1">행사 일정</h2>
-          <Link href="/about" className="flex shrink-0 items-center gap-1 text-body-s font-semibold text-fg-link hover:underline">
+          <Link href="/guide/schedule" className="flex shrink-0 items-center gap-1 text-body-s font-semibold text-fg-link hover:underline">
             전체 일정표 보기
             <Icon name="arrow-right" className="h-4 w-4" />
           </Link>
