@@ -1,5 +1,7 @@
-/** 박람회 운영 일자. 정원·일정 데이터가 공유하는 단일 진실원. */
-export type EventDate = "10.31(토)" | "11.1(일)";
+/** 박람회 운영 일자. 정원·일정 데이터와 날짜 탭 UI가 공유하는 단일 진실원. */
+export const EVENT_DATES = ["10.31(토)", "11.1(일)"] as const;
+
+export type EventDate = (typeof EVENT_DATES)[number];
 
 export interface TimelineItem {
   time: string;
