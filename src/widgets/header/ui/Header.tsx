@@ -44,7 +44,7 @@ export default function Header() {
               if (pathname === "/") window.scrollTo({ top: 0, behavior: "smooth" });
             }}
           >
-            <Image src="/lg.png" alt="2026 전남광주통합특별시교육청 AI미래교육박람회" width={643} height={154} className="h-8 w-auto sm:h-9" priority />
+            <Image src="/lg.png" alt="2026 전남광주통합특별시교육청 AI미래교육박람회" width={2048} height={644} className="h-8 w-auto sm:h-9" priority />
           </Link>
 
           <nav className="hidden h-14 items-center gap-6 md:flex">
