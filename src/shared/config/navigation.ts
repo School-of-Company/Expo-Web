@@ -1,6 +1,8 @@
 export interface NavItem {
   label: string;
   href: string;
+  /** 모바일 가로 탭처럼 폭이 좁은 곳에서 쓰는 축약 라벨. 없으면 label을 쓴다. */
+  shortLabel?: string;
 }
 
 export interface NavMenu extends NavItem {
@@ -42,11 +44,11 @@ export const SITE_NAVIGATION: NavMenu[] = [
     label: "사전신청",
     href: "/apply",
     children: [
-      { label: "[전체] 사전등록", href: "/apply/register" },
-      { label: "[전체] 특강 신청", href: "/apply/lecture" },
-      { label: "[학생] 골든벨 신청", href: "/apply/goldenbell" },
-      { label: "[학생] 오디세이 투어 신청", href: "/apply/odyssey" },
-      { label: "[교사] 연수 신청", href: "/apply/training" },
+      { label: "[전체] 사전등록", href: "/apply/register", shortLabel: "사전등록" },
+      { label: "[전체] 특강 신청", href: "/apply/lecture", shortLabel: "특강 신청" },
+      { label: "[학생] 골든벨 신청", href: "/apply/goldenbell", shortLabel: "골든벨 신청" },
+      { label: "[학생] 오디세이 투어 신청", href: "/apply/odyssey", shortLabel: "오디세이 투어 신청" },
+      { label: "[교사] 연수 신청", href: "/apply/training", shortLabel: "연수 신청" },
       { label: "신청 내역 조회·취소", href: "/apply/history" },
     ],
   },
@@ -60,3 +62,7 @@ export const SITE_NAVIGATION: NavMenu[] = [
     ],
   },
 ];
+
+/** 섹션 루트 href로 메뉴를 찾는다. LocalNav에 하위 항목을 넘길 때 쓴다. */
+export const findNavMenu = (href: string): NavMenu | undefined =>
+  SITE_NAVIGATION.find((menu) => menu.href === href);
