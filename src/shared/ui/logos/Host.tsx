@@ -1,6 +1,6 @@
 import type { SVGProps } from "react";
 
-export default function Host(props: SVGProps<SVGSVGElement>) {
+export default function Organizer(props: SVGProps<SVGSVGElement>) {
   return (
     <svg viewBox="0 0 2200 180" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="주최 전남광주통합특별시교육청 로고" {...props}>
       <g clipPath="url(#clip0_646_378)">
