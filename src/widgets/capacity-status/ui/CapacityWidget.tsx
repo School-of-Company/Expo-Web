@@ -2,11 +2,10 @@
 
 import { useMemo, useState } from "react";
 import { capacitySlots, STATUS_LABEL, STATUS_STYLE } from "@/entities/capacity/model/data";
-
-const DATES = ["10.31(토)", "11.1(일)"] as const;
+import { EVENT_DATES, type EventDate } from "@/entities/schedule/model/data";
 
 export default function CapacityWidget() {
-  const [date, setDate] = useState<(typeof DATES)[number]>(DATES[0]);
+  const [date, setDate] = useState<EventDate>(EVENT_DATES[0]);
 
   const rows = useMemo(
     () => capacitySlots.filter((s) => s.date === date),
@@ -21,7 +20,7 @@ export default function CapacityWidget() {
           <p className="mt-0.5 text-body-xs text-fg-3">프로그램별 정원 대비 접수 상태 (예시 데이터)</p>
         </div>
         <div className="flex gap-1 rounded-medium bg-bg-subtle p-1 text-body-s">
-          {DATES.map((d) => (
+          {EVENT_DATES.map((d) => (
             <button
               key={d}
               onClick={() => setDate(d)}
