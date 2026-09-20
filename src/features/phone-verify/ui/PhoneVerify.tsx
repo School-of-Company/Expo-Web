@@ -68,9 +68,7 @@ export default function PhoneVerify({ phone, onPhoneChange, verified, onVerified
               인증확인
             </Button>
           </div>
-          <p className="mt-1.5 text-body-xs text-fg-3">
-            알림톡으로 인증번호가 발송되었습니다. (프로토타입: 임의 값 입력 가능)
-          </p>
+          <p className="mt-1.5 text-body-xs text-fg-3">알림톡으로 인증번호가 발송되었습니다.</p>
         </>
       )}
 

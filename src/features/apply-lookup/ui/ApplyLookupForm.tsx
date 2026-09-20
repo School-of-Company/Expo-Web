@@ -28,7 +28,6 @@ export default function ApplyLookupForm() {
       <Button onClick={search} disabled={!verified} fullWidth className="mt-3">
         조회
       </Button>
-      <p className="mt-2 text-body-xs text-fg-3">프로토타입 데모: 인증 완료 후 조회하면 예시 신청 내역이 표시됩니다.</p>
 
       {searched && (
         <div className="mt-8 space-y-3">
