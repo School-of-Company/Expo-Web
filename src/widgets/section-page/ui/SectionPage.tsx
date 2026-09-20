@@ -1,34 +1,35 @@
 import type { ReactNode } from "react";
 
-import { findNavMenu } from "@/shared/config/navigation";
 import PageHero from "@/shared/ui/PageHero";
-import LocalNav from "@/widgets/local-nav/ui/LocalNav";
+import LocalNav, { type LocalNavItem } from "@/widgets/local-nav/ui/LocalNav";
 
 interface SectionPageProps {
-  /** 섹션 루트 href. LocalNav의 제목과 항목을 SITE_NAVIGATION에서 끌어온다. */
-  sectionHref: string;
   title: string;
   desc: string;
-  /** 본문 영역 클래스. 조회 화면처럼 폭을 좁힐 때 덮어쓴다. */
+  /** LocalNav 상단 라벨. 섹션 이름을 그대로 넘긴다. */
+  navTitle: string;
+  navItems: LocalNavItem[];
+  /** 본문 영역 클래스. 카드형 본문처럼 배경·여백을 덧붙일 때 덮어쓴다. */
   contentClassName?: string;
   children: ReactNode;
 }
 
+/** PageHero + LocalNav + 본문으로 이루어진 섹션 하위 페이지 공통 셸. */
 export default function SectionPage({
-  sectionHref,
   title,
   desc,
+  navTitle,
+  navItems,
   contentClassName = "min-w-0 flex-1",
   children,
 }: SectionPageProps) {
-  const menu = findNavMenu(sectionHref);
-
   return (
     <div>
       <PageHero title={title} desc={desc} />
 
       <div className="mx-auto flex max-w-6xl flex-col gap-8 px-4 py-12 sm:flex-row sm:px-6">
-        {menu && <LocalNav title={menu.label} items={menu.children} />}
+        <LocalNav title={navTitle} items={navItems} />
+
         <div className={contentClassName}>{children}</div>
       </div>
     </div>
