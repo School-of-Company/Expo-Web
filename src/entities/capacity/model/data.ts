@@ -1,10 +1,12 @@
+import type { EventDate } from "@/entities/schedule/model/data";
+
 export type CapacityStatus = "open" | "almost" | "closed";
 
 export interface CapacitySlot {
   id: string;
   program: string;
   audience: "학생" | "교원";
-  date: "10.31(토)" | "11.1(일)";
+  date: EventDate;
   time: "오전" | "오후";
   current: number;
   total: number;
