@@ -8,14 +8,22 @@ export default function GuideStatusPage() {
     <SectionPage
       sectionHref="/about"
       title="실시간 현황"
-      desc="행사장 혼잡도, 주차, 접수 현황을 실시간(예시 데이터)으로 확인하세요."
+      desc="행사장 혼잡도와 프로그램 접수 상황을 확인하고 방문 시간을 정하세요."
     >
       <EventStatsRow />
 
-      <div className="mt-6 grid grid-cols-1 gap-4 lg:grid-cols-2">
-        <CapacityWidget />
-        <CongestionWidget />
+      <div className="mt-8 grid grid-cols-1 items-start gap-4 lg:grid-cols-5">
+        <div className="lg:col-span-3">
+          <CapacityWidget />
+        </div>
+        <div className="lg:col-span-2">
+          <CongestionWidget />
+        </div>
       </div>
+
+      <p className="mt-6 text-body-xs text-fg-4">
+        운영 데이터 연동 전이라 이 페이지의 모든 수치는 예시입니다.
+      </p>
     </SectionPage>
   );
 }
