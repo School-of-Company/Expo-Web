@@ -1,12 +1,14 @@
 import { CapacityWidget } from "@/widgets/capacity-status";
 import { CongestionWidget } from "@/widgets/congestion-status";
 import { EventStatsRow } from "@/widgets/event-stats";
+import { guideNavItems } from "@/shared/config/guide-nav";
 import { SectionPage } from "@/widgets/section-page";
 
 export default function GuideStatusPage() {
   return (
     <SectionPage
-      sectionHref="/about"
+      navTitle="박람회 안내"
+      navItems={guideNavItems}
       title="실시간 현황"
       desc="행사장 혼잡도와 프로그램 접수 상황을 확인하고 방문 시간을 정하세요."
     >

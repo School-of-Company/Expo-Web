@@ -1,4 +1,5 @@
 import Badge from "@/shared/ui/Badge";
+import { guideNavItems } from "@/shared/config/guide-nav";
 import { SectionPage } from "@/widgets/section-page";
 
 import PosterPreview from "./PosterPreview";
@@ -19,7 +20,8 @@ const OVERVIEW = [
 export default function GuideOverviewPage() {
   return (
     <SectionPage
-      sectionHref="/about"
+      navTitle="박람회 안내"
+      navItems={guideNavItems}
       title="행사 개요"
       desc="행사 개요부터 오시는 길까지, 2026 전남광주통합특별시교육청 AI미래교육박람회의 모든 기본 정보를 확인하세요."
     >

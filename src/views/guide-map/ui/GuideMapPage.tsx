@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 
+import { guideNavItems } from "@/shared/config/guide-nav";
 import { SectionPage } from "@/widgets/section-page";
 
 const MAPS = [
@@ -13,7 +14,8 @@ export default function GuideMapPage() {
   const [mapKey, setMapKey] = useState<(typeof MAPS)[number]["key"]>(MAPS[0].key);
 
   return (
-    <SectionPage sectionHref="/about" title="부스 배치도" desc="전시장 층별 부스 위치와 체험존 배치를 확인하세요.">
+    <SectionPage navTitle="박람회 안내"
+      navItems={guideNavItems} title="부스 배치도" desc="전시장 층별 부스 위치와 체험존 배치를 확인하세요.">
       <div className="flex flex-col gap-3">
         <h2 className="text-heading-s font-bold text-fg-1">부스 배치도</h2>
         <div className="flex gap-1 self-start rounded-medium bg-bg-subtle p-1 text-body-s">

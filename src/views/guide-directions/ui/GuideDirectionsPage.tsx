@@ -1,4 +1,5 @@
 import Icon from "@/shared/ui/Icon";
+import { guideNavItems } from "@/shared/config/guide-nav";
 import { SectionPage } from "@/widgets/section-page";
 
 const ADDRESS = "전남광주통합특별시 북구 능안로 30번길 7 (오치동 5-25)";
@@ -6,7 +7,8 @@ const KAKAO_MAP_SEARCH = "https://map.kakao.com/link/search/전남광주통합�
 
 export default function GuideDirectionsPage() {
   return (
-    <SectionPage sectionHref="/about" title="오시는 길" desc="대중교통·자가용 등 행사장까지 오시는 방법을 안내합니다.">
+    <SectionPage navTitle="박람회 안내"
+      navItems={guideNavItems} title="오시는 길" desc="대중교통·자가용 등 행사장까지 오시는 방법을 안내합니다.">
       <h2 className="text-heading-s font-bold text-fg-1">오시는 길</h2>
 
       {/* TODO: 카카오맵 SDK 연동 후 플레이스홀더를 지도로 교체한다. */}
