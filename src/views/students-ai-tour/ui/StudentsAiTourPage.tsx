@@ -26,7 +26,7 @@ export default function StudentsAiTourPage() {
           { label: "내용", text: "AI교육원 시설 견학 및 AI 체험 프로그램" },
           { label: "운영방식", text: "회차별 2팀 한정 사전신청, 팀당 8명 참여 가능" },
         ]}
-        cta={{ href: "/apply/ai-tour", label: "탐방 신청하기" }}
+        cta={{ href: "/apply/odyssey", label: "탐방 신청하기" }}
       />
     </SectionPage>
   );

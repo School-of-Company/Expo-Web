@@ -23,7 +23,7 @@ export default function TeachersTrainingPage() {
           { label: "내용", text: "삼성·애플·구글과 함께하는 교원 대상 협력 연수 프로그램" },
           { label: "운영방식", text: "세션별 정원 한정, 세부 일정은 홈페이지를 통해 추후 공지" },
         ]}
-        cta={{ href: "/apply/teacher-training", label: "연수 신청하기" }}
+        cta={{ href: "/apply/training", label: "연수 신청하기" }}
       />
     </SectionPage>
   );

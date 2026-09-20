@@ -25,7 +25,7 @@ export default function StudentsGoldenBellPage() {
           { label: "내용", text: "AI·SW 기초상식 및 IT 관련 일반상식 퀴즈" },
           { label: "운영방식", text: "사전신청 및 현장신청을 통해 참여 가능" },
         ]}
-        cta={{ href: "/apply/golden-bell", label: "골든벨 사전신청하기" }}
+        cta={{ href: "/apply/goldenbell", label: "골든벨 사전신청하기" }}
       />
     </SectionPage>
   );

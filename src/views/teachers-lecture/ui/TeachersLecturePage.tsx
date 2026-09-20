@@ -22,7 +22,7 @@ export default function TeachersLecturePage() {
           { label: "내용", text: "미래교육 특강 (세부 주제 추후 안내)" },
           { label: "운영방식", text: "선착순 300명, 사전신청 권장" },
         ]}
-        cta={{ href: "/apply/teacher-lecture", label: "특강 신청하기" }}
+        cta={{ href: "/apply/lecture", label: "특강 신청하기" }}
       />
     </SectionPage>
   );
