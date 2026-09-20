@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import PageHero from "@/shared/ui/PageHero";
-import { LocalNav } from "@/widgets/local-nav";
+import LocalNav from "@/widgets/local-nav/ui/LocalNav";
 import Badge from "@/shared/ui/Badge";
 import Icon from "@/shared/ui/Icon";
 import { noticeNavItems } from "@/shared/config/notice-nav";
@@ -11,14 +11,12 @@ import { faqs } from "@/entities/faq/model/data";
 export default function NoticeFaqPage() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
-  const navItems = noticeNavItems.map((item) => (item.key === "faq" ? { ...item, active: true } : item));
-
   return (
     <div>
       <PageHero title="FAQ" desc="자주 묻는 질문을 확인하세요." />
 
       <div className="mx-auto flex max-w-6xl flex-col gap-8 px-4 py-12 sm:flex-row sm:px-6">
-        <LocalNav title="알림마당" items={navItems} />
+        <LocalNav title="알림마당" items={noticeNavItems} />
 
         <div className="min-w-0 flex-1">
           <h2 className="text-heading-s font-bold text-fg-1">FAQ</h2>
@@ -27,7 +25,7 @@ export default function NoticeFaqPage() {
               const isOpen = openIndex === i;
 
               return (
-                <div key={f.q} className="px-3 py-4">
+                <div key={i} className="px-3 py-4">
                   <button
                     type="button"
                     onClick={() => setOpenIndex(isOpen ? null : i)}

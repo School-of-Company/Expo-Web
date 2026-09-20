@@ -219,3 +219,18 @@ nav a {
     transform: translateY(0);
   }
 }
+
+/* Fades the leading/trailing edge of a horizontally scrollable container
+   when there's more content to scroll to, and hides the fade once scrolled
+   all the way to that edge. */
+.scroll-shadow-x {
+  background-image:
+    linear-gradient(to right, var(--bg-canvas), transparent 24px),
+    linear-gradient(to left, var(--bg-canvas), transparent 24px),
+    linear-gradient(to right, oklch(0.19 0.004 264 / 0.16), transparent 8px),
+    linear-gradient(to left, oklch(0.19 0.004 264 / 0.16), transparent 8px);
+  background-repeat: no-repeat;
+  background-size: 24px 100%, 24px 100%, 8px 100%, 8px 100%;
+  background-position: left, right, left, right;
+  background-attachment: local, local, scroll, scroll;
+}

@@ -1,7 +1,6 @@
-import { NoticeDetailPage } from "@/views/notice-detail";
+import NoticeDetailPage from "@/views/notice-detail/ui/NoticeDetailPage";
 
-export default async function Page({ params }: { params: Promise<{ id: string }> }) {
-  const { id } = await params;
-
+export default async function Page(props: PageProps<"/notice/[id]">) {
+  const { id } = await props.params;
   return <NoticeDetailPage id={id} />;
 }

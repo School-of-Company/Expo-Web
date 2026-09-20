@@ -1,4 +1,4 @@
-import { SITE_NAVIGATION } from "./navigation";
+import { NAV_SECTIONS } from "./site-nav";
 import { notices } from "@/entities/notice/model/data";
 import { faqs } from "@/entities/faq/model/data";
 
@@ -9,8 +9,8 @@ export interface SearchItem {
   group: string;
 }
 
-const pageItems: SearchItem[] = SITE_NAVIGATION.flatMap((section) =>
-  section.children.map((c) => ({ title: c.label, desc: section.label, href: c.href, group: "페이지" }))
+const pageItems: SearchItem[] = NAV_SECTIONS.flatMap((section) =>
+  section.sub.map((s) => ({ title: s.label, desc: section.label, href: s.href, group: "페이지" }))
 );
 
 const noticeItems: SearchItem[] = notices.map((n) => ({

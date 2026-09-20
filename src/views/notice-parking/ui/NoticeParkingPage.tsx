@@ -1,17 +1,16 @@
 import PageHero from "@/shared/ui/PageHero";
-import { LocalNav } from "@/widgets/local-nav";
+import LocalNav from "@/widgets/local-nav/ui/LocalNav";
 import Icon from "@/shared/ui/Icon";
-import { noticeNavItems } from "@/shared/config/notice-nav";
+
+const parkingNavItems = [{ key: "parking", href: "/notice/parking", label: "주차안내" }];
 
 export default function NoticeParkingPage() {
-  const navItems = noticeNavItems.map((item) => (item.key === "parking" ? { ...item, active: true } : item));
-
   return (
     <div>
       <PageHero title="주차안내" desc="행사장 주차 안내를 확인하세요." />
 
       <div className="mx-auto flex max-w-6xl flex-col gap-8 px-4 py-12 sm:flex-row sm:px-6">
-        <LocalNav title="알림마당" items={navItems} />
+        <LocalNav title="주차안내" items={parkingNavItems} />
 
         <div className="min-w-0 flex-1 rounded-xlarge border border-border-default bg-bg-canvas p-6">
           <p className="flex items-center gap-2 text-body-m font-bold text-fg-1">

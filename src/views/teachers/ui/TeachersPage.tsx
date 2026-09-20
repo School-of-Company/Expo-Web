@@ -1,5 +1,5 @@
 import PageHero from "@/shared/ui/PageHero";
-import { LocalNav } from "@/widgets/local-nav";
+import LocalNav from "@/widgets/local-nav/ui/LocalNav";
 import { teachersNavItems } from "@/shared/config/teachers-nav";
 import { teacherBooths } from "@/entities/booth/model/data";
 
@@ -14,7 +14,7 @@ export default function TeachersPage() {
         <div className="min-w-0 flex-1">
           <h2 className="text-heading-s font-bold text-fg-1">부스 안내</h2>
 
-          <div className="mt-4 overflow-x-auto rounded-xlarge border border-border-default">
+          <div className="mt-4 scroll-shadow-x overflow-x-auto rounded-xlarge border border-border-default">
             <table className="w-full min-w-[640px] table-fixed border-collapse text-left text-body-s">
               <colgroup>
                 <col className="w-[10%]" />

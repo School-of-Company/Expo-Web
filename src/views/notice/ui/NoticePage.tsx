@@ -1,6 +1,6 @@
 import Link from "next/link";
 import PageHero from "@/shared/ui/PageHero";
-import { LocalNav } from "@/widgets/local-nav";
+import LocalNav from "@/widgets/local-nav/ui/LocalNav";
 import Pagination from "@/shared/ui/Pagination";
 import { noticeNavItems } from "@/shared/config/notice-nav";
 import { notices } from "@/entities/notice/model/data";
@@ -12,14 +12,12 @@ export default function NoticePage({ page }: { page: number }) {
   const currentPage = Math.min(Math.max(1, page || 1), totalPages);
   const pageItems = notices.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE);
 
-  const navItems = noticeNavItems.map((item) => (item.key === "notices" ? { ...item, active: true } : item));
-
   return (
     <div>
       <PageHero title="공지사항" desc="공지사항, 자주 묻는 질문, 주차 안내를 확인하세요." />
 
       <div className="mx-auto flex max-w-6xl flex-col gap-8 px-4 py-12 sm:flex-row sm:px-6">
-        <LocalNav title="알림마당" items={navItems} />
+        <LocalNav title="알림마당" items={noticeNavItems} />
 
         <div className="min-w-0 flex-1">
           <h2 className="text-heading-s font-bold text-fg-1">공지사항</h2>

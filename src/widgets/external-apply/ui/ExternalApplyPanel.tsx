@@ -16,7 +16,7 @@ export default function ExternalApplyPanel({
       <div className="mx-auto max-w-2xl">
         <p className="text-heading-m font-bold">{title}</p>
         <p className="mt-3 text-body-l font-semibold text-primary-10">&ldquo;{tagline}&rdquo;</p>
-        <p className="mt-6 whitespace-pre-line text-body-s leading-relaxed text-fg-on-primary/85 sm:text-body-m">{body}</p>
+        <p className="mt-6 whitespace-pre-line text-body-s leading-relaxed text-white/85 sm:text-body-m">{body}</p>
 
         <a
           href={href}
