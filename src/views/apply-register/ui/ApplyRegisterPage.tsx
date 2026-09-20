@@ -1,3 +1,4 @@
+import { applyNavItems } from "@/shared/config/apply-nav";
 import { EXTERNAL_APPLY_LINKS } from "@/shared/config/external-apply-links";
 import { ExternalApplyPanel } from "@/widgets/external-apply";
 import { SectionPage } from "@/widgets/section-page";
@@ -5,7 +6,8 @@ import { SectionPage } from "@/widgets/section-page";
 export default function ApplyRegisterPage() {
   return (
     <SectionPage
-      sectionHref="/apply"
+      navTitle="사전신청"
+      navItems={applyNavItems}
       title="사전등록"
       desc="AI·SW 한마당 사전등록 - 보호자 1인당 최대 5명, 학생·일반시민 1,000명 한정, 교사는 인원 제한이 없습니다."
     >

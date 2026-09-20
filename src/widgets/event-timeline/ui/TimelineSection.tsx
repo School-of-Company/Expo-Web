@@ -1,6 +1,4 @@
-import { timeline } from "@/entities/schedule/model/data";
-
-const DATES = ["10.31(토)", "11.1(일)"] as const;
+import { EVENT_DATES, timeline } from "@/entities/schedule/model/data";
 
 export default function TimelineSection() {
   return (
@@ -23,7 +21,7 @@ export default function TimelineSection() {
           </tr>
         </thead>
         <tbody>
-          {DATES.map((date) => {
+          {EVENT_DATES.map((date) => {
             const items = timeline.filter((t) => t.date === date);
 
             return items.map((item, i) => (

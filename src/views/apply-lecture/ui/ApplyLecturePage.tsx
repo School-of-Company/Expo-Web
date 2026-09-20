@@ -1,3 +1,4 @@
+import { applyNavItems } from "@/shared/config/apply-nav";
 import { EXTERNAL_APPLY_LINKS } from "@/shared/config/external-apply-links";
 import { ExternalApplyPanel } from "@/widgets/external-apply";
 import { SectionPage } from "@/widgets/section-page";
@@ -5,7 +6,8 @@ import { SectionPage } from "@/widgets/section-page";
 export default function ApplyLecturePage() {
   return (
     <SectionPage
-      sectionHref="/apply"
+      navTitle="사전신청"
+      navItems={applyNavItems}
       title="미래교육 특강 신청"
       desc="AI 시대 교실을 위한 교원 대상 특강입니다. 10.31(토) 오전 11시 단일 회차, 선착순 300명입니다."
     >

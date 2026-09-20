@@ -1,3 +1,4 @@
+import { applyNavItems } from "@/shared/config/apply-nav";
 import { EXTERNAL_APPLY_LINKS } from "@/shared/config/external-apply-links";
 import { ExternalApplyPanel } from "@/widgets/external-apply";
 import { SectionPage } from "@/widgets/section-page";
@@ -5,7 +6,8 @@ import { SectionPage } from "@/widgets/section-page";
 export default function ApplyGoldenbellPage() {
   return (
     <SectionPage
-      sectionHref="/apply"
+      navTitle="사전신청"
+      navItems={applyNavItems}
       title="AI·SW 골든벨 신청"
       desc="초등부와 중등부로 나누어 진행됩니다. 참가 대상에 맞게 정보를 입력해 주세요."
     >
