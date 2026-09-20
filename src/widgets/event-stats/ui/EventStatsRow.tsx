@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { congestionZones, type CongestionLevel } from "@/entities/congestion/model/data";
+import { congestionZones } from "@/entities/congestion/model/data";
 import { capacitySlots } from "@/entities/capacity/model/data";
 import Icon, { type IconName } from "@/shared/ui/Icon";
 import Badge from "@/shared/ui/Badge";
@@ -45,16 +45,14 @@ function StatCard({
 }
 
 export default function EventStatsRow() {
-  // 구역 평균 기준. 헤더 인디케이터는 최악 구역 기준이라 표기가 다를 수 있다.
   const avgCongestion = Math.round(congestionZones.reduce((sum, z) => sum + z.percent, 0) / congestionZones.length);
-  const congestionLevel: CongestionLevel = avgCongestion < 40 ? "여유" : avgCongestion < 70 ? "보통" : avgCongestion < 90 ? "혼잡" : "매우 혼잡";
+  const congestionLevel = avgCongestion < 40 ? "여유" : avgCongestion < 70 ? "보통" : avgCongestion < 90 ? "혼잡" : "매우 혼잡";
 
   const registerSlots = capacitySlots.filter((s) => s.program === "학생 사전등록");
   const registerCurrent = registerSlots.reduce((sum, s) => sum + s.current, 0);
   const registerTotal = registerSlots.reduce((sum, s) => sum + s.total, 0);
   const registerPercent = Math.round((registerCurrent / registerTotal) * 100);
 
-  // TODO: 주차 데이터 소스가 생기면 entity로 옮긴다.
   const parkingTotal = 500;
   const parkingRemaining = 68;
   const parkingPercent = Math.round(((parkingTotal - parkingRemaining) / parkingTotal) * 100);
@@ -62,13 +60,13 @@ export default function EventStatsRow() {
   return (
     <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
       <StatCard
-        href="/about/live"
+        href="/guide/directions"
         icon="users"
         label="행사장 혼잡도"
         badge="실시간 (예시)"
         value={`${congestionLevel} ${avgCongestion}%`}
         progress={avgCongestion}
-        desc="구역별 혼잡도는 실시간 현황 페이지에서 확인하세요."
+        desc="구역별 혼잡도는 오시는 길 페이지에서 확인하세요."
       />
       <StatCard
         href="/notice/parking"
