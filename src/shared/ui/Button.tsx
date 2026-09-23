@@ -18,7 +18,7 @@ const VARIANT_CLASS: Record<Variant, string> = {
 
 const DISABLED_CLASS = "disabled:bg-bg-subtle disabled:text-fg-4 disabled:border-transparent disabled:cursor-not-allowed disabled:hover:bg-bg-subtle";
 
-const BASE = "inline-flex items-center justify-center gap-2 font-bold transition-colors duration-150 ease-out";
+const BASE = "group inline-flex items-center justify-center gap-2 font-bold transition-colors duration-150 ease-out";
 
 interface CommonProps {
   size?: Size;
