@@ -11,7 +11,7 @@ const ORGANIZERS = [
 export default function Footer() {
   return (
     <footer className="mt-16 bg-gray-100 text-fg-on-primary">
-      <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
+      <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6">
         <div className="flex flex-wrap items-center justify-center gap-6 border-b border-gray-95 pb-10">
           {ORGANIZERS.map(({ role, Logo }) => (
             <div key={role} className="flex items-center gap-2">
