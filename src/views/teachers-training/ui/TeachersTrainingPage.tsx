@@ -2,7 +2,6 @@ import SectionPage from "@/widgets/section-page/ui/SectionPage";
 import Badge from "@/shared/ui/Badge";
 import Button from "@/shared/ui/Button";
 import BrandMark from "@/shared/ui/logos/BrandMark";
-import { teachersNavItems } from "@/shared/config/teachers-nav";
 import { trainingPrograms } from "@/entities/training-program/model/data";
 
 export default function TeachersTrainingPage() {
@@ -10,8 +9,6 @@ export default function TeachersTrainingPage() {
     <SectionPage
       title="교사 연수"
       desc="삼성·구글·애플과 함께 2030 미래교실을 경험하고, 내 수업에 새로운 가능성을 더해 보세요!"
-      navTitle="교사마당 (미래교육)"
-      navItems={teachersNavItems}
     >
       <h2 className="text-heading-s font-bold text-fg-1">교사 연수</h2>
 
