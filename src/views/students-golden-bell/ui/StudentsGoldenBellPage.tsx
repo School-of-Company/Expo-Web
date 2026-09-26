@@ -1,14 +1,11 @@
 import SectionPage from "@/widgets/section-page/ui/SectionPage";
 import ProgramInfoPanel from "@/shared/ui/ProgramInfoPanel";
-import { studentsNavItems } from "@/shared/config/students-nav";
 
 export default function StudentsGoldenBellPage() {
   return (
     <SectionPage
       title="AI·SW 골든벨"
       desc="AI·SW 시대를 이끌어 갈 여러분의 도전이 시작됩니다!"
-      navTitle="학생마당 (AI·SW교육)"
-      navItems={studentsNavItems}
     >
       <h2 className="text-heading-s font-bold text-fg-1">AI·SW 골든벨</h2>
 
