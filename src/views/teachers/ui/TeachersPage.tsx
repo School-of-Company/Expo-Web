@@ -10,6 +10,7 @@ export default function TeachersPage() {
       desc="미래교육의 변화를 만나고, 2030 미래교실을 그려보세요!"
       navTitle="교사마당 (미래교육)"
       navItems={teachersNavItems}
+      showNav={false}
     >
       <h2 className="text-heading-s font-bold text-fg-1">미래교육박람회 부스 안내</h2>
 
