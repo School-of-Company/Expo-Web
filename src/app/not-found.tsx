@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 export default function NotFound() {
   return (
-    <div className="mx-auto flex min-h-[60vh] max-w-6xl flex-col items-center justify-center px-4 py-24 text-center sm:px-6 sm:py-32">
+    <div className="mx-auto flex min-h-[60vh] max-w-7xl flex-col items-center justify-center px-4 py-24 text-center sm:px-6 sm:py-32">
       <p className="text-display-m font-bold text-primary-50 sm:text-display-l">404</p>
 
       <h1 className="mt-4 text-heading-m font-bold text-fg-1 sm:text-heading-l">페이지를 찾을 수 없습니다</h1>

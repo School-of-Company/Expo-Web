@@ -27,7 +27,7 @@ export default function SectionPage({
     <div>
       <PageHero title={title} desc={desc} />
 
-      <div className="mx-auto flex max-w-6xl flex-col gap-8 px-4 py-12 sm:flex-row sm:px-6">
+      <div className="mx-auto flex max-w-7xl flex-col gap-8 px-4 py-12 sm:flex-row sm:px-6">
         <LocalNav title={navTitle} items={navItems} />
 
         <div className={contentClassName}>{children}</div>

@@ -21,8 +21,8 @@ const GROUPS: QuickApplyGroup[] = [
     key: "all",
     icon: "users",
     title: "전체",
-    desc: "누구나 참여할 수 있는 특별한 프로그램",
-    items: [{ href: "/teachers/lecture", icon: "mic", title: "특별 강연", desc: "AI가 만드는 우리의 일상, 미래를 만나는 시간" }],
+    desc: "모두를 위한 AI, 함께 열어가는 미래",
+    items: [{ href: "/teachers/lecture", icon: "mic", title: "특별 강연 신청", desc: "AI가 만드는 우리의 일상, 미래를 만나는 시간" }],
   },
   {
     key: "students",
@@ -31,18 +31,18 @@ const GROUPS: QuickApplyGroup[] = [
     desc: "AI·SW로 꿈을 키우는 미래의 주인공",
     items: [
       { href: "/students", icon: "map-pin", title: "AI·SW체험한마당 부스 안내", desc: "체험 부스 위치와 프로그램을 확인하세요" },
-      { href: "/students/golden-bell", icon: "trophy", title: "AI·SW 골든벨", desc: "도전하고, 배우고, 성장하는 AI·SW 퀴즈 대회" },
-      { href: "/students/ai-tour", icon: "compass", title: "오디세이 투어", desc: "보고, 체험하고, 탐험하는 AI·SW 체험 투어" },
+      { href: "/students/golden-bell", icon: "trophy", title: "AI·SW 골든벨 신청", desc: "도전하고, 배우고, 성장하는 AI·SW 퀴즈 대회" },
+      { href: "/students/ai-tour", icon: "compass", title: "오디세이 투어 신청", desc: "보고, 체험하고, 탐험하는 AI·SW 체험 투어" },
     ],
   },
   {
     key: "teachers",
     icon: "clipboard",
     title: "교사",
-    desc: "함께 만들어가는 더 나은 미래교육",
+    desc: "함께 만들어가는 2030 미래교육",
     items: [
-      { href: "/teachers", icon: "map-pin", title: "미래교육박람회 부스 안내", desc: "교원을 위한 부스 전시 안내를 확인하세요" },
-      { href: "/teachers/training", icon: "book", title: "교사 연수", desc: "AI 시대, 교사의 성장을 지원하는 전문 연수" },
+      { href: "/teachers", icon: "map-pin", title: "미래교육박람회 부스 안내", desc: "교사를 위한 미래교육 부스 전시를 확인하세요" },
+      { href: "/teachers/training", icon: "book", title: "교사 연수 신청", desc: "AI 시대, 교사의 성장을 지원하는 전문 연수" },
     ],
   },
 ];

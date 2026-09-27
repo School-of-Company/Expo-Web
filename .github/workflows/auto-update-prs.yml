@@ -1,0 +1,35 @@
+name: Auto-update PR branches
+
+on:
+  push:
+    branches: [main, develop]
+
+permissions:
+  pull-requests: write
+  contents: write
+
+jobs:
+  update-prs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Update open PRs targeting ${{ github.ref_name }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+          BASE_BRANCH: ${{ github.ref_name }}
+        run: |
+          prs=$(gh pr list --repo "$REPO" --base "$BASE_BRANCH" --state open --json number -q '.[].number')
+
+          if [ -z "$prs" ]; then
+            echo "No open PRs targeting $BASE_BRANCH."
+            exit 0
+          fi
+
+          for pr in $prs; do
+            echo "Updating PR #$pr with the latest $BASE_BRANCH..."
+            if gh api -X PUT "repos/$REPO/pulls/$pr/update-branch" >/dev/null; then
+              echo "PR #$pr update requested."
+            else
+              echo "::warning::Could not update PR #$pr (may have conflicts or already be up to date)."
+            fi
+          done

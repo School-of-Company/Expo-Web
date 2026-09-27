@@ -35,7 +35,7 @@ export default function Header() {
         onMouseLeave={closeOnHoverOut}
         onClick={() => setOpenDesktopKey(null)}
       >
-        <div className="relative mx-auto grid h-14 max-w-6xl grid-cols-[1fr_auto_1fr] items-center px-4 sm:px-6">
+        <div className="relative mx-auto flex h-14 max-w-7xl items-center justify-between px-4 sm:px-6">
           <Link
             href="/"
             className="flex items-center"
@@ -44,44 +44,10 @@ export default function Header() {
               if (pathname === "/") window.scrollTo({ top: 0, behavior: "smooth" });
             }}
           >
-            <Image src="/lg.png" alt="2026 전남광주통합특별시교육청 AI미래교육박람회" width={2048} height={644} className="h-8 w-auto sm:h-9" priority />
+            <Image src="/logo.png" alt="2026 전남광주통합특별시교육청 AI미래교육박람회" width={1230} height={361} className="h-8 w-auto sm:h-9" priority />
           </Link>
 
-          <nav className="hidden h-14 items-center gap-6 md:flex">
-            {NAV_SECTIONS.map((item) => {
-              if (item.external) {
-                return (
-                  <a
-                    key={item.key}
-                    href={item.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex h-full items-center whitespace-nowrap text-body-m font-bold text-fg-2 transition-colors duration-150 ease-out hover:text-fg-1"
-                  >
-                    {item.label}
-                  </a>
-                );
-              }
-
-              const matchBase = item.matchPrefix ?? item.href;
-              const active = pathname === matchBase || pathname.startsWith(matchBase + "/");
-              return (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  onMouseEnter={() => openDesktopMenu(item.key)}
-                  className={`relative flex h-full items-center whitespace-nowrap text-body-m font-bold transition-colors duration-150 ease-out ${
-                    active ? "text-primary-60" : "text-fg-2 hover:text-fg-1"
-                  }`}
-                >
-                  {item.label}
-                  {active && <span className="absolute inset-x-0 bottom-0 h-[3px] bg-primary-50" />}
-                </Link>
-              );
-            })}
-          </nav>
-
-          <div className="flex items-center justify-self-end gap-3">
+          <div className="flex items-center gap-3">
             <div className="hidden items-center gap-2 md:flex">
               <span className="flex items-center gap-1.5 whitespace-nowrap rounded-pill bg-bg-subtle px-3 py-1 text-body-xs font-semibold text-fg-2">
                 실시간 현황
@@ -132,7 +98,7 @@ export default function Header() {
             openDesktopKey ? "pointer-events-auto opacity-100 duration-200" : "pointer-events-none opacity-0 duration-300"
           }`}
         >
-          <div key={openSeq} className="mx-auto grid max-w-6xl grid-cols-2 gap-6 px-4 py-8 sm:grid-cols-3 sm:px-6 md:grid-cols-5 md:gap-8">
+          <div key={openSeq} className="mx-auto grid max-w-7xl grid-cols-2 gap-6 px-4 py-8 sm:grid-cols-3 sm:px-6 md:grid-cols-5 md:gap-8">
             {NAV_SECTIONS.filter((section) => !section.external).map((section) => (
               <div key={section.key}>
                 <p className="text-body-xs font-bold text-fg-3">{section.label}</p>
