@@ -45,7 +45,7 @@ export default function ProgramInfoPanel({
         </div>
       )}
 
-      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+      <div className={`grid grid-cols-1 gap-3 ${facts.length > 1 ? "sm:grid-cols-2" : ""}`}>
         {facts.map((f) => (
           <div key={f.label} className="flex items-center gap-4 rounded-large border border-border-default bg-bg-canvas p-5">
             <Badge variant="outlined-primary" className="shrink-0 px-3 py-1.5 text-body-s">
