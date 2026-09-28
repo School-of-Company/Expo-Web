@@ -1,11 +1,15 @@
 import SectionPage from "@/widgets/section-page/ui/SectionPage";
 import ProgramInfoPanel from "@/shared/ui/ProgramInfoPanel";
+import { studentsNavItems } from "@/shared/config/students-nav";
 
 export default function StudentsAiTourPage() {
   return (
     <SectionPage
       title="오디세이 투어(AI교육원 탐험)"
       desc="AI교육원 내 아이콘 시티·스쿨·넥스트로 떠나는 흥미진진한 AI·SW 탐험!"
+      navTitle="학생마당 (AI·SW교육)"
+      navItems={studentsNavItems}
+      showNav={false}
     >
       <h2 className="text-heading-s font-bold text-fg-1">오디세이 투어(AI교육원 탐험)</h2>
 
