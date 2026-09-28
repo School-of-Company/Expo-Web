@@ -9,6 +9,8 @@ interface SectionPageProps {
   /** LocalNav 상단 라벨. 섹션 이름을 그대로 넘긴다. */
   navTitle: string;
   navItems: LocalNavItem[];
+  /** 좌측 LocalNav 노출 여부. 신청 폼처럼 본문을 넓게 써야 하는 페이지에서 false로 끈다. */
+  showNav?: boolean;
   /** 본문 영역 클래스. 카드형 본문처럼 배경·여백을 덧붙일 때 덮어쓴다. */
   contentClassName?: string;
   children: ReactNode;
@@ -20,6 +22,7 @@ export default function SectionPage({
   desc,
   navTitle,
   navItems,
+  showNav = true,
   contentClassName = "min-w-0 flex-1",
   children,
 }: SectionPageProps) {
@@ -28,7 +31,7 @@ export default function SectionPage({
       <PageHero title={title} desc={desc} />
 
       <div className="mx-auto flex max-w-7xl flex-col gap-8 px-4 py-12 sm:flex-row sm:px-6">
-        <LocalNav title={navTitle} items={navItems} />
+        {showNav && <LocalNav title={navTitle} items={navItems} />}
 
         <div className={contentClassName}>{children}</div>
       </div>
