@@ -11,7 +11,7 @@ export interface TrainingProgram {
 }
 
 /** 삼성·구글·애플 3개 세션이 같은 시간대에 나란히 운영된다. */
-const TRAINING_TIME = "2026. 10. 31.(토) 13:00~14:00";
+const TRAINING_TIME = "2026. 10. 31. (토) 13:00~14:00";
 
 export const trainingPrograms: TrainingProgram[] = [
   {
