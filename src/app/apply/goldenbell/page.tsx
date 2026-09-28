@@ -1,5 +1,5 @@
-import { ApplyGoldenbellPage } from "@/views/apply-goldenbell";
+import StudentsGoldenBellPage from "@/views/students-golden-bell/ui/StudentsGoldenBellPage";
 
 export default function Page() {
-  return <ApplyGoldenbellPage />;
+  return <StudentsGoldenBellPage />;
 }
