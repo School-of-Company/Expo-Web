@@ -1,5 +1,5 @@
-import { ApplyLecturePage } from "@/views/apply-lecture";
+import TeachersLecturePage from "@/views/teachers-lecture/ui/TeachersLecturePage";
 
 export default function Page() {
-  return <ApplyLecturePage />;
+  return <TeachersLecturePage />;
 }
