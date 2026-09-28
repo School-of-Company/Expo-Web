@@ -11,7 +11,7 @@ export type BrandKey = "samsung" | "google" | "apple";
 const BRAND: Record<BrandKey, { label: string; src: string; box: string }> = {
   samsung: { label: "삼성", src: "/logos/samsung.png", box: "h-10 w-24" },
   google: { label: "구글", src: "/logos/google.png", box: "h-14 w-24" },
-  apple: { label: "애플", src: "/logos/apple.png", box: "h-14 w-24" },
+  apple: { label: "애플", src: "/logos/apple.png", box: "h-16 w-24" },
 };
 
 export default function BrandMark({
