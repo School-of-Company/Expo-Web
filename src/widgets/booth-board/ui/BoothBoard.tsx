@@ -99,7 +99,7 @@ export default function BoothBoard({ booths, listLabel, mapLabel, map }: BoothBo
                 className="h-auto w-full object-contain"
               />
             </button>
-            <p className="mt-2 text-center text-body-xs text-fg-3">배치도를 클릭하면 확대해서 볼 수 있습니다.</p>
+            <p className="mt-3 text-center text-body-m font-bold text-fg-2">배치도를 클릭하면 확대해서 볼 수 있습니다.</p>
           </>
         ) : (
           // TODO: 배치도 이미지가 확정되면 map prop으로 넘겨 확대 모달까지 그대로 동작한다.
