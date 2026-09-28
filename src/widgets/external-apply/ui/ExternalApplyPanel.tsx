@@ -1,4 +1,7 @@
+"use client";
+
 import Icon from "@/shared/ui/Icon";
+import { useExternalLinkGuard } from "@/shared/lib/useExternalLinkGuard";
 
 export default function ExternalApplyPanel({
   href,
@@ -13,6 +16,8 @@ export default function ExternalApplyPanel({
   tagline: string;
   body: string;
 }) {
+  const { isConfigured, onClick } = useExternalLinkGuard(href);
+
   return (
     <div className="rounded-xlarge bg-primary-70 px-6 py-16 text-center text-fg-on-primary sm:px-12 sm:py-24">
       <div className="mx-auto max-w-2xl">
@@ -21,9 +26,10 @@ export default function ExternalApplyPanel({
         <p className="mt-6 whitespace-pre-line text-left text-body-m leading-relaxed text-white/85 sm:text-center sm:text-body-l">{body}</p>
 
         <a
-          href={href}
-          target="_blank"
-          rel="noopener noreferrer"
+          href={isConfigured ? href : "#"}
+          target={isConfigured ? "_blank" : undefined}
+          rel={isConfigured ? "noopener noreferrer" : undefined}
+          onClick={onClick}
           className="group mt-10 inline-flex items-center gap-2 rounded-medium bg-bg-canvas px-10 py-4 text-body-m font-bold text-primary-70 transition-colors duration-150 ease-out hover:bg-primary-10 sm:text-body-l"
         >
           {label}

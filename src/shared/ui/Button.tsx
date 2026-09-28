@@ -1,5 +1,8 @@
+"use client";
+
 import Link from "next/link";
 import type { AnchorHTMLAttributes, ButtonHTMLAttributes, ReactNode } from "react";
+import { useExternalLinkGuard } from "@/shared/lib/useExternalLinkGuard";
 
 type Size = "l" | "m" | "s";
 type Variant = "primary" | "secondary" | "tertiary";
@@ -34,15 +37,26 @@ type ButtonAsLink = CommonProps & AnchorHTMLAttributes<HTMLAnchorElement> & { hr
 export default function Button(props: ButtonAsButton | ButtonAsLink) {
   const { size = "m", variant = "primary", fullWidth = false, children, className = "", ...rest } = props;
   const classes = `${BASE} ${SIZE_CLASS[size]} ${VARIANT_CLASS[variant]} ${DISABLED_CLASS} ${fullWidth ? "w-full" : ""} ${className}`;
+  const { isConfigured, onClick: guardClick } = useExternalLinkGuard("href" in props ? (props.href ?? "") : "");
 
   if ("href" in props && props.href) {
-    const { href, external, ...anchorRest } = rest as { href: string; external?: boolean } & Omit<
+    const { href, external, onClick, ...anchorRest } = rest as { href: string; external?: boolean } & Omit<
       AnchorHTMLAttributes<HTMLAnchorElement>,
       "href"
     >;
     if (external) {
       return (
-        <a href={href} target="_blank" rel="noopener noreferrer" className={classes} {...anchorRest}>
+        <a
+          href={isConfigured ? href : "#"}
+          target={isConfigured ? "_blank" : undefined}
+          rel={isConfigured ? "noopener noreferrer" : undefined}
+          onClick={(e) => {
+            guardClick(e);
+            onClick?.(e);
+          }}
+          className={classes}
+          {...anchorRest}
+        >
           {children}
         </a>
       );
