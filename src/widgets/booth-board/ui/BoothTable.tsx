@@ -4,6 +4,7 @@ import type { Booth } from "@/entities/booth/model/data";
  * 부스 목록 표. 학생마당·교사마당이 같은 마크업을 쓰므로 공용으로 추출했다.
  *
  * 셀 텍스트가 인접 셀로 넘치던 문제(#20)를 막기 위해 각 셀에 break-words를 준다.
+ * 부스번호 열은 "C02"가 "C0/2"로 쪼개지지 않을 만큼 폭을 잡아 둔다.
  * 표 자체는 min-w로 최소 폭을 지키고 좁은 화면에서는 가로 스크롤한다.
  */
 export default function BoothTable({ booths, caption }: { booths: Booth[]; caption: string }) {
@@ -12,11 +13,11 @@ export default function BoothTable({ booths, caption }: { booths: Booth[]; capti
       <table className="w-full min-w-[640px] table-fixed border-collapse text-left text-body-s">
         <caption className="sr-only">{caption}</caption>
         <colgroup>
-          <col className="w-[10%]" />
+          <col className="w-[16%]" />
           <col className="w-[20%]" />
           <col className="w-[12%]" />
           <col className="w-[16%]" />
-          <col className="w-[42%]" />
+          <col className="w-[36%]" />
         </colgroup>
         <thead>
           <tr className="border-b-2 border-secondary-70 bg-bg-canvas text-fg-1">
