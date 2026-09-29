@@ -3,6 +3,7 @@ import Badge from "@/shared/ui/Badge";
 import Button from "@/shared/ui/Button";
 import BrandMark from "@/shared/ui/logos/BrandMark";
 import { trainingPrograms } from "@/entities/training-program/model/data";
+import { EXTERNAL_APPLY_LINKS } from "@/shared/config/external-apply-links";
 
 export default function TeachersTrainingPage() {
   return (
@@ -50,7 +51,7 @@ export default function TeachersTrainingPage() {
         </div>
       </div>
 
-      <Button href="/apply/training" size="l" fullWidth className="mt-3">
+      <Button href={EXTERNAL_APPLY_LINKS.teacherTraining || "#"} external size="l" fullWidth className="mt-3">
         연수 사전 신청 및 조회
         <span aria-hidden="true">→</span>
       </Button>

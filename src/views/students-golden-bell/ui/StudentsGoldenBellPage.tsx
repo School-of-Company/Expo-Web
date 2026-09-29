@@ -1,5 +1,6 @@
 import SectionPage from "@/widgets/section-page/ui/SectionPage";
 import ProgramInfoPanel from "@/shared/ui/ProgramInfoPanel";
+import { EXTERNAL_APPLY_LINKS } from "@/shared/config/external-apply-links";
 
 export default function StudentsGoldenBellPage() {
   return (
@@ -19,7 +20,7 @@ export default function StudentsGoldenBellPage() {
           { label: "내용", text: "AI·SW 기초상식 및 IT 관련 일반상식 퀴즈" },
           { label: "운영방식", text: "사전신청(50명)과 현장신청(50명)을 통해 참여 가능" },
         ]}
-        cta={{ href: "/apply/goldenbell", label: "골든벨 사전 신청 및 조회" }}
+        cta={{ href: EXTERNAL_APPLY_LINKS.goldenBell || "#", label: "골든벨 사전 신청 및 조회", external: true }}
       />
     </SectionPage>
   );

@@ -1,5 +1,6 @@
 import SectionPage from "@/widgets/section-page/ui/SectionPage";
 import ProgramInfoPanel from "@/shared/ui/ProgramInfoPanel";
+import { EXTERNAL_APPLY_LINKS } from "@/shared/config/external-apply-links";
 
 export default function TeachersLecturePage() {
   return (
@@ -20,7 +21,7 @@ export default function TeachersLecturePage() {
           { label: "내용", text: "미래교육 특강 (세부 주제 추후 안내)" },
           { label: "운영방식", text: "선착순 300명, 사전신청 권장" },
         ]}
-        cta={{ href: "/apply/lecture", label: "특강 사전 신청 및 조회" }}
+        cta={{ href: EXTERNAL_APPLY_LINKS.teacherLecture || "#", label: "특강 사전 신청 및 조회", external: true }}
       />
     </SectionPage>
   );

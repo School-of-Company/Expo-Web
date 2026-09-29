@@ -7,10 +7,14 @@ import { useRef, useState } from "react";
 import { NAV_SECTIONS } from "@/shared/config/site-nav";
 import { overallCongestionLevel, CONGESTION_STYLE } from "@/entities/congestion/model/data";
 import Icon from "@/shared/ui/Icon";
+import { useExternalLinkGuard } from "@/shared/lib/useExternalLinkGuard";
 import HeaderSearch from "./HeaderSearch";
+
+const PARKING_GUIDE_URL = process.env.NEXT_PUBLIC_PARKING_GUIDE_URL ?? "";
 
 export default function Header() {
   const pathname = usePathname();
+  const parkingLink = useExternalLinkGuard(PARKING_GUIDE_URL);
   const [searchOpen, setSearchOpen] = useState(false);
   const [openDesktopKey, setOpenDesktopKey] = useState<string | null>(null);
   const [openSeq, setOpenSeq] = useState(0);
@@ -54,9 +58,11 @@ export default function Header() {
                 <span className={`h-2 w-2 shrink-0 rounded-full ${CONGESTION_STYLE[overallCongestionLevel].dot}`} />
                 {overallCongestionLevel}
               </span>
-              {/* TODO: 실제 주차장 안내 사이트 URL로 교체 (현재는 준비 중 404로 연결) */}
               <a
-                href="/parking-guide"
+                href={parkingLink.isConfigured ? PARKING_GUIDE_URL : "#"}
+                target={parkingLink.isConfigured ? "_blank" : undefined}
+                rel={parkingLink.isConfigured ? "noopener noreferrer" : undefined}
+                onClick={parkingLink.onClick}
                 className="flex items-center whitespace-nowrap rounded-pill bg-bg-subtle px-3 py-1 text-body-xs font-semibold text-fg-2 transition-colors duration-150 ease-out hover:text-primary-60"
               >
                 주차장 안내

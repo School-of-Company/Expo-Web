@@ -1,5 +1,5 @@
-import { ApplyTrainingPage } from "@/views/apply-training";
+import TeachersTrainingPage from "@/views/teachers-training/ui/TeachersTrainingPage";
 
 export default function Page() {
-  return <ApplyTrainingPage />;
+  return <TeachersTrainingPage />;
 }
