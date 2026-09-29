@@ -25,7 +25,7 @@ export default function ProgramInfoPanel({
   schedules?: ScheduleItem[];
   facts: FactItem[];
   notes: NoteItem[];
-  cta: { href: string; label: string };
+  cta: { href: string; label: string; external?: boolean };
 }) {
   return (
     <div className="mt-4 flex flex-col gap-3">
@@ -67,7 +67,7 @@ export default function ProgramInfoPanel({
         ))}
       </div>
 
-      <Button href={cta.href} size="l" fullWidth className="mt-3">
+      <Button href={cta.href} external={cta.external} size="l" fullWidth className="mt-3">
         {cta.label}
         <span aria-hidden="true">→</span>
       </Button>

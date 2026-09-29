@@ -25,7 +25,7 @@ const GROUPS: QuickApplyGroup[] = [
     title: "전체",
     desc: "모두를 위한 AI, 함께 열어가는 미래",
     gradient: ["#9C53C9", "#C070F4"],
-    items: [{ href: "/teachers/lecture", icon: "mic", title: "특별 강연 신청", desc: "AI가 만드는 우리의 일상, 미래를 만나는 시간" }],
+    items: [{ href: "/apply/lecture", icon: "mic", title: "특별 강연 신청", desc: "AI가 만드는 우리의 일상, 미래를 만나는 시간" }],
   },
   {
     key: "students",
@@ -35,8 +35,8 @@ const GROUPS: QuickApplyGroup[] = [
     gradient: ["#676BD6", "#8782FF"],
     items: [
       { href: "/students", icon: "map-pin", title: "AI·SW체험한마당 부스 안내", desc: "체험 부스 위치와 프로그램을 확인하세요" },
-      { href: "/students/golden-bell", icon: "trophy", title: "AI·SW 골든벨 신청", desc: "도전하고, 배우고, 성장하는 AI·SW 퀴즈 대회" },
-      { href: "/students/ai-tour", icon: "compass", title: "오디세이 투어 신청", desc: "보고, 체험하고, 탐험하는 AI·SW 체험 투어" },
+      { href: "/apply/goldenbell", icon: "trophy", title: "AI·SW 골든벨 신청", desc: "도전하고, 배우고, 성장하는 AI·SW 퀴즈 대회" },
+      { href: "/apply/odyssey", icon: "compass", title: "오디세이 투어 신청", desc: "보고, 체험하고, 탐험하는 AI·SW 체험 투어" },
     ],
   },
   {
@@ -47,7 +47,7 @@ const GROUPS: QuickApplyGroup[] = [
     gradient: ["#06A4C3", "#03BDF1"],
     items: [
       { href: "/teachers", icon: "map-pin", title: "미래교육박람회 부스 안내", desc: "교사를 위한 미래교육 부스 전시를 확인하세요" },
-      { href: "/teachers/training", icon: "book", title: "교사 연수 신청", desc: "AI 시대, 교사의 성장을 지원하는 전문 연수" },
+      { href: "/apply/training", icon: "book", title: "교사 연수 신청", desc: "AI 시대, 교사의 성장을 지원하는 전문 연수" },
     ],
   },
 ];
