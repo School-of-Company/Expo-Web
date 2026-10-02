@@ -26,8 +26,8 @@ export default function HomePage() {
                   <Image
                     src="/logo.png"
                     alt="2026 전남광주통합특별시교육청 AI미래교육박람회"
-                    width={1230}
-                    height={361}
+                    width={1200}
+                    height={438}
                     className="h-26 w-auto sm:h-38"
                     priority
                   />
