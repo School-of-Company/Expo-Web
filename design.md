@@ -29,18 +29,18 @@ colors:
   gray-95: oklch(0.25 0.007 264)   # #1E2124
   gray-100: oklch(0.19 0.004 264)   # #131416 — fg-1 (primary text), bg-inverse, footer/identifier strip
   # Primary — Government blue (브랜드 앵커)
-  primary-5: oklch(0.98 0.01 256)   # #F7FAFF
-  primary-10: oklch(0.955 0.018 254)   # #ECF2FE — selected bg, 서비스 타일 아이콘 컨테이너
-  primary-20: oklch(0.92 0.036 263)   # #D8E5FD
-  primary-30: oklch(0.81 0.084 261)   # #A3C2F8
-  primary-40: oklch(0.668 0.157 261)   # #5B92F4
-  primary-50: oklch(0.575 0.214 261)   # #256EF4 — brand blue, focus outline, primary button
-  primary-60: oklch(0.475 0.21 261)   # #0B50D0 — hover/pressed, fg-link
-  primary-70: oklch(0.345 0.115 257)   # #063A74 — masthead 워드마크, seal 배경
-  primary-80: oklch(0.292 0.090 255)   # #052B57
-  primary-90: oklch(0.252 0.086 258)   # #03204A
-  primary-95: oklch(0.208 0.07 256)   # #021735
-  primary-100: oklch(0.16 0.046 255)   # #010C1F
+  primary-5: oklch(0.98 0.008 280)   # #F7F8FE
+  primary-10: oklch(0.955 0.018 280)   # #EDEFFC — selected bg, 서비스 타일 아이콘 컨테이너
+  primary-20: oklch(0.91 0.036 280)   # #DCDFFA
+  primary-30: oklch(0.79 0.075 280)   # #B1B6EB
+  primary-40: oklch(0.56 0.14 280)   # #6668C4
+  primary-50: oklch(0.297 0.108 280)   # #252261 — brand color, focus outline, primary button
+  primary-60: oklch(0.255 0.095 280)   # #1C194F — hover/pressed, fg-link
+  primary-70: oklch(0.225 0.082 280)   # #161440 — masthead 워드마크, seal 배경
+  primary-80: oklch(0.2 0.07 280)   # #111034
+  primary-90: oklch(0.178 0.06 280)   # #0D0C2A
+  primary-95: oklch(0.158 0.05 280)   # #090921
+  primary-100: oklch(0.13 0.036 280)   # #050515
   # Secondary — Deep desaturated navy (헤더 chrome, 절제된 강조)
   secondary-10: oklch(0.960 0.008 254)   # #EEF2F7 — hero 배경, bg-muted
   secondary-20: oklch(0.902 0.019 251)   # #D6E0EB
@@ -68,14 +68,14 @@ colors:
   fg-3: oklch(0.567 0.020 246)   # gray-60, 3차/플레이스홀더
   fg-4: oklch(0.662 0.019 246)   # gray-50, disabled/muted
   fg-on-primary: oklch(1 0 0)   # #FFFFFF
-  fg-link: oklch(0.475 0.21 261)   # primary-60
+  fg-link: oklch(0.255 0.095 280)   # primary-60
   bg-canvas: oklch(1 0 0)   # #FFFFFF
   bg-subtle: oklch(0.965 0.002 247)   # gray-10
   bg-muted: oklch(0.960 0.008 254)   # secondary-10
   bg-inverse: oklch(0.19 0.004 264)   # gray-100
   border-default: oklch(0.86 0.007 248)   # gray-30, 1px 기본 디바이더
   border-strong: oklch(0.662 0.019 246)   # gray-50
-  border-focus: oklch(0.575 0.214 261)   # primary-50
+  border-focus: oklch(0.297 0.108 280)   # primary-50
 typography:
   display-l:
     fontSize: 64px
@@ -218,7 +218,7 @@ shadow-4: 0 12px 28px oklch(0.19 0.004 264 / 0.14), 0 4px 8px oklch(0.19 0.004 2
 - 라인 아이콘 약 120종, 24×24 그리드. 사이즈 변형 12 / 16 / 20 / 32 / 40px.
 - 외곽선·단색, 약 1.5–2px 스트로크, 둥근 라인 캡과 조인.
 - 채움(fill) 변형은 상태 아이콘(`check-circle`, `system-info`, `system-warning`, `system-danger`, `system-success`)에 한정.
-- 기본 fill `oklch(0.333 0.013 268)` (`gray-90`); status info `oklch(0.563 0.154 250)`; success check-circle은 brand blue `oklch(0.575 0.214 261)`로 채워진다.
+- 기본 fill `oklch(0.333 0.013 268)` (`gray-90`); status info `oklch(0.563 0.154 250)`; success check-circle은 brand color `oklch(0.297 0.108 280)`로 채워진다.
 - Format: SVG. 번들 caveat: 약 120개 중 6개(search, close, home, menu, download, exclamation)만 추출되어 있어, CDN 폴백이 필요하면 **Material Symbols Outlined** (weight 400, grade 0, optical size 24)로 대체한다.
 
 **Focus state.** 항상 보이는 2px 솔리드 아웃라인을 `primary-50`로 그리고 2px 오프셋을 둔다. `outline:none`은 어떤 경우에도 사용하지 않는다.
@@ -400,7 +400,7 @@ skip-link는 평소 숨겨졌다가 키보드 포커스 시 `{colors.primary-50}
 
 ### table
 
-헤더 셀 48px / 본문 행 40px, 셀 패딩 14/12. 헤더 하단 룰은 1px `{colors.secondary-70}` (`#052B57` ≈ `oklch(0.292 0.090 255)` — `{colors.primary-80}`와 동일 hex), 행 디바이더는 1px `{colors.gray-20}`. 상태는 좌측 컬러 보더가 아니라 인라인 뱃지로 표현한다(진행중 `{colors.primary-50}`, 완료 `{colors.success}`, 반려 `{colors.danger}`).
+헤더 셀 48px / 본문 행 40px, 셀 패딩 14/12. 헤더 하단 룰은 1px `{colors.secondary-70}` (`#052B57` ≈ `oklch(0.292 0.090 255)`), 행 디바이더는 1px `{colors.gray-20}`. 상태는 좌측 컬러 보더가 아니라 인라인 뱃지로 표현한다(진행중 `{colors.primary-50}`, 완료 `{colors.success}`, 반려 `{colors.danger}`).
 
 ### structured-list · text-list
 
