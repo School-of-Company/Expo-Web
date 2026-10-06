@@ -166,7 +166,7 @@ export default function ZoomableImageModal({ image, onClose }: { image: Zoomable
             width={image.width}
             height={image.height}
             draggable={false}
-            priority
+            preload
             className="max-h-full max-w-full select-none object-contain"
             style={{ width: "auto", height: "auto" }}
           />

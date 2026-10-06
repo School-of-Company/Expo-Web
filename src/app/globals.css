@@ -15,19 +15,20 @@
   --gray-95: oklch(0.25 0.007 264);
   --gray-100: oklch(0.19 0.004 264);
 
-  /* Primary */
-  --primary-5: oklch(0.98 0.008 280);
-  --primary-10: oklch(0.955 0.018 280);
-  --primary-20: oklch(0.91 0.036 280);
-  --primary-30: oklch(0.79 0.075 280);
-  --primary-40: oklch(0.56 0.14 280);
+  /* Primary — 50(로고 남색 #242060)을 기준으로 명도를 고르게 나누고, 채도는 50에서 멀어질수록 줄인다.
+     밝은 단계는 같은 hue에서 파랗게 보이는 경향을 보정하려고 hue를 살짝(+1~4) 보라 쪽으로 민다. */
+  --primary-5: oklch(0.975 0.008 284);
+  --primary-10: oklch(0.95 0.018 284);
+  --primary-20: oklch(0.885 0.04 283);
+  --primary-30: oklch(0.75 0.075 282);
+  --primary-40: oklch(0.5 0.11 281);
   --primary-50: oklch(0.297 0.108 280);
-  --primary-60: oklch(0.255 0.095 280);
-  --primary-70: oklch(0.225 0.082 280);
-  --primary-80: oklch(0.2 0.07 280);
-  --primary-90: oklch(0.178 0.06 280);
-  --primary-95: oklch(0.158 0.05 280);
-  --primary-100: oklch(0.13 0.036 280);
+  --primary-60: oklch(0.25 0.096 280);
+  --primary-70: oklch(0.21 0.082 280);
+  --primary-80: oklch(0.18 0.068 280);
+  --primary-90: oklch(0.155 0.055 280);
+  --primary-95: oklch(0.135 0.045 280);
+  --primary-100: oklch(0.115 0.035 280);
 
   /* Secondary */
   --secondary-10: oklch(0.96 0.008 254);
@@ -76,7 +77,7 @@
 }
 
 @theme inline {
-  --font-sans: "Pretendard", "Pretendard GOV", -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic",
+  --font-sans: "Pretendard Variable", "Pretendard", "Pretendard GOV", -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic",
     "Noto Sans KR", sans-serif;
 
   --color-background: var(--bg-canvas);
@@ -187,6 +188,12 @@
 
 html {
   color-scheme: light;
+  /* 페이지 세로 스크롤바를 숨긴다. 스크롤 동작은 그대로 유지된다. */
+  scrollbar-width: none;
+}
+
+html::-webkit-scrollbar {
+  display: none;
 }
 
 body {
@@ -198,8 +205,11 @@ body {
   word-break: keep-all;
 }
 
-header a,
-nav a {
+/* 이미지·링크를 마우스로 끌었을 때 브라우저 기본 드래그(고스트 이미지)를 막는다.
+   Firefox는 이 속성을 지원하지 않아 DisableNativeDrag가 dragstart를 막는다. */
+img,
+svg,
+a {
   -webkit-user-drag: none;
   user-drag: none;
 }
@@ -222,6 +232,15 @@ nav a {
   background-size: 24px 100%, 24px 100%, 8px 100%, 8px 100%;
   background-position: left, right, left, right;
   background-attachment: local, local, scroll, scroll;
+}
+
+@keyframes hero-bg-flow {
+  from {
+    transform: translateX(-50%);
+  }
+  to {
+    transform: translateX(0);
+  }
 }
 
 @keyframes nav-item-in {

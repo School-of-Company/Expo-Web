@@ -1,7 +1,9 @@
 "use client";
 
 import Icon from "@/shared/ui/Icon";
+import { getBackgroundImage } from "@/shared/lib/getBackgroundImage";
 import { useExternalLinkGuard } from "@/shared/lib/useExternalLinkGuard";
+import heroBgOrange from "../../../../public/hero-bg-orange.png";
 
 export default function ExternalApplyPanel({
   href,
@@ -19,7 +21,10 @@ export default function ExternalApplyPanel({
   const { isConfigured, onClick } = useExternalLinkGuard(href);
 
   return (
-    <div className="rounded-xlarge bg-bg-muted bg-cover bg-center bg-[url('/hero-bg-orange.png')] px-6 py-16 text-center text-fg-1 sm:px-12 sm:py-24">
+    <div
+      className="rounded-xlarge bg-bg-muted bg-cover bg-center px-6 py-16 text-center text-fg-1 sm:px-12 sm:py-24"
+      style={{ backgroundImage: getBackgroundImage(heroBgOrange, { shouldPreload: true }) }}
+    >
       <div className="mx-auto max-w-2xl">
         <p className="text-heading-xs font-bold sm:text-heading-l">{title}</p>
         <p className="mt-3 text-body-l font-semibold text-primary-50 sm:text-heading-m">&ldquo;{tagline}&rdquo;</p>

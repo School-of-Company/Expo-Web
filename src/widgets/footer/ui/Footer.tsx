@@ -1,9 +1,14 @@
-import Organizer from "@/shared/ui/logos/Organizer";
-import Host from "@/shared/ui/logos/Host";
+import { getBackgroundImage } from "@/shared/lib/getBackgroundImage";
+import organizerLogo from "../../../../public/logos/organizer.svg";
+import hostLogo from "../../../../public/logos/host.svg";
 
+/**
+ * 주최·주관 로고. SVG를 인라인으로 두면 모든 페이지 HTML과 RSC 페이로드에 100KB씩 실려서,
+ * 정적 파일로 분리해 한 번 받은 뒤 캐시되게 한다. aspect는 각 SVG의 viewBox 비율이다.
+ */
 const ORGANIZERS = [
-  { role: "주최", Logo: Organizer },
-  { role: "주관", Logo: Host },
+  { role: "주최", label: "전남광주통합특별시교육청", logo: organizerLogo, aspect: "aspect-[1923/180]" },
+  { role: "주관", label: "전남광주통합특별시교육청AI교육원", logo: hostLogo, aspect: "aspect-[2200/180]" },
 ];
 
 const KAKAO_MAP_SEARCH = "https://map.kakao.com/link/search/전남광주통합특별시 북구 능안로 30번길 7";
@@ -14,10 +19,15 @@ export default function Footer() {
     <footer className="mt-16 bg-gray-100 text-fg-on-primary">
       <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6">
         <div className="flex flex-wrap items-center justify-center gap-6 border-b border-gray-95 pb-10">
-          {ORGANIZERS.map(({ role, Logo }) => (
+          {ORGANIZERS.map(({ role, label, logo, aspect }) => (
             <div key={role} className="flex items-center gap-2">
               <p className="text-body-xs font-semibold text-white/50">{role}</p>
-              <Logo className="h-5 w-auto" />
+              <span
+                role="img"
+                aria-label={`${role} ${label} 로고`}
+                className={`block h-5 ${aspect} bg-contain bg-no-repeat`}
+                style={{ backgroundImage: getBackgroundImage(logo, { unoptimized: true }) }}
+              />
             </div>
           ))}
         </div>

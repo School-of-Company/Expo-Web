@@ -2,10 +2,13 @@ import type { Metadata } from "next";
 
 import { SITE_DESCRIPTION, SITE_KEYWORDS, SITE_NAME, SITE_SHORT_NAME, SITE_TITLE, SITE_URL } from "@/shared/config/site";
 
+import DisableNativeDrag from "@/shared/ui/DisableNativeDrag";
 import { Footer } from "@/widgets/footer";
 import { Header } from "@/widgets/header";
 import { ScrollToTopButton } from "@/widgets/scroll-to-top";
 
+// Pretendard 가변 폰트 동적 서브셋: 굵기 전체를 파일 하나로, 페이지에 쓰인 글자가 든 조각(unicode-range)만 받는다.
+import "pretendard/dist/web/variable/pretendardvariable-dynamic-subset.css";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -34,14 +37,6 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="ko" className="h-full antialiased">
-      <head>
-        {/* @import 체인(CSS→CDN CSS)을 제거하고 preconnect 로 폰트 CSS 를 일찍 받는다. */}
-        <link rel="preconnect" href="https://cdn.jsdelivr.net" crossOrigin="anonymous" />
-        <link
-          rel="stylesheet"
-          href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css"
-        />
-      </head>
       <body className="min-h-full flex flex-col bg-background text-foreground font-sans">
         <a
           href="#main-content"
@@ -55,6 +50,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         </main>
         <Footer />
         <ScrollToTopButton />
+        <DisableNativeDrag />
       </body>
     </html>
   );
