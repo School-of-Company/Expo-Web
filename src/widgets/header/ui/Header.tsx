@@ -53,10 +53,10 @@ export default function Header() {
 
           <div className="flex items-center gap-3">
             <div className="hidden items-center gap-2 md:flex">
-              <span className="flex items-center gap-1.5 whitespace-nowrap rounded-pill bg-bg-subtle px-3 py-1 text-body-xs font-semibold text-fg-2">
+              <span className="flex items-center gap-2 whitespace-nowrap rounded-pill bg-bg-subtle px-3 py-1 text-body-xs font-semibold text-fg-2">
                 실시간 현황
                 <span className={`h-2 w-2 shrink-0 rounded-full ${CONGESTION_STYLE[overallCongestionLevel].dot}`} />
-                {overallCongestionLevel}
+                <span className={`font-bold ${CONGESTION_STYLE[overallCongestionLevel].text}`}>{overallCongestionLevel}</span>
               </span>
               <a
                 href={parkingLink.isConfigured ? PARKING_GUIDE_URL : "#"}
