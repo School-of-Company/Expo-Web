@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 
+import { SITE_DESCRIPTION, SITE_KEYWORDS, SITE_NAME, SITE_SHORT_NAME, SITE_TITLE, SITE_URL } from "@/shared/config/site";
+
 import { Footer } from "@/widgets/footer";
 import { Header } from "@/widgets/header";
 import { ScrollToTopButton } from "@/widgets/scroll-to-top";
@@ -7,14 +9,39 @@ import { ScrollToTopButton } from "@/widgets/scroll-to-top";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "2026 전남광주통합특별시교육청 AI미래교육박람회",
-  description:
-    "학생·학부모와 교원을 위한 2026 전남광주통합특별시교육청 AI미래교육박람회 공식 홈페이지 - 체험 부스, AI·SW 골든벨, 교사 연수, 미래교육 특강 사전신청 안내",
+  metadataBase: new URL(SITE_URL),
+  title: { default: SITE_TITLE, template: `%s | 2026 ${SITE_SHORT_NAME}` },
+  description: SITE_DESCRIPTION,
+  keywords: SITE_KEYWORDS,
+  alternates: { canonical: "/" },
+  openGraph: {
+    type: "website",
+    locale: "ko_KR",
+    siteName: SITE_NAME,
+    title: SITE_TITLE,
+    description: SITE_DESCRIPTION,
+    url: "/",
+  },
+  twitter: { card: "summary_large_image" },
+  verification: {
+    google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
+    other: process.env.NEXT_PUBLIC_NAVER_SITE_VERIFICATION
+      ? { "naver-site-verification": process.env.NEXT_PUBLIC_NAVER_SITE_VERIFICATION }
+      : undefined,
+  },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="ko" className="h-full antialiased">
+      <head>
+        {/* @import 체인(CSS→CDN CSS)을 제거하고 preconnect 로 폰트 CSS 를 일찍 받는다. */}
+        <link rel="preconnect" href="https://cdn.jsdelivr.net" crossOrigin="anonymous" />
+        <link
+          rel="stylesheet"
+          href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css"
+        />
+      </head>
       <body className="min-h-full flex flex-col bg-background text-foreground font-sans">
         <a
           href="#main-content"

@@ -17,7 +17,7 @@ const HERO_FACTS = [
 export default function HomePage() {
   return (
     <div>
-      <section className="border-b border-border-default bg-bg-muted bg-cover bg-center bg-[url('/hero-bg.png')]">
+      <section className="border-b border-border-default bg-bg-muted bg-cover bg-center bg-[url('/hero-bg.webp')]">
         <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20">
           <div className="grid grid-cols-1 gap-8 lg:grid-cols-[9fr_11fr] lg:items-stretch">
             <div className="flex flex-col justify-between">
