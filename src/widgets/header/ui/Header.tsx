@@ -40,7 +40,7 @@ export default function Header() {
         onMouseLeave={closeOnHoverOut}
         onClick={() => setOpenDesktopKey(null)}
       >
-        <div className="relative mx-auto flex h-16 max-w-7xl sm:h-20 items-center justify-between px-4 sm:px-6">
+        <div className="relative mx-auto flex h-14 max-w-7xl items-center justify-between px-4 sm:px-6">
           <Link
             href="/"
             className="flex items-center"
@@ -52,8 +52,8 @@ export default function Header() {
             <span
               role="img"
               aria-label="2026 전남광주통합특별시교육청 AI미래교육박람회"
-              className="block aspect-[1200/438] h-12 bg-contain bg-no-repeat sm:h-16"
-              style={{ backgroundImage: getBackgroundImage(logo, { shouldPreload: true, blur: false, width: 176 }) }}
+              className="block aspect-[1200/438] h-8 bg-contain bg-no-repeat sm:h-9"
+              style={{ backgroundImage: getBackgroundImage(logo, { shouldPreload: true, blur: false, width: 99 }) }}
             />
           </Link>
 
