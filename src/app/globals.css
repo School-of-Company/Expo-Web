@@ -77,7 +77,7 @@
 }
 
 @theme inline {
-  --font-sans: "Pretendard", "Pretendard GOV", -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic",
+  --font-sans: "Pretendard Variable", "Pretendard", "Pretendard GOV", -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic",
     "Noto Sans KR", sans-serif;
 
   --color-background: var(--bg-canvas);
