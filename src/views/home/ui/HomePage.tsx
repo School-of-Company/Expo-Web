@@ -26,13 +26,13 @@ export default function HomePage() {
                   <Image
                     src="/logo.png"
                     alt="2026 전남광주통합특별시교육청 AI미래교육박람회"
-                    width={1230}
-                    height={361}
+                    width={1200}
+                    height={438}
                     className="h-26 w-auto sm:h-38"
                     priority
                   />
                 </h1>
-                <p className="mt-4 max-w-xl text-heading-s font-bold text-fg-2 sm:text-heading-m">AI로 연결되는 배움, 함께 여는 미래</p>
+                <p className="mt-4 max-w-xl text-[22px] font-extrabold leading-[1.3] text-primary-50 sm:text-[29px]">AI로 연결되는 배움, 함께 여는 미래</p>
               </div>
 
               <Button href="/apply/register" size="l" className="mt-8 w-fit">
@@ -49,7 +49,7 @@ export default function HomePage() {
           <div className="mt-10 flex w-full flex-col items-start gap-4 rounded-xlarge bg-bg-canvas px-6 py-5 sm:flex-row sm:items-center sm:justify-between sm:gap-8">
             {HERO_FACTS.map((f) => (
               <div key={f.label} className="flex items-center gap-3">
-                <Badge variant="outlined-primary">{f.label}</Badge>
+                <Badge variant="solid-primary">{f.label}</Badge>
                 <span className="text-body-s font-bold text-fg-1 sm:text-body-m">{f.value}</span>
               </div>
             ))}
