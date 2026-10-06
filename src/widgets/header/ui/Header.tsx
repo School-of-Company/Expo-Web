@@ -1,14 +1,15 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useRef, useState } from "react";
 import { NAV_SECTIONS } from "@/shared/config/site-nav";
 import { overallCongestionLevel, CONGESTION_STYLE } from "@/entities/congestion/model/data";
 import Icon from "@/shared/ui/Icon";
 import { useExternalLinkGuard } from "@/shared/lib/useExternalLinkGuard";
+import { getBackgroundImage } from "@/shared/lib/getBackgroundImage";
 import HeaderSearch from "./HeaderSearch";
+import logo from "../../../../public/logo.png";
 
 const PARKING_GUIDE_URL = process.env.NEXT_PUBLIC_PARKING_GUIDE_URL ?? "";
 
@@ -48,7 +49,12 @@ export default function Header() {
               if (pathname === "/") window.scrollTo({ top: 0, behavior: "smooth" });
             }}
           >
-            <Image src="/logo.png" alt="2026 전남광주통합특별시교육청 AI미래교육박람회" width={1200} height={438} className="h-8 w-auto sm:h-9" priority />
+            <span
+              role="img"
+              aria-label="2026 전남광주통합특별시교육청 AI미래교육박람회"
+              className="block aspect-[1200/438] h-8 bg-contain bg-no-repeat sm:h-9"
+              style={{ backgroundImage: getBackgroundImage(logo, { shouldPreload: true, blur: false, width: 99 }) }}
+            />
           </Link>
 
           <div className="flex items-center gap-3">
