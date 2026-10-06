@@ -205,8 +205,11 @@ body {
   word-break: keep-all;
 }
 
-header a,
-nav a {
+/* 이미지·링크를 마우스로 끌었을 때 브라우저 기본 드래그(고스트 이미지)를 막는다.
+   Firefox는 이 속성을 지원하지 않아 DisableNativeDrag가 dragstart를 막는다. */
+img,
+svg,
+a {
   -webkit-user-drag: none;
   user-drag: none;
 }
