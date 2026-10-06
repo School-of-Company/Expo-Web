@@ -13,8 +13,7 @@ const OVERVIEW = [
   },
   { label: "장소", value: "전남광주통합특별시교육청AI교육원 일원 (주차장 야외 부스 포함)" },
   { label: "대상", value: "관내 초‧중‧고‧특수학교 학생, 교직원, 학부모, 일반시민 등" },
-  { label: "주최", value: "전남광주통합특별시교육청" },
-  { label: "주관", value: "전남광주통합특별시교육청AI교육원" },
+  { label: "주최/주관", value: "전남광주통합특별시교육청 / 전남광주통합특별시교육청AI교육원" },
 ];
 
 export default function GuideOverviewPage() {
