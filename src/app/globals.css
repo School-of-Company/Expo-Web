@@ -188,6 +188,12 @@
 
 html {
   color-scheme: light;
+  /* 페이지 세로 스크롤바를 숨긴다. 스크롤 동작은 그대로 유지된다. */
+  scrollbar-width: none;
+}
+
+html::-webkit-scrollbar {
+  display: none;
 }
 
 body {
