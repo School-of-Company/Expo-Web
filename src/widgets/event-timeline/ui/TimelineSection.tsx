@@ -1,36 +1,14 @@
-"use client";
-
-import { useEffect, useRef, useState } from "react";
 import { EVENT_DATES, timeline } from "@/entities/schedule/model/data";
 
 export default function TimelineSection() {
-  const scrollRef = useRef<HTMLDivElement>(null);
-  const [scrollable, setScrollable] = useState(false);
-
-  useEffect(() => {
-    const el = scrollRef.current;
-    if (!el) return;
-
-    const checkScrollable = () => setScrollable(el.scrollWidth > el.clientWidth + 1);
-    checkScrollable();
-
-    const observer = new ResizeObserver(checkScrollable);
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
-
   return (
     <div>
-      <p
-        className={`mb-2 text-body-xs font-semibold text-fg-3 transition-opacity duration-150 ease-out ${
-          scrollable ? "opacity-100" : "h-0 opacity-0"
-        }`}
-        aria-hidden={!scrollable}
-      >
+      {/* 표가 1000px 미만에서만 min-w-[1100px]로 가로 스크롤되므로 같은 기준을 CSS로 맞춘다. JS 측정 후 문구가 끼어들며 화면이 밀리지 않게 한다. */}
+      <p className="mb-2 text-body-xs font-semibold text-fg-3 min-[1000px]:hidden">
         ← 좌우로 스크롤하여 전체 일정을 확인하세요 →
       </p>
 
-      <div ref={scrollRef} className="scroll-shadow-x overflow-x-auto rounded-xlarge border border-border-default">
+      <div className="scroll-shadow-x overflow-x-auto rounded-xlarge border border-border-default">
         <table className="w-full min-w-[1100px] border-collapse text-left text-body-s min-[1000px]:min-w-0">
           <thead>
             <tr className="border-b-2 border-secondary-70 bg-bg-canvas text-fg-1">
