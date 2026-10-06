@@ -1,15 +1,14 @@
 import SectionPage from "@/widgets/section-page/ui/SectionPage";
 import Icon from "@/shared/ui/Icon";
-
-const parkingNavItems = [{ key: "parking", href: "/notice/parking", label: "주차안내" }];
+import { noticeNavItems } from "@/shared/config/notice-nav";
 
 export default function NoticeParkingPage() {
   return (
     <SectionPage
       title="주차안내"
       desc="행사장 주차 안내를 확인하세요."
-      navTitle="주차안내"
-      navItems={parkingNavItems}
+      navTitle="알림마당"
+      navItems={noticeNavItems}
       contentClassName="min-w-0 flex-1 rounded-xlarge border border-border-default bg-bg-canvas p-6"
     >
       <p className="flex items-center gap-2 text-body-m font-bold text-fg-1">

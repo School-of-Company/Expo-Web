@@ -1,14 +1,15 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useRef, useState } from "react";
 import { NAV_SECTIONS } from "@/shared/config/site-nav";
 import { overallCongestionLevel, CONGESTION_STYLE } from "@/entities/congestion/model/data";
 import Icon from "@/shared/ui/Icon";
 import { useExternalLinkGuard } from "@/shared/lib/useExternalLinkGuard";
+import { getBackgroundImage } from "@/shared/lib/getBackgroundImage";
 import HeaderSearch from "./HeaderSearch";
+import logo from "../../../../public/logo.png";
 
 const PARKING_GUIDE_URL = process.env.NEXT_PUBLIC_PARKING_GUIDE_URL ?? "";
 
@@ -48,15 +49,20 @@ export default function Header() {
               if (pathname === "/") window.scrollTo({ top: 0, behavior: "smooth" });
             }}
           >
-            <Image src="/logo.png" alt="2026 전남광주통합특별시교육청 AI미래교육박람회" width={1230} height={361} className="h-8 w-auto sm:h-9" priority />
+            <span
+              role="img"
+              aria-label="2026 전남광주통합특별시교육청 AI미래교육박람회"
+              className="block aspect-[1200/438] h-8 bg-contain bg-no-repeat sm:h-9"
+              style={{ backgroundImage: getBackgroundImage(logo, { shouldPreload: true, blur: false, width: 99 }) }}
+            />
           </Link>
 
           <div className="flex items-center gap-3">
             <div className="hidden items-center gap-2 md:flex">
-              <span className="flex items-center gap-1.5 whitespace-nowrap rounded-pill bg-bg-subtle px-3 py-1 text-body-xs font-semibold text-fg-2">
+              <span className="flex items-center gap-2 whitespace-nowrap rounded-pill bg-bg-subtle px-3 py-1 text-body-xs font-semibold text-fg-2">
                 실시간 현황
                 <span className={`h-2 w-2 shrink-0 rounded-full ${CONGESTION_STYLE[overallCongestionLevel].dot}`} />
-                {overallCongestionLevel}
+                <span className={`font-bold ${CONGESTION_STYLE[overallCongestionLevel].text}`}>{overallCongestionLevel}</span>
               </span>
               <a
                 href={parkingLink.isConfigured ? PARKING_GUIDE_URL : "#"}

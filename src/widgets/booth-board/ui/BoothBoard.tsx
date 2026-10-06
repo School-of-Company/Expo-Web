@@ -95,7 +95,7 @@ export default function BoothBoard({ booths, listLabel, mapLabel, map }: BoothBo
                 alt={map.alt}
                 width={map.width}
                 height={map.height}
-                priority
+                preload
                 className="h-auto w-full object-contain"
               />
             </button>
