@@ -52,8 +52,8 @@ export default function Header() {
             <span
               role="img"
               aria-label="2026 전남광주통합특별시교육청 AI미래교육박람회"
-              className="block aspect-[1200/438] h-8 bg-contain bg-no-repeat sm:h-9"
-              style={{ backgroundImage: getBackgroundImage(logo, { shouldPreload: true, blur: false, width: 99 }) }}
+              className="block aspect-[1200/438] h-10 bg-contain bg-no-repeat sm:h-12"
+              style={{ backgroundImage: getBackgroundImage(logo, { shouldPreload: true, blur: false, width: 132 }) }}
             />
           </Link>
 
