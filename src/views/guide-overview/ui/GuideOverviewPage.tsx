@@ -1,4 +1,7 @@
 import Badge from "@/shared/ui/Badge";
+import { getBackgroundImage } from "@/shared/lib/getBackgroundImage";
+import organizerLogo from "../../../../public/logos/organizer-dark.svg";
+import hostLogo from "../../../../public/logos/host-dark.svg";
 import { guideNavItems } from "@/shared/config/guide-nav";
 import { SectionPage } from "@/widgets/section-page";
 
@@ -13,9 +16,29 @@ const OVERVIEW = [
   },
   { label: "장소", value: "전남광주통합특별시교육청AI교육원 일원 (주차장 야외 부스 포함)" },
   { label: "대상", value: "관내 초‧중‧고‧특수학교 학생, 교직원, 학부모, 일반시민 등" },
-  { label: "주최", value: "전남광주통합특별시교육청" },
-  { label: "주관", value: "전남광주통합특별시교육청AI교육원" },
 ];
+
+/** 포스터 아래까지 넓혀 로고로 보여주는 주최·주관. 밝은 배경용으로 글자는 어둡고 엠블럼은 컬러인 SVG를 쓴다. */
+const ORGANIZERS = [
+  { role: "주최", label: "전남광주통합특별시교육청", logo: organizerLogo, aspect: "aspect-[1923/180]" },
+  { role: "주관", label: "전남광주통합특별시교육청AI교육원", logo: hostLogo, aspect: "aspect-[2200/180]" },
+];
+
+function OverviewRow({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="contents">
+      <dt>
+        <Badge
+          variant="solid-primary"
+          className="w-full justify-center whitespace-nowrap px-4 py-1.5 text-body-s"
+        >
+          {label}
+        </Badge>
+      </dt>
+      <dd className="text-body-s leading-relaxed text-fg-2">{value}</dd>
+    </div>
+  );
+}
 
 export default function GuideOverviewPage() {
   return (
@@ -31,19 +54,29 @@ export default function GuideOverviewPage() {
         <PosterPreview />
         <dl className="grid min-w-0 flex-1 grid-cols-1 items-center gap-x-5 gap-y-4 rounded-xlarge border border-border-default bg-bg-canvas p-6 md:grid-cols-[auto_1fr]">
           {OVERVIEW.map((row) => (
-            <div key={row.label} className="contents">
-              <dt>
-                <Badge
-                  variant="solid-primary"
-                  className="w-full justify-center whitespace-nowrap px-4 py-1.5 text-body-s"
-                >
-                  {row.label}
-                </Badge>
-              </dt>
-              <dd className="text-body-s leading-relaxed text-fg-2">{row.value}</dd>
-            </div>
+            <OverviewRow key={row.label} {...row} />
           ))}
         </dl>
+      </div>
+
+      <div className="mt-6 flex flex-col items-center gap-x-8 gap-y-4 rounded-xlarge border border-border-default bg-bg-canvas p-6 md:flex-row">
+        <Badge
+          variant="solid-primary"
+          className="shrink-0 justify-center whitespace-nowrap px-4 py-1.5 text-body-s"
+        >
+          주최/주관
+        </Badge>
+        <div className="flex flex-wrap items-center justify-center gap-x-10 gap-y-4">
+          {ORGANIZERS.map(({ role, label, logo, aspect }) => (
+            <span
+              key={role}
+              role="img"
+              aria-label={`${role} ${label} 로고`}
+              className={`block h-6 ${aspect} max-w-full bg-contain bg-center bg-no-repeat`}
+              style={{ backgroundImage: getBackgroundImage(logo, { unoptimized: true }) }}
+            />
+          ))}
+        </div>
       </div>
     </SectionPage>
   );

@@ -18,17 +18,16 @@ export default function Footer() {
   return (
     <footer className="mt-16 bg-gray-100 text-fg-on-primary">
       <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6">
-        <div className="flex flex-wrap items-center justify-center gap-6 border-b border-gray-95 pb-10">
+        <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-3 border-b border-gray-95 pb-10">
+          <p className="text-body-xs font-semibold text-white/50">주최/주관</p>
           {ORGANIZERS.map(({ role, label, logo, aspect }) => (
-            <div key={role} className="flex items-center gap-2">
-              <p className="text-body-xs font-semibold text-white/50">{role}</p>
-              <span
-                role="img"
-                aria-label={`${role} ${label} 로고`}
-                className={`block h-5 ${aspect} bg-contain bg-no-repeat`}
-                style={{ backgroundImage: getBackgroundImage(logo, { unoptimized: true }) }}
-              />
-            </div>
+            <span
+              key={role}
+              role="img"
+              aria-label={`${role} ${label} 로고`}
+              className={`block h-5 ${aspect} max-w-full bg-contain bg-no-repeat`}
+              style={{ backgroundImage: getBackgroundImage(logo, { unoptimized: true }) }}
+            />
           ))}
         </div>
 
