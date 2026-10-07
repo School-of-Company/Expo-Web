@@ -40,8 +40,8 @@ export default function HomePage() {
                   <span
                     role="img"
                     aria-label="2026 전남광주통합특별시교육청 AI미래교육박람회"
-                    className="block aspect-[1200/438] h-26 bg-contain bg-no-repeat sm:h-38"
-                    style={{ backgroundImage: getBackgroundImage(logo, { shouldPreload: true, blur: false, width: 417 }) }}
+                    className="block aspect-[1200/438] h-32 bg-contain bg-no-repeat sm:h-48"
+                    style={{ backgroundImage: getBackgroundImage(logo, { shouldPreload: true, blur: false, width: 526 }) }}
                   />
                 </h1>
                 <p className="mt-4 max-w-xl text-[22px] font-extrabold leading-[1.3] text-primary-50 sm:text-[29px]">AI로 연결되는 배움, 함께 여는 미래</p>
