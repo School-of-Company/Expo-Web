@@ -3,7 +3,20 @@ import { guideNavItems } from "@/shared/config/guide-nav";
 import { SectionPage } from "@/widgets/section-page";
 
 const ADDRESS = "전남광주통합특별시 북구 능안로 30번길 7 (오치동 5-25)";
-const KAKAO_MAP_SEARCH = "https://map.kakao.com/link/search/전남광주통합특별시 북구 능안로 30번길 7";
+const SEARCH_QUERY = "전남광주통합특별시 북구 능안로 30번길 7";
+
+const MAP_LINKS = [
+  {
+    label: "카카오맵 길찾기",
+    href: `https://map.kakao.com/link/search/${SEARCH_QUERY}`,
+    color: "bg-[#FEE500] text-black/85",
+  },
+  {
+    label: "네이버지도 길찾기",
+    href: `https://map.naver.com/p/search/${SEARCH_QUERY}`,
+    color: "bg-[#03C75A] text-white",
+  },
+];
 
 export default function GuideDirectionsPage() {
   return (
@@ -21,14 +34,19 @@ export default function GuideDirectionsPage() {
           <Icon name="map-pin" className="h-4 w-4 shrink-0 text-primary-60" />
           {ADDRESS}
         </p>
-        <a
-          href={KAKAO_MAP_SEARCH}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="shrink-0 rounded-small border border-primary-50 px-4 py-2 text-body-s font-semibold text-primary-60 transition-colors duration-150 ease-out hover:bg-primary-10"
-        >
-          카카오맵 길찾기
-        </a>
+        <div className="flex shrink-0 flex-wrap gap-2">
+          {MAP_LINKS.map(({ label, href, color }) => (
+            <a
+              key={label}
+              href={href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`rounded-small px-4 py-2 text-body-s font-semibold transition-[filter] duration-150 ease-out hover:brightness-95 ${color}`}
+            >
+              {label}
+            </a>
+          ))}
+        </div>
       </div>
     </SectionPage>
   );
