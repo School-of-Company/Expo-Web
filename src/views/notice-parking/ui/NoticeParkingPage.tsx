@@ -1,5 +1,6 @@
 import SectionPage from "@/widgets/section-page/ui/SectionPage";
 import Icon from "@/shared/ui/Icon";
+import ParkingMapPreview from "./ParkingMapPreview";
 import { noticeNavItems } from "@/shared/config/notice-nav";
 
 export default function NoticeParkingPage() {
@@ -21,6 +22,7 @@ export default function NoticeParkingPage() {
         <li>· 장애인 및 임산부 우선 주차 구역이 별도 마련되어 있습니다.</li>
         <li>· 만차 시 인근 공영주차장(도보 5분) 이용을 안내해 드립니다.</li>
       </ul>
+      <ParkingMapPreview />
     </SectionPage>
   );
 }
