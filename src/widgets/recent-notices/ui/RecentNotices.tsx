@@ -1,8 +1,8 @@
 import Link from "next/link";
-import { notices } from "@/entities/notice/model/data";
+import { getNotices } from "@/entities/notice/api/notices";
 
-export default function RecentNotices() {
-  const recent = notices.slice(0, 3);
+export default async function RecentNotices() {
+  const recent = (await getNotices()).slice(0, 3);
 
   return (
     <div className="divide-y divide-border-default rounded-xlarge border border-border-default bg-bg-canvas">

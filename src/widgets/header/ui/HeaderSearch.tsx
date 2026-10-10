@@ -3,11 +3,19 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
-import { searchIndex } from "@/shared/config/search-index";
+import type { SearchItem } from "@/shared/config/search-index";
 import Icon from "@/shared/ui/Icon";
 import Badge from "@/shared/ui/Badge";
 
-export default function HeaderSearch({ open, onClose }: { open: boolean; onClose: () => void }) {
+export default function HeaderSearch({
+  open,
+  onClose,
+  searchIndex,
+}: {
+  open: boolean;
+  onClose: () => void;
+  searchIndex: SearchItem[];
+}) {
   const router = useRouter();
   const [query, setQuery] = useState("");
 
@@ -15,7 +23,7 @@ export default function HeaderSearch({ open, onClose }: { open: boolean; onClose
     const q = query.trim().toLowerCase();
     if (!q) return [];
     return searchIndex.filter((item) => `${item.title} ${item.desc} ${item.group}`.toLowerCase().includes(q)).slice(0, 8);
-  }, [query]);
+  }, [query, searchIndex]);
 
   const handleClose = () => {
     setQuery("");

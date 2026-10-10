@@ -10,11 +10,12 @@ import { useExternalLinkGuard } from "@/shared/lib/useExternalLinkGuard";
 import { getBackgroundImage } from "@/shared/lib/getBackgroundImage";
 import HeaderSearch from "./HeaderSearch";
 import MobileMenu from "./MobileMenu";
+import type { SearchItem } from "@/shared/config/search-index";
 import logo from "../../../../public/logo.png";
 
 const PARKING_GUIDE_URL = process.env.NEXT_PUBLIC_PARKING_GUIDE_URL ?? "";
 
-export default function Header() {
+export default function Header({ searchIndex }: { searchIndex: SearchItem[] }) {
   const pathname = usePathname();
   const parkingLink = useExternalLinkGuard(PARKING_GUIDE_URL);
   const [searchOpen, setSearchOpen] = useState(false);
@@ -158,7 +159,7 @@ export default function Header() {
         onParkingClick={parkingLink.onClick}
       />
 
-      <HeaderSearch open={searchOpen} onClose={() => setSearchOpen(false)} />
+      <HeaderSearch open={searchOpen} onClose={() => setSearchOpen(false)} searchIndex={searchIndex} />
     </>
   );
 }
