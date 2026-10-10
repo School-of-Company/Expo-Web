@@ -3,6 +3,7 @@ import PromoVideo from "@/widgets/promo-video/ui/PromoVideo";
 import TimelineSection from "@/widgets/event-timeline/ui/TimelineSection";
 import QuickApplyGroups from "@/widgets/quick-apply/ui/QuickApplyGroups";
 import RecentNotices from "@/widgets/recent-notices/ui/RecentNotices";
+import { AdminShortcut } from "@/widgets/admin-shortcut";
 import Button from "@/shared/ui/Button";
 import Badge from "@/shared/ui/Badge";
 import Icon from "@/shared/ui/Icon";
@@ -21,6 +22,7 @@ export default function HomePage() {
 
   return (
     <div>
+      <AdminShortcut />
       {/* <img>가 아닌 배경으로 깔아 사진을 끌거나 저장할 수 없게 한다. */}
       <section
         className="border-b border-border-default bg-[#eef0fb] bg-cover bg-center"
