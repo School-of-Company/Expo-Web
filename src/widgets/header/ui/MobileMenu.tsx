@@ -16,7 +16,7 @@ const EASE_EXIT = "ease-[cubic-bezier(0.4,0,0.2,1)]";
 /** 메뉴 줄이 위에서부터 차례로 올라오는 간격(ms). */
 const STAGGER_MS = 35;
 /** 닫히는 패널 애니메이션 길이(ms). 메뉴 줄은 이 시간이 지난 뒤에야 다음 열림을 위해 숨긴다. */
-const EXIT_MS = 240;
+const EXIT_MS = 280;
 
 const isSectionActive = (section: NavSection, pathname: string) => {
   const prefix = section.matchPrefix ?? section.href;
@@ -44,9 +44,10 @@ interface MobileMenuProps {
 }
 
 /**
- * md 미만에서 햄버거 버튼으로 여는 전체 화면 메뉴.
+ * md 미만에서 햄버거 버튼으로 여는 드롭다운 메뉴.
  *
- * - 헤더 바로 아래를 덮고, 열려 있는 동안 뒤쪽 페이지 스크롤을 잠근다.
+ * - 헤더 뒤에서 아래로 펼쳐지고, 메뉴 아래로는 어둡게 깐 현재 페이지가 비친다. 그 부분을 누르면 닫힌다.
+ * - 메뉴가 화면보다 길어지면 메뉴 안에서만 스크롤되고, 열려 있는 동안 뒤쪽 페이지 스크롤은 잠근다.
  * - 섹션은 한 번에 하나만 펼치는 아코디언이며, 지금 보고 있는 페이지의 섹션을 처음부터 펼쳐 둔다.
  * - 데스크톱 헤더에만 있는 실시간 현황·주차장 안내를 메뉴 맨 위로 옮겨 온다.
  * - Esc, 링크 이동, md 이상으로 화면이 넓어지는 경우에 닫힌다.
@@ -97,13 +98,24 @@ export default function MobileMenu({ open, onClose, parkingHref, parkingExternal
       id="mobile-menu"
       aria-hidden={!open}
       inert={!open}
-      className={`fixed inset-x-0 bottom-0 top-[57px] z-40 overflow-y-auto overscroll-contain bg-bg-canvas transition-[opacity,translate] motion-reduce:transition-none md:hidden ${
-        open
-          ? `translate-y-0 opacity-100 duration-[400ms] ${EASE_ENTER}`
-          : `pointer-events-none -translate-y-3 opacity-0 duration-[240ms] ${EASE_EXIT}`
-      }`}
+      className={`fixed inset-x-0 bottom-0 top-[57px] z-40 overflow-hidden md:hidden ${open ? "" : "pointer-events-none"}`}
     >
-      <nav aria-label="전체 메뉴" className="pb-[calc(env(safe-area-inset-bottom,0px)+24px)]">
+      <button
+        type="button"
+        tabIndex={-1}
+        aria-label="메뉴 닫기"
+        onClick={onClose}
+        className={`absolute inset-0 bg-gray-100/40 transition-opacity motion-reduce:transition-none ${
+          open ? `opacity-100 duration-[450ms] ${EASE_ENTER}` : `opacity-0 duration-[280ms] ${EASE_EXIT}`
+        }`}
+      />
+
+      <nav
+        aria-label="전체 메뉴"
+        className={`relative max-h-full overflow-y-auto overscroll-contain rounded-b-xlarge bg-bg-canvas shadow-2 transition-[translate] motion-reduce:transition-none ${
+          open ? `translate-y-0 duration-[450ms] ${EASE_ENTER}` : `-translate-y-full duration-[280ms] ${EASE_EXIT}`
+        }`}
+      >
         {/* 작은 알약 글자는 이동시키면 프레임마다 위치가 반올림돼 덜컹거려 보여서, 메뉴 패널과 함께 움직이게만 두고 따로 띄우지 않는다. */}
         <div className="flex flex-wrap gap-2 border-b border-border-default px-4 py-4">
           <span className={pillClass}>
@@ -133,7 +145,7 @@ export default function MobileMenu({ open, onClose, parkingHref, parkingExternal
             return (
               <li
                 key={section.key}
-                className={`border-b border-border-default ${staggerClass(open)}`}
+                className={`border-b border-border-default last:border-b-0 ${staggerClass(open)}`}
                 style={staggerStyle(open, index)}
               >
                 <button
