@@ -16,7 +16,7 @@ const EASE_EXIT = "ease-[cubic-bezier(0.4,0,0.2,1)]";
 /** 메뉴 줄이 위에서부터 차례로 올라오는 간격(ms). */
 const STAGGER_MS = 35;
 /** 닫히는 패널 애니메이션 길이(ms). 메뉴 줄은 이 시간이 지난 뒤에야 다음 열림을 위해 숨긴다. */
-const EXIT_MS = 280;
+const EXIT_MS = 320;
 
 const isSectionActive = (section: NavSection, pathname: string) => {
   const prefix = section.matchPrefix ?? section.href;
@@ -32,7 +32,7 @@ const staggerClass = (open: boolean) =>
     open ? `translate-y-0 opacity-100 duration-500 ${EASE_ENTER}` : "-translate-y-2 opacity-0 duration-0"
   }`;
 const staggerStyle = (open: boolean, index: number) => ({
-  transitionDelay: open ? `${60 + index * STAGGER_MS}ms` : `${EXIT_MS}ms`,
+  transitionDelay: open ? `${160 + index * STAGGER_MS}ms` : `${EXIT_MS}ms`,
 });
 
 interface MobileMenuProps {
@@ -100,20 +100,21 @@ export default function MobileMenu({ open, onClose, parkingHref, parkingExternal
       inert={!open}
       className={`fixed inset-x-0 bottom-0 top-[57px] z-40 overflow-hidden md:hidden ${open ? "" : "pointer-events-none"}`}
     >
+      {/* 열 때는 어두운 배경이 먼저 깔린 뒤 메뉴가 내려오고, 닫을 때는 메뉴가 먼저 올라간 뒤 배경이 걷힌다. */}
       <button
         type="button"
         tabIndex={-1}
         aria-label="메뉴 닫기"
         onClick={onClose}
         className={`absolute inset-0 bg-gray-100/40 transition-opacity motion-reduce:transition-none ${
-          open ? `opacity-100 duration-[450ms] ${EASE_ENTER}` : `opacity-0 duration-[280ms] ${EASE_EXIT}`
+          open ? "opacity-100 duration-[120ms] ease-out" : `opacity-0 delay-100 duration-[220ms] ${EASE_EXIT}`
         }`}
       />
 
       <nav
         aria-label="전체 메뉴"
         className={`relative max-h-full overflow-y-auto overscroll-contain rounded-b-xlarge bg-bg-canvas shadow-2 transition-[translate] motion-reduce:transition-none ${
-          open ? `translate-y-0 duration-[450ms] ${EASE_ENTER}` : `-translate-y-full duration-[280ms] ${EASE_EXIT}`
+          open ? `translate-y-0 delay-[100ms] duration-[450ms] ${EASE_ENTER}` : `-translate-y-full duration-[280ms] ${EASE_EXIT}`
         }`}
       >
         {/* 작은 알약 글자는 이동시키면 프레임마다 위치가 반올림돼 덜컹거려 보여서, 메뉴 패널과 함께 움직이게만 두고 따로 띄우지 않는다. */}
