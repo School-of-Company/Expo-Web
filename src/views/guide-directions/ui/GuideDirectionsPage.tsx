@@ -19,6 +19,11 @@ const MAP_LINKS = [
   },
 ];
 
+const BUS_STOPS = [
+  { stop: "자연과학고", walk: "7분", buses: ["송정19", "첨단23", "문흥53", "용전86", "운림35"] },
+  { stop: "문흥1동행정복지센터", walk: "10분", buses: ["문흥18", "문흥53", "운림35"] },
+];
+
 export default function GuideDirectionsPage() {
   return (
     <SectionPage navTitle="박람회 안내"
@@ -46,6 +51,18 @@ export default function GuideDirectionsPage() {
           ))}
         </div>
       </div>
+
+      <h2 className="mt-10 text-heading-s font-bold text-fg-1">대중교통 이용 방법</h2>
+      <ul className="mt-4 grid gap-3 sm:grid-cols-2">
+        {BUS_STOPS.map(({ stop, walk, buses }) => (
+          <li key={stop} className="rounded-xlarge border border-border-default bg-bg-canvas p-5">
+            <p className="text-body-m font-bold text-fg-1">
+              정류장: {stop} <span className="text-fg-3">(도보 {walk})</span>
+            </p>
+            <p className="mt-2 text-body-s text-fg-2">버스 번호: {buses.join(", ")}</p>
+          </li>
+        ))}
+      </ul>
     </SectionPage>
   );
 }
