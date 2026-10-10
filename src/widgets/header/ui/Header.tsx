@@ -2,13 +2,14 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import { NAV_SECTIONS } from "@/shared/config/site-nav";
 import { overallCongestionLevel, CONGESTION_STYLE } from "@/entities/congestion/model/data";
 import Icon from "@/shared/ui/Icon";
 import { useExternalLinkGuard } from "@/shared/lib/useExternalLinkGuard";
 import { getBackgroundImage } from "@/shared/lib/getBackgroundImage";
 import HeaderSearch from "./HeaderSearch";
+import MobileMenu from "./MobileMenu";
 import logo from "../../../../public/logo.png";
 
 const PARKING_GUIDE_URL = process.env.NEXT_PUBLIC_PARKING_GUIDE_URL ?? "";
@@ -20,6 +21,16 @@ export default function Header() {
   const [openDesktopKey, setOpenDesktopKey] = useState<string | null>(null);
   const [openSeq, setOpenSeq] = useState(0);
   const openSeqRef = useRef(0);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const closeMobileMenu = useCallback(() => setMobileOpen(false), []);
+  const isMenuOpen = openDesktopKey !== null || mobileOpen;
+
+  // 뒤로 가기처럼 메뉴 링크를 거치지 않고 페이지가 바뀌어도 모바일 메뉴를 닫는다.
+  const [menuPathname, setMenuPathname] = useState(pathname);
+  if (menuPathname !== pathname) {
+    setMenuPathname(pathname);
+    setMobileOpen(false);
+  }
 
   const openDesktopMenu = (key: string) => {
     if (openDesktopKey === null) {
@@ -46,6 +57,7 @@ export default function Header() {
             className="flex items-center"
             onClick={() => {
               setOpenDesktopKey(null);
+              setMobileOpen(false);
               if (pathname === "/") window.scrollTo({ top: 0, behavior: "smooth" });
             }}
           >
@@ -80,6 +92,7 @@ export default function Header() {
               className="flex h-10 w-10 items-center justify-center text-fg-2 transition-colors duration-150 ease-out hover:text-primary-60"
               onClick={(e) => {
                 e.stopPropagation();
+                setMobileOpen(false);
                 setSearchOpen((v) => !v);
               }}
               aria-label={searchOpen ? "검색 닫기" : "검색 열기"}
@@ -92,21 +105,25 @@ export default function Header() {
               className="flex h-10 w-10 items-center justify-center text-fg-2 transition-colors duration-150 ease-out hover:text-primary-60"
               onClick={(e) => {
                 e.stopPropagation();
-                if (openDesktopKey) {
+                if (isMenuOpen) {
                   setOpenDesktopKey(null);
-                } else {
+                  setMobileOpen(false);
+                } else if (window.matchMedia("(min-width: 768px)").matches) {
                   openDesktopMenu("menu");
+                } else {
+                  setMobileOpen(true);
                 }
               }}
-              aria-label={openDesktopKey ? "메뉴 닫기" : "메뉴 열기"}
+              aria-label={isMenuOpen ? "메뉴 닫기" : "메뉴 열기"}
+              aria-expanded={isMenuOpen}
             >
-              <Icon name={openDesktopKey ? "close" : "menu"} className="h-5 w-5" />
+              <Icon name={isMenuOpen ? "close" : "menu"} className="h-5 w-5" />
             </button>
           </div>
         </div>
 
         <div
-          className={`absolute inset-x-0 top-full overflow-hidden border-b border-border-default bg-bg-canvas shadow-2 transition-opacity ease-out ${
+          className={`absolute inset-x-0 top-full overflow-hidden max-md:hidden border-b border-border-default bg-bg-canvas shadow-2 transition-opacity ease-out ${
             openDesktopKey ? "pointer-events-auto opacity-100 duration-200" : "pointer-events-none opacity-0 duration-300"
           }`}
         >
@@ -132,6 +149,14 @@ export default function Header() {
           </div>
         </div>
       </header>
+
+      <MobileMenu
+        open={mobileOpen}
+        onClose={closeMobileMenu}
+        parkingHref={parkingLink.isConfigured ? PARKING_GUIDE_URL : "#"}
+        parkingExternal={parkingLink.isConfigured}
+        onParkingClick={parkingLink.onClick}
+      />
 
       <HeaderSearch open={searchOpen} onClose={() => setSearchOpen(false)} />
     </>
