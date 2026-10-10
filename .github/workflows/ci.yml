@@ -30,3 +30,6 @@ jobs:
 
       - name: Build
         run: npm run build
+        env:
+          # 공지 데이터를 DB에서 읽어 정적 페이지를 만들기 때문에 빌드에 필요하다.
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}

@@ -2,11 +2,12 @@ import Link from "next/link";
 import SectionPage from "@/widgets/section-page/ui/SectionPage";
 import Pagination from "@/shared/ui/Pagination";
 import { noticeNavItems } from "@/shared/config/notice-nav";
-import { notices } from "@/entities/notice/model/data";
+import { getNotices } from "@/entities/notice/api/notices";
 
 const PAGE_SIZE = 10;
 
-export default function NoticePage({ page }: { page: number }) {
+export default async function NoticePage({ page }: { page: number }) {
+  const notices = await getNotices();
   const totalPages = Math.max(1, Math.ceil(notices.length / PAGE_SIZE));
   const currentPage = Math.min(Math.max(1, page || 1), totalPages);
   const pageItems = notices.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE);
