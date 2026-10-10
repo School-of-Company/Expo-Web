@@ -13,27 +13,11 @@ import Icon from "@/shared/ui/Icon";
  */
 const EASE_ENTER = "ease-[cubic-bezier(0.16,1,0.3,1)]";
 const EASE_EXIT = "ease-[cubic-bezier(0.4,0,0.2,1)]";
-/** 메뉴 줄이 위에서부터 차례로 올라오는 간격(ms). */
-const STAGGER_MS = 35;
-/** 닫히는 패널 애니메이션 길이(ms). 메뉴 줄은 이 시간이 지난 뒤에야 다음 열림을 위해 숨긴다. */
-const EXIT_MS = 320;
 
 const isSectionActive = (section: NavSection, pathname: string) => {
   const prefix = section.matchPrefix ?? section.href;
   return pathname === prefix || pathname.startsWith(`${prefix}/`);
 };
-
-/**
- * 열릴 때만 줄마다 지연을 두어 순서대로 떠오르게 한다. 닫힐 때 줄이 먼저 사라지면 빈 패널만 올라가
- * 끊겨 보이므로, 줄은 그대로 두고 패널이 다 걷힌 뒤(EXIT_MS) 한 번에 숨겨 다음 열림을 준비한다.
- */
-const staggerClass = (open: boolean) =>
-  `transition-[opacity,translate] motion-reduce:transition-none ${
-    open ? `translate-y-0 opacity-100 duration-500 ${EASE_ENTER}` : "-translate-y-2 opacity-0 duration-0"
-  }`;
-const staggerStyle = (open: boolean, index: number) => ({
-  transitionDelay: open ? `${160 + index * STAGGER_MS}ms` : `${EXIT_MS}ms`,
-});
 
 interface MobileMenuProps {
   open: boolean;
@@ -117,7 +101,6 @@ export default function MobileMenu({ open, onClose, parkingHref, parkingExternal
           open ? `translate-y-0 delay-[100ms] duration-[450ms] ${EASE_ENTER}` : `-translate-y-full duration-[280ms] ${EASE_EXIT}`
         }`}
       >
-        {/* 작은 알약 글자는 이동시키면 프레임마다 위치가 반올림돼 덜컹거려 보여서, 메뉴 패널과 함께 움직이게만 두고 따로 띄우지 않는다. */}
         <div className="flex flex-wrap gap-2 border-b border-border-default px-4 py-4">
           <span className={pillClass}>
             실시간 현황
@@ -139,22 +122,18 @@ export default function MobileMenu({ open, onClose, parkingHref, parkingExternal
         </div>
 
         <ul>
-          {sections.map((section, index) => {
+          {sections.map((section) => {
             const isOpen = section.key === expandedKey;
             const isActive = section.key === activeKey;
             const panelId = `mobile-menu-${section.key}`;
             return (
-              <li
-                key={section.key}
-                className={`border-b border-border-default last:border-b-0 ${staggerClass(open)}`}
-                style={staggerStyle(open, index)}
-              >
+              <li key={section.key} className="border-b border-border-default last:border-b-0">
                 <button
                   type="button"
                   aria-expanded={isOpen}
                   aria-controls={panelId}
                   onClick={() => setOpenKey(isOpen ? null : section.key)}
-                  className={`flex min-h-14 w-full items-center justify-between px-4 text-left text-body-m font-bold transition-colors duration-150 ease-out ${
+                  className={`flex min-h-14 w-full items-center justify-between px-4 text-left text-body-m font-bold ${
                     isActive ? "text-primary-60" : "text-fg-1"
                   }`}
                 >
@@ -167,18 +146,22 @@ export default function MobileMenu({ open, onClose, parkingHref, parkingExternal
 
                 <div
                   id={panelId}
-                  className={`grid transition-[grid-template-rows] duration-300 motion-reduce:transition-none ${EASE_ENTER} ${
+                  className={`grid bg-bg-subtle transition-[grid-template-rows] duration-300 motion-reduce:transition-none ${EASE_ENTER} ${
                     isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
                   }`}
                 >
-                  <ul
-                    className={`overflow-hidden bg-bg-subtle transition-opacity duration-300 ${EASE_ENTER} ${isOpen ? "opacity-100" : "opacity-0"}`}
-                    inert={!isOpen}
-                  >
+                  {/* 펼치는 도중에는 이 목록이 바깥 칸보다 늦게 커지므로, 회색 배경은 바깥 칸에 칠해 흰 틈이 보이지 않게 한다. */}
+                  <ul className="overflow-hidden" inert={!isOpen}>
                     {section.sub.map((item) => {
                       const isCurrent = pathname === item.href;
+                      // 회색 배경은 펼치는 즉시 보이고, 항목 글자만 뒤따라 서서히 나타난다.
                       return (
-                        <li key={item.key}>
+                        <li
+                          key={item.key}
+                          className={`transition-opacity duration-300 motion-reduce:transition-none ${EASE_ENTER} ${
+                            isOpen ? "opacity-100" : "opacity-0"
+                          }`}
+                        >
                           <Link
                             href={item.href}
                             onClick={onClose}
