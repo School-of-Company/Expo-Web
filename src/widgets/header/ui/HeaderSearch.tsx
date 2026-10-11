@@ -87,7 +87,7 @@ export default function HeaderSearch({
                     <Link
                       href={r.href}
                       onClick={handleClose}
-                      className="flex items-start gap-3 rounded-medium px-3 py-2.5 transition-colors duration-150 ease-out hover:bg-primary-10"
+                      className="flex items-start gap-3 rounded-medium px-3 py-2.5 transition-colors duration-150 ease-out hover:bg-bg-subtle"
                     >
                       <Badge variant="solid-pastel" className="mt-0.5">
                         {r.group}

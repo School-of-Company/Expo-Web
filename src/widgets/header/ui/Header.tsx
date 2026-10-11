@@ -82,7 +82,7 @@ export default function Header({ searchIndex }: { searchIndex: SearchItem[] }) {
                 target={parkingLink.isConfigured ? "_blank" : undefined}
                 rel={parkingLink.isConfigured ? "noopener noreferrer" : undefined}
                 onClick={parkingLink.onClick}
-                className="flex items-center whitespace-nowrap rounded-pill bg-bg-subtle px-3 py-1 text-body-xs font-semibold text-fg-2 transition-colors duration-150 ease-out hover:text-primary-60"
+                className="flex items-center whitespace-nowrap rounded-pill bg-bg-subtle px-3 py-1 text-body-xs font-semibold text-fg-2 transition-colors duration-150 ease-out hover:text-primary-50"
               >
                 주차장 안내
               </a>
@@ -90,7 +90,7 @@ export default function Header({ searchIndex }: { searchIndex: SearchItem[] }) {
 
             <button
               type="button"
-              className="flex h-10 w-10 items-center justify-center text-fg-2 transition-colors duration-150 ease-out hover:text-primary-60"
+              className="flex h-10 w-10 items-center justify-center text-fg-2 transition-colors duration-150 ease-out hover:text-primary-50"
               onClick={(e) => {
                 e.stopPropagation();
                 setMobileOpen(false);
@@ -103,7 +103,7 @@ export default function Header({ searchIndex }: { searchIndex: SearchItem[] }) {
 
             <button
               type="button"
-              className="flex h-10 w-10 items-center justify-center text-fg-2 transition-colors duration-150 ease-out hover:text-primary-60"
+              className="flex h-10 w-10 items-center justify-center text-fg-2 transition-colors duration-150 ease-out hover:text-primary-50"
               onClick={(e) => {
                 e.stopPropagation();
                 if (isMenuOpen) {
@@ -138,7 +138,7 @@ export default function Header({ searchIndex }: { searchIndex: SearchItem[] }) {
                       <Link
                         href={s.href}
                         onClick={() => setOpenDesktopKey(null)}
-                        className="block text-body-m font-semibold text-fg-1 transition-colors duration-150 ease-out hover:text-primary-60"
+                        className="block text-body-m font-semibold text-fg-1 transition-colors duration-150 ease-out hover:text-primary-50"
                       >
                         {s.label}
                       </Link>

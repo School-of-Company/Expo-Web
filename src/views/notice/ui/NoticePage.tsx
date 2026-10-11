@@ -25,7 +25,7 @@ export default async function NoticePage({ page }: { page: number }) {
           <Link
             key={n.id}
             href={`/notice/${n.id}`}
-            className="flex gap-6 px-3 py-5 transition-colors duration-150 ease-out hover:bg-primary-10"
+            className="flex gap-6 px-3 py-5 transition-colors duration-150 ease-out hover:bg-bg-subtle"
           >
             <span className="w-24 shrink-0 text-body-s font-medium tabular-nums text-fg-3">{n.date}</span>
             <div className="min-w-0">

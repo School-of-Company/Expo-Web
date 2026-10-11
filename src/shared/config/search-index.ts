@@ -1,6 +1,6 @@
 import { NAV_SECTIONS } from "./site-nav";
 import type { Notice } from "@/entities/notice/model/types";
-import { faqs } from "@/entities/faq/model/data";
+import { faqs, faqPlainAnswer } from "@/entities/faq/model/data";
 
 export interface SearchItem {
   title: string;
@@ -15,7 +15,7 @@ const pageItems: SearchItem[] = NAV_SECTIONS.flatMap((section) =>
 
 const faqItems: SearchItem[] = faqs.map((f) => ({
   title: f.q,
-  desc: f.a,
+  desc: faqPlainAnswer(f.a),
   href: "/notice/faq",
   group: "FAQ",
 }));

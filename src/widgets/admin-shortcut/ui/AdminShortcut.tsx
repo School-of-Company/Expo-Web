@@ -24,7 +24,7 @@ export default function AdminShortcut() {
         <p className="text-body-s font-semibold text-fg-on-primary">관리자로 로그인되어 있습니다.</p>
         <Link
           href="/admin"
-          className="flex h-10 items-center gap-2 rounded-small bg-bg-canvas px-4 text-body-s font-bold text-primary-60 transition-colors duration-150 ease-out hover:bg-primary-10"
+          className="flex h-10 items-center gap-2 rounded-small bg-bg-canvas px-4 text-body-s font-bold text-primary-50 transition-colors duration-150 ease-out hover:bg-bg-subtle"
         >
           <Icon name="clipboard" className="h-4 w-4" />
           공지 관리로 이동

@@ -115,7 +115,7 @@ export default function MobileMenu({ open, onClose, parkingHref, parkingExternal
               onParkingClick(e);
               onClose();
             }}
-            className={`${pillClass} transition-colors duration-150 ease-out active:text-primary-60`}
+            className={`${pillClass} transition-colors duration-150 ease-out active:text-primary-50`}
           >
             주차장 안내
           </a>
@@ -134,7 +134,7 @@ export default function MobileMenu({ open, onClose, parkingHref, parkingExternal
                   aria-controls={panelId}
                   onClick={() => setOpenKey(isOpen ? null : section.key)}
                   className={`flex min-h-14 w-full items-center justify-between px-4 text-left text-body-m font-bold ${
-                    isActive ? "text-primary-60" : "text-fg-1"
+                    isActive ? "text-primary-50" : "text-fg-1"
                   }`}
                 >
                   {section.label}
@@ -166,8 +166,8 @@ export default function MobileMenu({ open, onClose, parkingHref, parkingExternal
                             href={item.href}
                             onClick={onClose}
                             aria-current={isCurrent ? "page" : undefined}
-                            className={`flex min-h-12 items-center justify-between gap-3 py-3 pl-7 pr-4 text-body-s transition-colors duration-150 ease-out active:bg-primary-10 ${
-                              isCurrent ? "font-bold text-primary-60" : "font-medium text-fg-2"
+                            className={`flex min-h-12 items-center justify-between gap-3 py-3 pl-7 pr-4 text-body-s transition-colors duration-150 ease-out active:bg-gray-20 ${
+                              isCurrent ? "font-bold text-primary-50" : "font-medium text-fg-2"
                             }`}
                           >
                             {item.label}
