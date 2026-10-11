@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 
 import { SITE_DESCRIPTION, SITE_KEYWORDS, SITE_NAME, SITE_SHORT_NAME, SITE_TITLE, SITE_URL } from "@/shared/config/site";
 
+import { getNotices } from "@/entities/notice/api/notices";
+import { buildSearchIndex } from "@/shared/config/search-index";
 import DisableNativeDrag from "@/shared/ui/DisableNativeDrag";
 import { Footer } from "@/widgets/footer";
 import { Header } from "@/widgets/header";
@@ -34,7 +36,9 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default async function RootLayout({ children }: LayoutProps<"/">) {
+  const searchIndex = buildSearchIndex(await getNotices());
+
   return (
     <html lang="ko" className="h-full antialiased">
       <body className="min-h-full flex flex-col bg-background text-foreground font-sans">
@@ -44,7 +48,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         >
           본문 바로가기
         </a>
-        <Header />
+        <Header searchIndex={searchIndex} />
         <main id="main-content" className="flex-1">
           {children}
         </main>

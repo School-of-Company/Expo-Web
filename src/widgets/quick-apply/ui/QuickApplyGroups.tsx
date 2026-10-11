@@ -79,13 +79,13 @@ export default function QuickApplyGroups() {
                 className="group flex flex-col gap-1.5 rounded-medium bg-white/20 px-4 py-3.5 transition-colors duration-300 ease-out hover:bg-white"
               >
                 <div className="flex items-center justify-between gap-2">
-                  <span className="flex items-center gap-2 text-body-s font-bold text-white transition-colors duration-300 ease-out group-hover:text-primary-60">
-                    <Icon name={item.icon} className="h-4 w-4 text-white transition-colors duration-300 ease-out group-hover:text-primary-60" />
+                  <span className="flex items-center gap-2 text-body-s font-bold text-white transition-colors duration-300 ease-out group-hover:text-primary-50">
+                    <Icon name={item.icon} className="h-4 w-4 text-white transition-colors duration-300 ease-out group-hover:text-primary-50" />
                     {item.title}
                   </span>
                   <Icon
                     name="arrow-right"
-                    className="h-4 w-4 shrink-0 text-white transition-all duration-300 ease-in-out group-hover:translate-x-1.5 group-hover:text-primary-60"
+                    className="h-4 w-4 shrink-0 text-white transition-all duration-300 ease-in-out group-hover:translate-x-1.5 group-hover:text-primary-50"
                   />
                 </div>
                 <p className="text-body-xs leading-relaxed text-white transition-colors duration-300 ease-out group-hover:text-fg-3">{item.desc}</p>

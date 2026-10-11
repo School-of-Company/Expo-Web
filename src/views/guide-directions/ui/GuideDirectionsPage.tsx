@@ -19,6 +19,11 @@ const MAP_LINKS = [
   },
 ];
 
+const BUS_STOPS = [
+  { stop: "자연과학고", walk: "7분", buses: ["송정19", "첨단23", "문흥53", "용전86", "운림35"] },
+  { stop: "문흥1동행정복지센터", walk: "10분", buses: ["문흥18", "문흥53", "운림35"] },
+];
+
 export default function GuideDirectionsPage() {
   return (
     <SectionPage navTitle="박람회 안내"
@@ -29,7 +34,7 @@ export default function GuideDirectionsPage() {
 
       <div className="mt-6 flex flex-col items-start gap-4 rounded-xlarge border border-border-default bg-bg-canvas p-5 sm:flex-row sm:items-center sm:justify-between">
         <p className="flex items-center gap-2 text-body-s font-semibold text-fg-1">
-          <Icon name="map-pin" className="h-4 w-4 shrink-0 text-primary-60" />
+          <Icon name="map-pin" className="h-4 w-4 shrink-0 text-primary-50" />
           {ADDRESS}
         </p>
         <div className="flex shrink-0 flex-wrap gap-2">
@@ -46,6 +51,18 @@ export default function GuideDirectionsPage() {
           ))}
         </div>
       </div>
+
+      <h2 className="mt-10 text-heading-s font-bold text-fg-1">대중교통 이용 방법</h2>
+      <ul className="mt-4 grid gap-3 sm:grid-cols-2">
+        {BUS_STOPS.map(({ stop, walk, buses }) => (
+          <li key={stop} className="rounded-xlarge border border-border-default bg-bg-canvas p-5">
+            <p className="text-body-m font-bold text-fg-1">
+              정류장: {stop} <span className="text-fg-3">(도보 {walk})</span>
+            </p>
+            <p className="mt-2 text-body-s text-fg-2">버스 번호: {buses.join(", ")}</p>
+          </li>
+        ))}
+      </ul>
     </SectionPage>
   );
 }

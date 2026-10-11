@@ -35,7 +35,7 @@ export default function ExternalApplyPanel({
           target={isConfigured ? "_blank" : undefined}
           rel={isConfigured ? "noopener noreferrer" : undefined}
           onClick={onClick}
-          className="group mt-10 inline-flex items-center gap-2 rounded-medium bg-primary-50 px-10 py-4 text-body-m font-bold text-fg-on-primary transition-colors duration-150 ease-out hover:bg-primary-60 sm:text-body-l"
+          className="group mt-10 inline-flex items-center gap-2 rounded-medium bg-primary-50 px-10 py-4 text-body-m font-bold text-fg-on-primary transition-colors duration-150 ease-out hover:bg-primary-50/90 sm:text-body-l"
         >
           {label}
           <Icon name="arrow-right" className="h-6 w-6 transition-transform duration-150 ease-out group-hover:translate-x-1" />

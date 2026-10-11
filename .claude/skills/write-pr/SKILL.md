@@ -24,8 +24,11 @@ git fetch origin "$BASE" --quiet 2>/dev/null || true
 git log "origin/$BASE..HEAD" --oneline
 git diff "origin/$BASE...HEAD" --stat
 git diff "origin/$BASE...HEAD"
-cat .github/PULL_REQUEST_TEMPLATE.md 2>/dev/null
+ls .github/pull_request_template.md .github/PULL_REQUEST_TEMPLATE.md .github/PULL_REQUEST_TEMPLATE/*.md 2>/dev/null
 ```
+
+Read the repo's PR template from whichever path exists. If none exists, use `${CLAUDE_SKILL_DIR}/references/pr-template.md` instead — it is
+a copy of this team's standard template.
 
 ## Step 3 — Learn This Project's Scope Vocabulary
 
@@ -81,10 +84,14 @@ Read `${CLAUDE_SKILL_DIR}/references/commit-conventions.md` for type and scope n
 - Description: Korean, concise, no emojis, max 50 characters total
 - Wrap class names, method names, annotations, file names, and technical terms in backticks (e.g., `@Transactional`, `MemberService`, `SKILL.md`)
 
-**Body** — Follow the `.github/PULL_REQUEST_TEMPLATE.md` structure:
+**Body** — Fill in the PR template from Step 2:
 
+- Keep every section heading exactly as the template writes it, including its emoji (`## 💡 PR 요약`)
+- Replace each `>` guide quote and placeholder such as `{변경사항}` with real content, and delete the
+  closing instruction line (`작성하지 않은 부분은 삭제해주세요.`)
+- Drop a section only when there is nothing to say in it
 - Korean 합쇼체: `~하였습니다`, `~되었습니다`, `~추가하였습니다`
-- No emojis
+- No emojis in the text you write — the template's heading emojis are the only exception
 - Max 2500 characters
 - Wrap all proper nouns and technical identifiers in backticks: class names, method names, annotations, file names, field names, config keys, module names, and agent names.
 

@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 
-import { notices } from "@/entities/notice/model/data";
+import { getNotices } from "@/entities/notice/api/notices";
 import { SITE_URL } from "@/shared/config/site";
 
 const STATIC_PATHS = [
@@ -22,7 +22,8 @@ const STATIC_PATHS = [
   "/notice/parking",
 ];
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const notices = await getNotices();
   return [
     ...STATIC_PATHS.map((path) => ({ url: `${SITE_URL}${path}` })),
     // 공지 날짜 형식: "2026.08.20"

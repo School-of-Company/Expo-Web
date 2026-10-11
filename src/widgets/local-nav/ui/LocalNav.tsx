@@ -23,8 +23,8 @@ export default function LocalNav({ title, items }: { title: string; items: Local
           const isActive = item.onClick ? item.active : item.active ?? (item.href ? pathname === item.href : false);
           const className = `block w-full rounded-medium px-4 py-3 text-center text-body-s font-medium leading-snug transition-colors duration-150 ease-out sm:rounded-none sm:border-l-[3px] sm:px-4 sm:py-2.5 sm:text-left ${
             isActive
-              ? "bg-primary-10 font-bold text-primary-60 sm:border-primary-50"
-              : "bg-bg-subtle text-fg-2 hover:bg-primary-10 hover:text-primary-60 sm:border-transparent sm:bg-transparent"
+              ? "bg-gray-20 font-bold text-primary-50 sm:border-primary-50 sm:bg-bg-subtle"
+              : "bg-bg-subtle text-fg-2 hover:text-fg-1 sm:border-transparent sm:bg-transparent sm:hover:bg-bg-subtle"
           }`;
           const content = item.shortLabel ?? item.label;
 

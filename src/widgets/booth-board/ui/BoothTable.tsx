@@ -46,7 +46,7 @@ export default function BoothTable({ booths, caption }: { booths: Booth[]; capti
             <col className="w-[36%]" />
           </colgroup>
           <thead>
-            <tr className="border-b-2 border-secondary-70 bg-bg-canvas text-fg-1">
+            <tr className="border-b-2 border-fg-1 bg-bg-canvas text-fg-1">
               <th scope="col" className="h-12 border-r border-border-default px-4 text-center font-bold">
                 부스번호
               </th>
@@ -67,7 +67,7 @@ export default function BoothTable({ booths, caption }: { booths: Booth[]; capti
           <tbody>
             {booths.map((b) => (
               <tr key={b.no} className="border-t border-gray-20">
-                <td className="break-words border-r border-gray-20 bg-primary-10 px-4 py-3 text-center font-bold text-fg-1">
+                <td className="break-words border-r border-gray-20 bg-bg-subtle px-4 py-3 text-center font-bold text-fg-1">
                   {b.no}
                 </td>
                 <td className="break-words border-r border-gray-20 px-4 py-3 text-center text-fg-2">{b.name}</td>

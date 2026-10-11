@@ -1,5 +1,5 @@
 import { pageMetadata } from "@/shared/config/site";
-import { faqs } from "@/entities/faq/model/data";
+import { faqs, faqPlainAnswer } from "@/entities/faq/model/data";
 import JsonLd from "@/shared/ui/JsonLd";
 import NoticeFaqPage from "@/views/notice-faq/ui/NoticeFaqPage";
 
@@ -15,7 +15,7 @@ export default function Page() {
           mainEntity: faqs.map((f) => ({
             "@type": "Question",
             name: f.q,
-            acceptedAnswer: { "@type": "Answer", text: f.a },
+            acceptedAnswer: { "@type": "Answer", text: faqPlainAnswer(f.a) },
           })),
         }}
       />

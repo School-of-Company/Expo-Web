@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { getBackgroundImage } from "@/shared/lib/getBackgroundImage";
 import organizerLogo from "../../../../public/logos/organizer.svg";
 import hostLogo from "../../../../public/logos/host.svg";
@@ -43,6 +44,9 @@ export default function Footer() {
             <a href={PRIVACY_POLICY_URL} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:text-white">
               개인정보처리방침
             </a>
+            <Link href="/developers" className="underline underline-offset-2 hover:text-white">
+              개발자 후기
+            </Link>
           </div>
           <p className="mt-4 text-body-xs text-white/40">
             Copyright © 2026 전남광주통합특별시교육청 AI미래교육박람회. All rights reserved.

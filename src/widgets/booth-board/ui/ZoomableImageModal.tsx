@@ -7,6 +7,11 @@ import Icon from "@/shared/ui/Icon";
 const MIN_SCALE = 1;
 const MAX_SCALE = 5;
 const SCALE_STEP = 0.5;
+/** 핀치 감도. 손가락 간격 비율을 이 지수만큼 줄여 반영해, 간격이 2배가 돼도 약 1.5배만 커진다. */
+const PINCH_SENSITIVITY = 0.6;
+/** 휠 deltaY 1px당 배율 변화량. 트랙패드 핀치(ctrlKey)는 delta가 작게 자주 들어와 따로 둔다. */
+const WHEEL_SENSITIVITY = 0.0015;
+const TRACKPAD_PINCH_SENSITIVITY = 0.008;
 
 export interface ZoomableImage {
   src: string;
@@ -29,6 +34,7 @@ export default function ZoomableImageModal({ image, onClose }: { image: Zoomable
   const [offset, setOffset] = useState({ x: 0, y: 0 });
 
   const dialogRef = useRef<HTMLDivElement>(null);
+  const stageRef = useRef<HTMLDivElement>(null);
   /** 화면에 닿아 있는 포인터들. 2개가 되면 핀치 줌으로 해석한다. */
   const pointers = useRef(new Map<number, { x: number; y: number }>());
   const pinchStart = useRef<{ distance: number; scale: number } | null>(null);
@@ -63,6 +69,24 @@ export default function ZoomableImageModal({ image, onClose }: { image: Zoomable
     };
   }, [onClose]);
 
+  // 휠·트랙패드 핀치는 delta 크기에 비례해 배율을 바꾼다. 브라우저 확대(ctrl+휠)를 막아야 해서
+  // React onWheel(passive) 대신 passive: false 리스너를 직접 단다.
+  useEffect(() => {
+    const stage = stageRef.current;
+    if (!stage) return;
+    const handleWheel = (e: WheelEvent) => {
+      e.preventDefault();
+      const sensitivity = e.ctrlKey ? TRACKPAD_PINCH_SENSITIVITY : WHEEL_SENSITIVITY;
+      setScale((prev) => {
+        const next = clampScale(prev * Math.exp(-e.deltaY * sensitivity));
+        if (next === MIN_SCALE) setOffset({ x: 0, y: 0 });
+        return next;
+      });
+    };
+    stage.addEventListener("wheel", handleWheel, { passive: false });
+    return () => stage.removeEventListener("wheel", handleWheel);
+  }, []);
+
   const pointerDistance = () => {
     const [a, b] = [...pointers.current.values()];
     return Math.hypot(a.x - b.x, a.y - b.y);
@@ -84,7 +108,8 @@ export default function ZoomableImageModal({ image, onClose }: { image: Zoomable
 
     if (pointers.current.size >= 2) {
       if (!pinchStart.current || pinchStart.current.distance === 0) return;
-      const next = clampScale(pinchStart.current.scale * (pointerDistance() / pinchStart.current.distance));
+      const ratio = pointerDistance() / pinchStart.current.distance;
+      const next = clampScale(pinchStart.current.scale * ratio ** PINCH_SENSITIVITY);
       setScale(next);
       if (next === MIN_SCALE) setOffset({ x: 0, y: 0 });
       return;
@@ -148,12 +173,12 @@ export default function ZoomableImageModal({ image, onClose }: { image: Zoomable
       </div>
 
       <div
+        ref={stageRef}
         className="relative flex-1 touch-none overflow-hidden"
         onPointerDown={handlePointerDown}
         onPointerMove={handlePointerMove}
         onPointerUp={handlePointerUp}
         onPointerCancel={handlePointerUp}
-        onWheel={(e) => zoomBy(e.deltaY < 0 ? SCALE_STEP : -SCALE_STEP)}
         style={{ cursor: scale > MIN_SCALE ? "grab" : "default" }}
       >
         <div
