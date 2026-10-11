@@ -11,11 +11,11 @@ export default function TimelineSection() {
       <div className="flex flex-col gap-6 @min-[48rem]:hidden">
         {groups.map(({ date, items }) => (
           <section key={date}>
-            <h3 className="rounded-medium bg-primary-10 px-4 py-2 text-body-s font-bold text-fg-1">{date}</h3>
+            <h3 className="rounded-medium bg-bg-subtle px-4 py-2 text-body-s font-bold text-fg-1">{date}</h3>
             <ul className="mt-3 flex flex-col gap-3">
               {items.map((item) => (
                 <li key={`${item.time}-${item.title}`} className="rounded-large border border-border-default bg-bg-canvas p-4">
-                  <p className="text-body-xs font-semibold tabular-nums text-primary-60">{item.time}</p>
+                  <p className="text-body-xs font-semibold tabular-nums text-primary-50">{item.time}</p>
                   <p className="mt-1 text-body-s font-bold text-fg-1">{item.title}</p>
                   <p className="mt-1 flex items-center gap-1 text-body-xs text-fg-3">
                     <Icon name="map-pin" className="h-3.5 w-3.5 shrink-0" />
@@ -38,7 +38,7 @@ export default function TimelineSection() {
       <div className="hidden overflow-x-auto rounded-xlarge border border-border-default @min-[48rem]:block">
         <table className="w-full border-collapse text-left text-body-s">
           <thead>
-            <tr className="border-b-2 border-secondary-70 bg-bg-canvas text-fg-1">
+            <tr className="border-b-2 border-fg-1 bg-bg-canvas text-fg-1">
               <th className="h-12 whitespace-nowrap border-r border-border-default px-4 text-center font-bold">일자</th>
               <th className="h-12 whitespace-nowrap border-r border-border-default px-4 text-center font-bold">구분</th>
               <th className="h-12 whitespace-nowrap border-r border-border-default px-4 text-center font-bold">시간</th>
@@ -56,7 +56,7 @@ export default function TimelineSection() {
                   {i === 0 && (
                     <td
                       rowSpan={items.length}
-                      className="whitespace-nowrap border-r border-gray-20 bg-primary-10 px-4 py-3 text-center font-bold text-fg-1"
+                      className="whitespace-nowrap border-r border-gray-20 bg-bg-subtle px-4 py-3 text-center font-bold text-fg-1"
                     >
                       {date}
                     </td>

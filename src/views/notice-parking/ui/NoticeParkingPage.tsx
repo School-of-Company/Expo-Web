@@ -13,7 +13,7 @@ export default function NoticeParkingPage() {
       contentClassName="min-w-0 flex-1 rounded-xlarge border border-border-default bg-bg-canvas p-6"
     >
       <p className="flex items-center gap-2 text-body-m font-bold text-fg-1">
-        <Icon name="car" className="h-5 w-5 text-primary-60" />
+        <Icon name="car" className="h-5 w-5 text-primary-50" />
         전남광주통합특별시교육청AI교육원 주차장
       </p>
       <ul className="mt-3 space-y-2 text-body-s text-fg-2">

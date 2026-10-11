@@ -29,7 +29,7 @@ export default function NoticeForm({ notice }: { notice?: Notice }) {
           required
           rows={12}
           defaultValue={notice?.content.join("\n")}
-          className="w-full rounded-small border border-border-default px-3 py-2.5 text-body-s leading-relaxed outline-none transition-colors duration-150 ease-out focus:border-primary-50 focus:ring-2 focus:ring-primary-10"
+          className="w-full rounded-small border border-border-default px-3 py-2.5 text-body-s leading-relaxed outline-none transition-colors duration-150 ease-out focus:border-primary-50 focus:ring-2 focus:ring-gray-20"
         />
         <p className="mt-1.5 text-body-xs text-fg-3">줄을 바꾸면 문단이 나뉩니다.</p>
       </div>

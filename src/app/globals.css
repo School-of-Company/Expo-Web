@@ -60,7 +60,7 @@
   --fg-3: var(--gray-60);
   --fg-4: var(--gray-50);
   --fg-on-primary: oklch(1 0 0);
-  --fg-link: var(--primary-60);
+  --fg-link: var(--primary-50);
   --bg-canvas: oklch(1 0 0);
   --bg-subtle: var(--gray-10);
   --bg-muted: var(--secondary-10);

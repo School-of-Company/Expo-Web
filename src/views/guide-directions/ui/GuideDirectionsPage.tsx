@@ -34,7 +34,7 @@ export default function GuideDirectionsPage() {
 
       <div className="mt-6 flex flex-col items-start gap-4 rounded-xlarge border border-border-default bg-bg-canvas p-5 sm:flex-row sm:items-center sm:justify-between">
         <p className="flex items-center gap-2 text-body-s font-semibold text-fg-1">
-          <Icon name="map-pin" className="h-4 w-4 shrink-0 text-primary-60" />
+          <Icon name="map-pin" className="h-4 w-4 shrink-0 text-primary-50" />
           {ADDRESS}
         </p>
         <div className="flex shrink-0 flex-wrap gap-2">

@@ -14,8 +14,8 @@ const SIZE_CLASS: Record<Size, string> = {
 };
 
 const VARIANT_CLASS: Record<Variant, string> = {
-  primary: "bg-primary-50 text-fg-on-primary hover:bg-primary-60 active:bg-primary-70",
-  secondary: "bg-bg-canvas text-primary-60 border border-primary-50 hover:bg-primary-10",
+  primary: "bg-primary-50 text-fg-on-primary hover:bg-primary-50/90 active:bg-primary-50/80",
+  secondary: "bg-bg-canvas text-primary-50 border border-primary-50 hover:bg-bg-subtle",
   tertiary: "bg-bg-canvas text-fg-1 border border-border-default hover:bg-bg-subtle",
   danger: "bg-danger text-fg-on-primary hover:bg-danger/90 active:bg-danger/80",
 };

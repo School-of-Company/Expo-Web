@@ -58,8 +58,8 @@ export default function BoothBoard({ booths, listLabel, mapLabel, map }: BoothBo
               onKeyDown={handleKeyDown}
               className={`-mb-px border-b-2 px-4 py-3 text-body-s font-bold transition-colors duration-150 ease-out ${
                 isActive
-                  ? "border-primary-50 text-primary-60"
-                  : "border-transparent text-fg-3 hover:text-primary-60"
+                  ? "border-primary-50 text-primary-50"
+                  : "border-transparent text-fg-3 hover:text-primary-50"
               }`}
             >
               {t.label}
