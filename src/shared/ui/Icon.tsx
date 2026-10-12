@@ -22,6 +22,8 @@ const PATHS = {
   play: "M8 5.5v13l11-6.5-11-6.5Z",
   "external-link": "M14 5h5v5M19 5l-8.5 8.5M8 5H6a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2",
   "arrow-up": "M12 19V5m0 0-6 6m6-6 6 6",
+  "volume-on": "M4 9.5h3.5L12 5.5v13l-4.5-4H4v-5ZM15.5 9a4 4 0 0 1 0 6M18 6.5a7.5 7.5 0 0 1 0 11",
+  "volume-off": "M4 9.5h3.5L12 5.5v13l-4.5-4H4v-5ZM16 9.5l5 5M21 9.5l-5 5",
 } as const;
 
 export type IconName = keyof typeof PATHS;
