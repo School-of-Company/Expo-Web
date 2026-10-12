@@ -23,12 +23,22 @@ export default function HomePage() {
   return (
     <div>
       <AdminShortcut />
-      {/* <img>가 아닌 배경으로 깔아 사진을 끌거나 저장할 수 없게 한다. */}
+      {/* <img>가 아닌 배경으로 깔아 사진을 끌거나 저장할 수 없게 한다. 영상 로딩 전·모션 축소 시에는 이 이미지가 보인다. */}
       <section
-        className="border-b border-border-default bg-[#eef0fb] bg-cover bg-center"
+        className="relative overflow-hidden border-b border-border-default bg-[#eef0fb] bg-cover bg-center"
         style={{ backgroundImage: heroBgImage }}
       >
-        <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20">
+        <video
+          className="pointer-events-none absolute inset-0 h-full w-full object-cover motion-reduce:hidden"
+          src="/hero-bg.webm"
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+          aria-hidden="true"
+        />
+        <div className="relative mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20">
           <div className="grid grid-cols-1 gap-8 lg:grid-cols-[9fr_11fr] xl:grid-cols-[2fr_3fr] lg:items-stretch">
             <div className="flex flex-col justify-between">
               <div>
