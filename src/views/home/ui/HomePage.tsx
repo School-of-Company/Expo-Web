@@ -55,7 +55,7 @@ export default function HomePage() {
                   <span
                     role="img"
                     aria-label="2026 전남광주통합특별시교육청 AI미래교육박람회"
-                    className="hidden aspect-[1080/1008] w-[300px] bg-contain bg-no-repeat lg:block xl:w-[340px]"
+                    className="hidden aspect-[1080/1024] w-[300px] bg-contain bg-no-repeat lg:block xl:w-[340px]"
                     style={{
                       backgroundImage: getBackgroundImage(logoStacked, { shouldPreload: true, blur: false, width: 340, media: "(min-width: 1024px)" }),
                     }}
