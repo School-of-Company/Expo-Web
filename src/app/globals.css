@@ -245,6 +245,17 @@ a {
   }
 }
 
+/* 메인 CTA 위를 비스듬한 빛줄기가 왼쪽 밖에서 오른쪽 밖으로 스치고, 남은 시간은 쉰다. */
+@keyframes cta-shine {
+  0% {
+    transform: translateX(-120%) skewX(-20deg);
+  }
+  35%,
+  100% {
+    transform: translateX(420%) skewX(-20deg);
+  }
+}
+
 /* Fades the leading/trailing edge of a horizontally scrollable container
    when there's more content to scroll to, and hides the fade once scrolled
    all the way to that edge. */

@@ -11,13 +11,20 @@ import { preload } from "react-dom";
  * - blur면 정적 import가 만든 blurDataURL을 아래 레이어로 깔아, 원본이 오기 전에도 흐린 사진이 보이게 한다.
  *   투명 PNG는 blur가 회색 박스로 보이므로 끈다.
  * - unoptimized면 최적화 없이 원본 파일을 그대로 쓴다(SVG처럼 최적화 대상이 아닌 이미지용).
+ * - media를 주면 그 미디어 쿼리에 맞는 화면에서만 preload한다. 화면 폭에 따라 다른 이미지를 보여줄 때 쓴다.
  */
 export function getBackgroundImage(
   src: StaticImageData,
-  { shouldPreload = false, unoptimized = false, blur = true, width }: { shouldPreload?: boolean; unoptimized?: boolean; blur?: boolean; width?: number } = {},
+  {
+    shouldPreload = false,
+    unoptimized = false,
+    blur = true,
+    width,
+    media,
+  }: { shouldPreload?: boolean; unoptimized?: boolean; blur?: boolean; width?: number; media?: string } = {},
 ) {
   if (unoptimized) {
-    if (shouldPreload) preload(src.src, { as: "image" });
+    if (shouldPreload) preload(src.src, { as: "image", media });
     return `url("${src.src}")`;
   }
 
@@ -26,7 +33,7 @@ export function getBackgroundImage(
   );
   const srcSet = props.srcSet ?? `${props.src} 1x`;
 
-  if (shouldPreload) preload(props.src, { as: "image", imageSrcSet: srcSet });
+  if (shouldPreload) preload(props.src, { as: "image", imageSrcSet: srcSet, media });
 
   const imageSet = srcSet
     .split(", ")
