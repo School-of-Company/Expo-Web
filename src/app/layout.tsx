@@ -37,7 +37,8 @@ export const metadata: Metadata = {
     googleBot: { index: true, follow: true, "max-snippet": -1, "max-image-preview": "large", "max-video-preview": -1 },
   },
   verification: {
-    google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
+    // 인증 토큰은 페이지 HTML에 그대로 공개되는 값이라 코드에 둔다. 배포 환경 변수 설정 없이도 빠지지 않게 한다.
+    google: "vu9Nq7yzfAXSdblQVwrg0UQIe8xgn_zg5oWUMlJDjdU",
     // Bing 색인은 ChatGPT 검색·Copilot 이 쓰므로 웹마스터 도구 인증도 받는다.
     other: {
       ...(process.env.NEXT_PUBLIC_NAVER_SITE_VERIFICATION && {
