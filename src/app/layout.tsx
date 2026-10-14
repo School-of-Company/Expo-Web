@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 
-import { SITE_DESCRIPTION, SITE_KEYWORDS, SITE_NAME, SITE_SHORT_NAME, SITE_TITLE, SITE_URL } from "@/shared/config/site";
+import { SITE_DESCRIPTION, SITE_JSON_LD, SITE_KEYWORDS, SITE_NAME, SITE_SHORT_NAME, SITE_TITLE, SITE_URL } from "@/shared/config/site";
 
 import { getNotices } from "@/entities/notice/api/notices";
 import { buildSearchIndex } from "@/shared/config/search-index";
 import DisableNativeDrag from "@/shared/ui/DisableNativeDrag";
+import JsonLd from "@/shared/ui/JsonLd";
 import { Footer } from "@/widgets/footer";
 import { Header } from "@/widgets/header";
 import { ScrollToTopButton } from "@/widgets/scroll-to-top";
@@ -16,6 +17,7 @@ import "./globals.css";
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: { default: SITE_TITLE, template: `%s | 2026 ${SITE_SHORT_NAME}` },
+  applicationName: SITE_SHORT_NAME,
   description: SITE_DESCRIPTION,
   keywords: SITE_KEYWORDS,
   alternates: { canonical: "/" },
@@ -28,11 +30,21 @@ export const metadata: Metadata = {
     url: "/",
   },
   twitter: { card: "summary_large_image" },
+  // 검색 결과·AI 개요에 본문 발췌와 큰 이미지 미리보기를 제한 없이 쓰게 한다.
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true, "max-snippet": -1, "max-image-preview": "large", "max-video-preview": -1 },
+  },
   verification: {
     google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
-    other: process.env.NEXT_PUBLIC_NAVER_SITE_VERIFICATION
-      ? { "naver-site-verification": process.env.NEXT_PUBLIC_NAVER_SITE_VERIFICATION }
-      : undefined,
+    // Bing 색인은 ChatGPT 검색·Copilot 이 쓰므로 웹마스터 도구 인증도 받는다.
+    other: {
+      ...(process.env.NEXT_PUBLIC_NAVER_SITE_VERIFICATION && {
+        "naver-site-verification": process.env.NEXT_PUBLIC_NAVER_SITE_VERIFICATION,
+      }),
+      ...(process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION && { "msvalidate.01": process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION }),
+    },
   },
 };
 
@@ -42,6 +54,7 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="ko" className="h-full antialiased">
       <body className="min-h-full flex flex-col bg-background text-foreground font-sans">
+        <JsonLd data={SITE_JSON_LD} />
         <a
           href="#main-content"
           className="fixed left-4 top-4 z-[100] -translate-y-24 rounded-medium bg-primary-50 px-4 py-2.5 text-sm font-bold text-fg-on-primary transition-transform focus-visible:translate-y-0"
