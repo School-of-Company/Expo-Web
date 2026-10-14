@@ -3,8 +3,14 @@
 import { useEffect, useRef, useState } from "react";
 import Icon from "@/shared/ui/Icon";
 
-// 2초 단위로 쪼갠 HLS(480p·720p). 첫 조각만 받아도 재생이 시작되고, 회선 속도에 맞춰 화질이 바뀐다.
+// 2초 단위로 쪼갠 HLS(480p·720p·1080p). 첫 조각만 받아도 재생이 시작되고, 회선 속도에 맞춰 화질이 바뀐다.
 const PROMO_HLS_SRC = "/promo/index.m3u8";
+
+// Safari 전용 PiP API는 TypeScript 기본 타입에 없어서 직접 선언한다.
+type WebkitPresentationVideo = HTMLVideoElement & {
+  webkitPresentationMode?: "inline" | "picture-in-picture" | "fullscreen";
+  webkitSetPresentationMode?: (mode: "inline" | "picture-in-picture" | "fullscreen") => void;
+};
 
 export default function PromoVideo() {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -33,6 +39,26 @@ export default function PromoVideo() {
     return () => {
       cancelled = true;
       destroy?.();
+    };
+  }, []);
+
+  // disablePictureInPicture를 우회하는 경로(Safari 메뉴, 탭 전환 시 자동 PiP 등)로 들어가면 바로 되돌린다.
+  useEffect(() => {
+    const video = videoRef.current as WebkitPresentationVideo | null;
+    if (!video) return;
+
+    const exitPictureInPicture = () => {
+      if (document.pictureInPictureElement === video) void document.exitPictureInPicture();
+    };
+    const exitWebkitPictureInPicture = () => {
+      if (video.webkitPresentationMode === "picture-in-picture") video.webkitSetPresentationMode?.("inline");
+    };
+
+    video.addEventListener("enterpictureinpicture", exitPictureInPicture);
+    video.addEventListener("webkitpresentationmodechanged", exitWebkitPictureInPicture);
+    return () => {
+      video.removeEventListener("enterpictureinpicture", exitPictureInPicture);
+      video.removeEventListener("webkitpresentationmodechanged", exitWebkitPictureInPicture);
     };
   }, []);
 

@@ -65,8 +65,8 @@ export default function Header({ searchIndex }: { searchIndex: SearchItem[] }) {
             <span
               role="img"
               aria-label="2026 전남광주통합특별시교육청 AI미래교육박람회"
-              className="block aspect-[1200/438] h-10 bg-contain bg-no-repeat sm:h-11"
-              style={{ backgroundImage: getBackgroundImage(logo, { shouldPreload: true, blur: false, width: 121 }) }}
+              className="block aspect-[2400/612] w-[150px] bg-contain bg-no-repeat sm:w-[180px]"
+              style={{ backgroundImage: getBackgroundImage(logo, { shouldPreload: true, blur: false, width: 180 }) }}
             />
           </Link>
 
@@ -84,7 +84,7 @@ export default function Header({ searchIndex }: { searchIndex: SearchItem[] }) {
                 onClick={parkingLink.onClick}
                 className="flex items-center whitespace-nowrap rounded-pill bg-bg-subtle px-3 py-1 text-body-xs font-semibold text-fg-2 transition-colors duration-150 ease-out hover:text-primary-50"
               >
-                주차장 안내
+                주차 현황
               </a>
             </div>
 
@@ -128,7 +128,7 @@ export default function Header({ searchIndex }: { searchIndex: SearchItem[] }) {
             openDesktopKey ? "pointer-events-auto opacity-100 duration-200" : "pointer-events-none opacity-0 duration-300"
           }`}
         >
-          <div key={openSeq} className="mx-auto grid max-w-7xl grid-cols-2 gap-6 px-4 py-8 sm:grid-cols-3 sm:px-6 md:grid-cols-5 md:gap-8">
+          <div key={openSeq} className="mx-auto grid max-w-7xl grid-cols-2 gap-6 px-4 py-8 sm:grid-cols-3 sm:px-6 md:grid-cols-5 md:gap-8 lg:grid-cols-[repeat(5,minmax(max-content,1fr))]">
             {NAV_SECTIONS.filter((section) => !section.external).map((section) => (
               <div key={section.key}>
                 <p className="text-body-xs font-bold text-fg-3">{section.label}</p>
@@ -138,7 +138,7 @@ export default function Header({ searchIndex }: { searchIndex: SearchItem[] }) {
                       <Link
                         href={s.href}
                         onClick={() => setOpenDesktopKey(null)}
-                        className="block text-body-m font-semibold text-fg-1 transition-colors duration-150 ease-out hover:text-primary-50"
+                        className="block text-body-m font-semibold text-fg-1 transition-colors duration-150 ease-out hover:text-primary-50 lg:whitespace-nowrap"
                       >
                         {s.label}
                       </Link>

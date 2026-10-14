@@ -36,7 +36,7 @@ const GROUPS: QuickApplyGroup[] = [
     items: [
       { href: "/students", icon: "map-pin", title: "AI·SW체험한마당 부스 안내", desc: "체험 부스 위치와 프로그램을 확인하세요" },
       { href: "/apply/goldenbell", icon: "trophy", title: "AI·SW 골든벨 신청", desc: "도전하고, 배우고, 성장하는 AI·SW 퀴즈 대회" },
-      { href: "/apply/odyssey", icon: "compass", title: "오디세이 투어 신청", desc: "보고, 체험하고, 탐험하는 AI·SW 체험 투어" },
+      { href: "/apply/odyssey", icon: "compass", title: "AI교육원 전시체험 투어 신청", desc: "보고, 체험하고, 탐험하는 AI·SW 체험 투어" },
     ],
   },
   {

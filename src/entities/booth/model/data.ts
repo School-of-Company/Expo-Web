@@ -1,29 +1,93 @@
 export interface Booth {
   no: string;
   name: string;
-  type: string;
-  audience: string;
   title: string;
 }
 
+/** AI·SW 체험한마당 학생 부스 */
 export const booths: Booth[] = [
-  { no: "C01", name: "부스 이름 A", type: "체험", audience: "전체", title: "프로그램 제목 예시 텍스트입니다" },
-  { no: "C02", name: "부스 이름 B", type: "전시,체험", audience: "초,중,고,성인", title: "프로그램 제목 예시 텍스트입니다" },
-  { no: "C03", name: "부스 이름 C", type: "체험", audience: "초,중,고,성인", title: "프로그램 제목 예시 텍스트입니다" },
-  { no: "C04", name: "부스 이름 D", type: "전시,체험", audience: "전체", title: "프로그램 제목 예시 텍스트입니다" },
-  { no: "C05", name: "부스 이름 E", type: "체험", audience: "전체", title: "프로그램 제목 예시 텍스트입니다" },
-  { no: "C06", name: "부스 이름 F", type: "체험", audience: "초,중", title: "프로그램 제목 예시 텍스트입니다" },
-  { no: "C07", name: "부스 이름 G", type: "전시,체험", audience: "전체", title: "프로그램 제목 예시 텍스트입니다" },
-  { no: "C08", name: "부스 이름 H", type: "체험", audience: "초,중,고", title: "프로그램 제목 예시 텍스트입니다" },
-  { no: "C09", name: "부스 이름 I", type: "전시,체험", audience: "초,중,고,성인", title: "프로그램 제목 예시 텍스트입니다" },
-  { no: "C10", name: "부스 이름 J", type: "체험", audience: "성인", title: "프로그램 제목 예시 텍스트입니다" },
-  { no: "특별프로그램", name: "특별 부스 이름", type: "체험", audience: "초,중,고,성인", title: "프로그램 제목 예시 텍스트입니다" },
+  { no: "D-01", name: "광주문화초등학교", title: "나도 드론 조종사! 일일 드론 아카데미" },
+  { no: "D-02", name: "동일미래과학고등학교", title: "드론 이륙 진행시켜! 로봇 진행시켜!" },
+  { no: "D-03", name: "문정여자고등학교", title: "AI 드론 미션" },
+  { no: "E-01", name: "광주수창초등학교", title: "BOLT! AI 로봇 스포츠 대작전" },
+  { no: "E-02", name: "광주우산초등학교", title: "코딩으로 달려라! 마퀸 레이스" },
+  { no: "E-03", name: "광주효덕초등학교", title: "카미봇 놀이터" },
+  { no: "E-04", name: "광주효동초등학교", title: "Rey & BB-8과 함께하는 프로그래밍" },
+  { no: "E-05", name: "무학초등학교", title: "미션! 알버트 AI 동물 구조대" },
+  { no: "E-06", name: "미산초등학교", title: "미션: 햄스터 도둑을 잡아라!" },
+  { no: "E-07", name: "비아초등학교", title: "AI와 함께하는 자존감 향상 공방(## 제미나이)" },
+  { no: "E-08", name: "삼도초등학교", title: "AI-퍼즐코스터" },
+  { no: "E-09", name: "송정초등학교", title: "햄스터봇과 함께 하는 미로 탈출" },
+  { no: "E-10", name: "양지초등학교", title: "전원 OFF! 두뇌 ON! 컴퓨터 없는 SW세상" },
+  { no: "E-11", name: "장산초등학교", title: "두근두근 심박수를 낮춰라! -스마트밴드로만나는나의심장이야기-" },
+  { no: "E-12", name: "조봉초등학교", title: "코딩으로 스트라이크(로봇 볼링)" },
+  { no: "E-13", name: "하남중앙초등학교", title: "슛! 골! 햄스터 축구 월드컵" },
+  { no: "E-14", name: "하남초등학교", title: "라이트 매트릭스로 나만의 이모티콘 만들기" },
+  { no: "E-15", name: "화정남초등학교", title: "로보메이션 햄스터S와 함께하는 3색 코딩 로봇 올림픽" },
+  { no: "E-16", name: "마재초등학교", title: "대시로봇 슛~골인!" },
+  { no: "E-17", name: "대촌중앙초등학교", title: "손짓으로 GO! AI 고싸움" },
+  { no: "E-18", name: "광주양동초등학교", title: "AI 로봇팔 연구소: 스마트팩토리 미션 해결하기" },
+  { no: "E-19", name: "광주계림초등학교", title: "VR로 그리는 3D 자화상 『허공에 그리는 내 얼굴』" },
+  { no: "H-01", name: "광주고등학교", title: "금융·언어·물리를 아우르는 AI·SW 실전 체험존" },
+  { no: "H-02", name: "광주경신여자고등학교", title: "인공지능 학습으로 미로 탈출, 핑퐁 로봇 창의 체험" },
+  { no: "H-03", name: "광주동신고등학교", title: "0과 1사이의 운세" },
+  { no: "H-04", name: "광주동신여자고등학교", title: "2026 광주동신여고로 들어오는 디지털 트윈" },
+  { no: "H-05", name: "광주서석고등학교", title: "AI 세상을 움직이다" },
+  { no: "H-06", name: "광주수피아여자고등학교", title: "미로탈출 u-GO!" },
+  { no: "H-07", name: "광주인성고등학교", title: "AI야, 넌 뭘 할 수 있니?" },
+  { no: "H-08", name: "광주인성고등학교", title: "AI로 만든 우리만의 세상" },
+  { no: "H-09", name: "대성여자고등학교", title: "Escape the Code 2.0" },
+  { no: "H-10", name: "보문고등학교", title: "도시 구출 프로젝트" },
+  { no: "H-11", name: "살레시오여자고등학교", title: "내 이름을 코딩하면, DNA가 답한다!(나의 DNA 유형 테스트)" },
+  { no: "H-12", name: "설월여자고등학교", title: "길 따라 미션 따라 GOGO!" },
+  { no: "H-13", name: "송원고등학교", title: "송’s프로보" },
+  { no: "H-14", name: "수완고등학교", title: "피터 파커의 하드웨어 해킹 연구실" },
+  { no: "H-15", name: "운남고등학교", title: "아두이노 코딩을 이용한 라인 트레이서 체험하기" },
+  { no: "H-16", name: "전남고등학교", title: "FTC(First Tech Challenge) 로봇 체험" },
+  { no: "H-17", name: "풍암고등학교", title: "AI 감독에게 도전하라!: 강화학습 축구 전술 게임" },
+  { no: "H-18", name: "풍암고등학교", title: "FORMULA AI: 3D 레이싱·원 그리기·체스오목 체험" },
+  { no: "H-19", name: "상일여자고등학교", title: "찰칵! AI가 그려줄게" },
+  { no: "H-20", name: "광주소프트웨어마이스터고등학교", title: "뽀삐 – 내가 직접 움직이는 로봇 강아지" },
+  { no: "H-21", name: "광주소프트웨어마이스터고등학교", title: "스티치(직접 그리고, AI로 다듬는 나만의 픽셀 스티커 만들기)" },
+  { no: "H-22", name: "광주여자고등학교", title: "AI 스마트팩토리: AI가 제품의 품질을 검사한다!" },
+  { no: "H-23", name: "광덕고등학교", title: "생각이 움직이는 놀이터: 광덕1" },
+  { no: "H-24", name: "광덕고등학교", title: "생각이 움직이는 놀이터: 광덕2" },
+  { no: "H-25", name: "조선대학교부속고등학교", title: "세상을 바꾸는 로봇틱스" },
+  { no: "H-26", name: "조선대학교부속고등학교", title: "인공지능 라이브 랩" },
+  { no: "H-27", name: "조선대학교부속고등학교", title: "미션 클리어! AI 로봇 119 구조대" },
+  { no: "M-01", name: "광주경신중학교", title: "스마트 AI 탐험대: 듣고 보고 움직이고" },
+  { no: "M-02", name: "광주동성중학교", title: "미션을 수행하라! AI 스마트 로봇" },
+  { no: "M-03", name: "광주동성중학교", title: "아싸~ 몸으로 조정하는 AI 로봇 낚시!(사탕뽑기 2)" },
+  { no: "M-04", name: "광주동신여자중학교", title: "학습하는 라쿤봇 AI로봇팔" },
+  { no: "M-05", name: "대자중학교", title: "햄스터 로봇 축구 대회" },
+  { no: "M-06", name: "살레시오중학교", title: "마퀸과 함께하는 코딩 로봇 체험" },
+  { no: "M-07", name: "우산중학교", title: "캔바에 상상을 담다! 나만의 키캡 키링 만들기" },
+  { no: "M-08", name: "조선대학교부속중학교", title: "UGOT 로봇 챌린지 ― 조종하는 로봇에서 만드는 로봇으로" },
+  { no: "M-09", name: "선운중학교", title: "딥코 미니 LAB : AI 레벨업!" },
+  { no: "M-10", name: "수완하나중학교", title: "미래 기술과 함께하는 VR 체험" },
+  { no: "M-11", name: "신광중학교", title: "AI 방탈출: 프롬프트 활용 능력" },
+  { no: "M-12", name: "신창중학교", title: "코딩으로 자동차 운전면허 코스 완주하기" },
+  { no: "M-13", name: "양산중학교", title: "AI 자율주행에 도전하라! 딥코봇 미니 AI 자율주행체험" },
+];
+
+/** 기업 연계 체험 프로그램 */
+export const companyBooths: Booth[] = [
+  { no: "S-01", name: "플레이코딩", title: "찾아가는 인공지능 로봇버스" },
+  { no: "S-02", name: "미래채움", title: "모여봐요 채움의 숲 : 나만의 AI 아일랜드" },
+  { no: "S-03", name: "코더블", title: "자율주행 전기자동차 위즈오토!" },
+];
+
+/** 전남 학교 초청 프로그램 */
+export const invitedSchoolBooths: Booth[] = [
+  { no: "S-04", name: "화순초등학교", title: "게임으로 만나는 AI 세상" },
+  { no: "S-05", name: "목포혜인여자중학교", title: "바이브코딩으로 피지컬 컴퓨팅(AI선풍기) 구현" },
+  { no: "S-06", name: "예당고등학교", title: "미래의 나 · FUTURE ME — AI로 만나는 10년 뒤의 나" },
 ];
 
 export const teacherBooths: Booth[] = [
-  { no: "T01", name: "부스 이름 A", type: "전시", audience: "교원", title: "프로그램 제목 예시 텍스트입니다" },
-  { no: "T02", name: "부스 이름 B", type: "전시,체험", audience: "교원", title: "프로그램 제목 예시 텍스트입니다" },
-  { no: "T03", name: "부스 이름 C", type: "상담", audience: "교원", title: "프로그램 제목 예시 텍스트입니다" },
-  { no: "T04", name: "부스 이름 D", type: "체험", audience: "교원", title: "프로그램 제목 예시 텍스트입니다" },
-  { no: "T05", name: "부스 이름 E", type: "전시,체험", audience: "교원", title: "프로그램 제목 예시 텍스트입니다" },
+  { no: "T01", name: "부스 이름 A", title: "프로그램 제목 예시 텍스트입니다" },
+  { no: "T02", name: "부스 이름 B", title: "프로그램 제목 예시 텍스트입니다" },
+  { no: "T03", name: "부스 이름 C", title: "프로그램 제목 예시 텍스트입니다" },
+  { no: "T04", name: "부스 이름 D", title: "프로그램 제목 예시 텍스트입니다" },
+  { no: "T05", name: "부스 이름 E", title: "프로그램 제목 예시 텍스트입니다" },
 ];

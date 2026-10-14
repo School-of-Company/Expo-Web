@@ -5,11 +5,11 @@ import { EXTERNAL_APPLY_LINKS } from "@/shared/config/external-apply-links";
 export default function StudentsAiTourPage() {
   return (
     <SectionPage
-      title="오디세이 투어(AI교육원 탐험)"
+      title="AI교육원 전시체험 투어"
       desc="AI교육원 내 아이콘 시티·스쿨·넥스트로 떠나는 흥미진진한 AI·SW 탐험!"
       showNav={false}
     >
-      <h2 className="text-heading-s font-bold text-fg-1">오디세이 투어(AI교육원 탐험)</h2>
+      <h2 className="text-heading-s font-bold text-fg-1">AI교육원 전시체험 투어</h2>
 
       <ProgramInfoPanel
         schedules={[

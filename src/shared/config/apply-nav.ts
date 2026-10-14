@@ -2,6 +2,6 @@
 export const applyNavItems = [
   { key: "register", label: "[전체] 사전등록", shortLabel: "사전등록", href: "/apply/register" },
   { key: "golden-bell", label: "[학생] 골든벨 신청", shortLabel: "골든벨 신청", href: "/apply/goldenbell" },
-  { key: "ai-tour", label: "[학생] 오디세이 투어 신청", shortLabel: "오디세이 투어 신청", href: "/apply/odyssey" },
+  { key: "ai-tour", label: "[학생] AI교육원 전시체험 투어", shortLabel: "AI교육원 전시체험 투어 신청", href: "/apply/odyssey" },
   { key: "training", label: "[교사] 연수 신청", shortLabel: "연수 신청", href: "/apply/training" },
 ];
