@@ -6,7 +6,7 @@ export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.hiaisw
 export const SITE_NAME = "2026 전남광주통합특별시교육청 AI미래교육박람회";
 export const SITE_SHORT_NAME = "AI미래교육박람회";
 export const SITE_DESCRIPTION =
-  "2026 AI 미래교육 박람회 공식 홈페이지. 전남광주통합특별시교육청이 여는 AI교육·SW교육 체험 부스, AI·SW 골든벨, 오디세이 투어, 교원 연수, 미래교육 특강 사전등록 안내 (2026.10.31~11.1, 광주 북구 AI교육원)";
+  "2026 AI 미래교육 박람회 공식 홈페이지. 전남광주통합특별시교육청이 여는 AI교육·SW교육 체험 부스, AI·SW 골든벨, AI교육원 전시체험 투어, 교원 연수, 미래교육 특강 사전등록 안내 (2026.10.31~11.1, 광주 북구 AI교육원)";
 /** 검색 결과 title: 핵심어(2026 AI미래교육박람회)를 맨 앞에 둔다. */
 export const SITE_TITLE = "2026 AI미래교육박람회 | 전남광주통합특별시교육청";
 
