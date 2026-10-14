@@ -8,8 +8,16 @@ import ZoomableImageModal, { type ZoomableImage } from "./ZoomableImageModal";
 
 type TabKey = "list" | "map";
 
-interface BoothBoardProps {
+/** 부스 안내 탭에 차례로 보여줄 목록 하나. 목록이 여럿이면 각각 제목을 달아 구분한다. */
+export interface BoothGroup {
+  title?: string;
+  /** 부스 이름 열의 제목. 학교·기업이 운영하는 부스는 "학교명"·"기업명"으로 바꿔 쓴다. */
+  nameLabel?: string;
   booths: Booth[];
+}
+
+interface BoothBoardProps {
+  groups: BoothGroup[];
   listLabel: string;
   mapLabel: string;
   /** 배치도 이미지. 에셋을 아직 받지 못했다면 생략하면 준비중 안내를 보여준다. */
@@ -25,7 +33,7 @@ interface BoothBoardProps {
  * 모바일(md 미만)에서는 탭을 숨기고 두 패널을 함께 보여 준다. 배치도를 헤더 바로 아래에
  * 고정해 두어 부스 목록을 스크롤하면서도 위치를 함께 볼 수 있다.
  */
-export default function BoothBoard({ booths, listLabel, mapLabel, map }: BoothBoardProps) {
+export default function BoothBoard({ groups, listLabel, mapLabel, map }: BoothBoardProps) {
   const [tab, setTab] = useState<TabKey>("list");
   const [isZoomOpen, setIsZoomOpen] = useState(false);
 
@@ -73,9 +81,14 @@ export default function BoothBoard({ booths, listLabel, mapLabel, map }: BoothBo
           role="tabpanel"
           id="booth-panel-list"
           aria-labelledby="booth-tab-list"
-          className={tab === "list" ? "" : "md:hidden"}
+          className={`flex flex-col gap-10 ${tab === "list" ? "" : "md:hidden"}`}
         >
-          <BoothTable booths={booths} caption={listLabel} />
+          {groups.map((g) => (
+            <section key={g.title ?? listLabel} aria-label={g.title}>
+              {g.title && <h3 className="mb-3 text-body-l font-bold text-fg-1">{g.title}</h3>}
+              <BoothTable booths={g.booths} caption={g.title ?? listLabel} nameLabel={g.nameLabel} />
+            </section>
+          ))}
         </div>
 
         <div

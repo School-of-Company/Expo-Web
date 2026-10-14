@@ -15,7 +15,7 @@ export default function TeachersPage() {
       <h2 className="text-heading-s font-bold text-fg-1">미래교육박람회 부스 안내</h2>
 
       <BoothBoard
-        booths={teacherBooths}
+        groups={[{ booths: teacherBooths }]}
         listLabel="부스 안내"
         mapLabel="부스 배치도"
         // TODO: 실제 배치도 에셋을 받으면 src만 교체한다.
