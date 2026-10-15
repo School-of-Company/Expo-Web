@@ -25,7 +25,7 @@ const GROUPS: QuickApplyGroup[] = [
     title: "전체",
     desc: "모두를 위한 AI, 함께 열어가는 미래",
     gradient: ["#9C53C9", "#C070F4"],
-    items: [{ href: "/apply/lecture", icon: "mic", title: "특별 강연 신청", desc: "AI가 만드는 우리의 일상, 미래를 만나는 시간" }],
+    items: [{ href: "/apply/lecture", icon: "mic", title: "기조 강연 신청", desc: "AI가 만드는 우리의 일상, 미래를 만나는 시간" }],
   },
   {
     key: "students",
@@ -34,7 +34,7 @@ const GROUPS: QuickApplyGroup[] = [
     desc: "AI·SW로 꿈을 키우는 미래의 주인공",
     gradient: ["#676BD6", "#8782FF"],
     items: [
-      { href: "/students", icon: "map-pin", title: "AI·SW체험한마당 부스 안내", desc: "체험 부스 위치와 프로그램을 확인하세요" },
+      { href: "/students", icon: "map-pin", title: "AI·SW 체험 프로그램 부스 안내", desc: "체험 부스 위치와 프로그램을 확인하세요" },
       { href: "/apply/goldenbell", icon: "trophy", title: "AI·SW 골든벨 신청", desc: "도전하고, 배우고, 성장하는 AI·SW 퀴즈 대회" },
       { href: "/apply/odyssey", icon: "compass", title: "AI교육원 전시체험 투어 신청", desc: "보고, 체험하고, 탐험하는 AI·SW 체험 투어" },
     ],
