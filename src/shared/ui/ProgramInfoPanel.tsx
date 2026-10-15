@@ -62,7 +62,7 @@ export default function ProgramInfoPanel({
             <Badge variant="outlined-tertiary" className="mt-0.5 shrink-0">
               {n.label}
             </Badge>
-            <p className="text-body-s text-fg-2">{n.text}</p>
+            <p className="whitespace-pre-line text-body-s text-fg-2">{n.text}</p>
           </div>
         ))}
       </div>
