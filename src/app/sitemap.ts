@@ -10,7 +10,6 @@ const STATIC_PATHS = [
   "/guide/map",
   "/guide/directions",
   "/students",
-  "/students/standing",
   "/teachers",
   "/apply/register",
   "/apply/goldenbell",
