@@ -13,7 +13,7 @@ import logo from "../../../../public/logo.png";
 import logoStacked from "../../../../public/logo-stacked.png";
 
 const HERO_FACTS = [
-  { label: "장소", value: "전남광주통합특별시교육청AI교육원" },
+  { label: "장소", value: "전남광주통합특별시교육청AI교육원 일원" },
   { label: "대상", value: "관내 학생 · 교원 · 학부모 등" },
 ];
 

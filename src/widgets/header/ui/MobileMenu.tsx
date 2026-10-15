@@ -33,7 +33,7 @@ interface MobileMenuProps {
  * - 헤더 뒤에서 아래로 펼쳐지고, 메뉴 아래로는 어둡게 깐 현재 페이지가 비친다. 그 부분을 누르면 닫힌다.
  * - 메뉴가 화면보다 길어지면 메뉴 안에서만 스크롤되고, 열려 있는 동안 뒤쪽 페이지 스크롤은 잠근다.
  * - 섹션은 한 번에 하나만 펼치는 아코디언이며, 지금 보고 있는 페이지의 섹션을 처음부터 펼쳐 둔다.
- * - 데스크톱 헤더에만 있는 실시간 현황·주차 현황을 메뉴 맨 위로 옮겨 온다.
+ * - 데스크톱 헤더에만 있는 행사장 현황·주차 현황을 메뉴 맨 위로 옮겨 온다.
  * - Esc, 링크 이동, md 이상으로 화면이 넓어지는 경우에 닫힌다.
  */
 export default function MobileMenu({ open, onClose, parkingHref, parkingExternal, onParkingClick }: MobileMenuProps) {
@@ -103,7 +103,7 @@ export default function MobileMenu({ open, onClose, parkingHref, parkingExternal
       >
         <div className="flex flex-wrap gap-2 border-b border-border-default px-4 py-4">
           <span className={pillClass}>
-            실시간 현황
+            행사장 현황
             <span className={`h-2 w-2 shrink-0 rounded-full ${CONGESTION_STYLE[overallCongestionLevel].dot}`} />
             <span className={`font-bold ${CONGESTION_STYLE[overallCongestionLevel].text}`}>{overallCongestionLevel}</span>
           </span>
