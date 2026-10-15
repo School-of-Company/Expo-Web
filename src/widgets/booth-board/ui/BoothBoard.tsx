@@ -6,9 +6,7 @@ import type { Booth } from "@/entities/booth/model/data";
 import BoothTable from "./BoothTable";
 import ZoomableImageModal, { type ZoomableImage } from "./ZoomableImageModal";
 
-type TabKey = "list" | "map";
-
-/** 부스 안내 탭에 차례로 보여줄 목록 하나. 목록이 여럿이면 각각 제목을 달아 구분한다. */
+/** 배치도 아래에 차례로 보여줄 목록 하나. 목록이 여럿이면 각각 제목을 달아 구분한다. */
 export interface BoothGroup {
   title?: string;
   /** 부스 이름 열의 제목. 학교·기업이 운영하는 부스는 "학교명"·"기업명"으로 바꿔 쓴다. */
@@ -25,79 +23,20 @@ interface BoothBoardProps {
 }
 
 /**
- * 부스 안내 · 부스 배치도를 탭으로 묶은 공용 위젯. 학생마당·교사마당이 함께 쓴다.
+ * 부스 배치도와 부스 목록을 한 화면에 이어 보여주는 공용 위젯. 학생마당·교사마당이 함께 쓴다.
  *
- * 두 패널을 처음부터 모두 렌더해 두고 보이지 않는 쪽만 감춘다. 그래서 탭을 눌러도
- * 페이지 이동이나 추가 로딩 없이 화면만 바뀐다.
- *
- * 모바일(md 미만)에서는 탭을 숨기고 두 패널을 함께 보여 준다. 배치도를 헤더 바로 아래에
+ * 배치도를 위에, 목록을 그 아래에 둔다. 모바일(md 미만)에서는 배치도를 헤더 바로 아래에
  * 고정해 두어 부스 목록을 스크롤하면서도 위치를 함께 볼 수 있다.
  */
 export default function BoothBoard({ groups, listLabel, mapLabel, map }: BoothBoardProps) {
-  const [tab, setTab] = useState<TabKey>("list");
   const [isZoomOpen, setIsZoomOpen] = useState(false);
-
-  const tabs: { key: TabKey; label: string }[] = [
-    { key: "list", label: listLabel },
-    { key: "map", label: mapLabel },
-  ];
-
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLButtonElement>) => {
-    if (e.key !== "ArrowLeft" && e.key !== "ArrowRight") return;
-    e.preventDefault();
-    setTab((prev) => (prev === "list" ? "map" : "list"));
-  };
 
   return (
     <>
-      <div role="tablist" aria-label="부스 정보" className="mt-4 hidden gap-1 border-b border-border-default md:flex">
-        {tabs.map((t) => {
-          const isActive = tab === t.key;
-          return (
-            <button
-              key={t.key}
-              type="button"
-              role="tab"
-              id={`booth-tab-${t.key}`}
-              aria-selected={isActive}
-              aria-controls={`booth-panel-${t.key}`}
-              tabIndex={isActive ? 0 : -1}
-              onClick={() => setTab(t.key)}
-              onKeyDown={handleKeyDown}
-              className={`-mb-px border-b-2 px-4 py-3 text-body-s font-bold transition-colors duration-150 ease-out ${
-                isActive
-                  ? "border-primary-50 text-primary-50"
-                  : "border-transparent text-fg-3 hover:text-primary-50"
-              }`}
-            >
-              {t.label}
-            </button>
-          );
-        })}
-      </div>
-
-      <div className="mt-4 flex flex-col gap-4 md:gap-0">
-        <div
-          role="tabpanel"
-          id="booth-panel-list"
-          aria-labelledby="booth-tab-list"
-          className={`flex flex-col gap-10 ${tab === "list" ? "" : "md:hidden"}`}
-        >
-          {groups.map((g) => (
-            <section key={g.title ?? listLabel} aria-label={g.title}>
-              {g.title && <h3 className="mb-3 text-body-l font-bold text-fg-1">{g.title}</h3>}
-              <BoothTable booths={g.booths} caption={g.title ?? listLabel} nameLabel={g.nameLabel} />
-            </section>
-          ))}
-        </div>
-
-        <div
-          role="tabpanel"
-          id="booth-panel-map"
-          aria-labelledby="booth-tab-map"
-          className={`sticky top-[57px] z-10 order-first -mx-4 border-b border-border-default bg-bg-canvas px-4 py-2 sm:-mx-6 sm:px-6 md:static md:order-none md:mx-0 md:border-0 md:p-0 ${
-            tab === "map" ? "" : "md:hidden"
-          }`}
+      <div className="mt-4 flex flex-col gap-4 md:gap-10">
+        <section
+          aria-label={mapLabel}
+          className="sticky top-[57px] z-10 -mx-4 border-b border-border-default bg-bg-canvas px-4 py-2 sm:-mx-6 sm:px-6 md:static md:mx-0 md:border-0 md:p-0"
         >
           {map ? (
             <>
@@ -124,6 +63,15 @@ export default function BoothBoard({ groups, listLabel, mapLabel, map }: BoothBo
               부스 배치도 준비중
             </div>
           )}
+        </section>
+
+        <div className="flex flex-col gap-10">
+          {groups.map((g) => (
+            <section key={g.title ?? listLabel} aria-label={g.title}>
+              {g.title && <h3 className="mb-3 text-body-l font-bold text-fg-1">{g.title}</h3>}
+              <BoothTable booths={g.booths} caption={g.title ?? listLabel} nameLabel={g.nameLabel} />
+            </section>
+          ))}
         </div>
       </div>
 
