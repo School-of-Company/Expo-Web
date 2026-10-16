@@ -22,7 +22,7 @@ export const trainingPrograms: TrainingProgram[] = [
     id: "samsung",
     brand: "samsung",
     title: "삼성 연수",
-    place: "AI교육원 210호",
+    place: "AI교육원 213호",
     sessions: [
       { round: 1, date: "10.31.(토)", time: "13:00~14:00", title: "초, 중학교 교원 대상 갤럭시 AI클래스 수업" },
       { round: 2, date: "10.31.(토)", time: "15:00~16:00", title: "효율 UP! AI•디지털 활용 수업 및 행정 활용 사례" },
@@ -45,7 +45,7 @@ export const trainingPrograms: TrainingProgram[] = [
     id: "apple",
     brand: "apple",
     title: "애플 연수",
-    place: "AI교육원 202호",
+    place: "AI교육원 201호",
     sessions: [
       { round: 1, date: "10.31.(토)", time: "16:00~17:00", title: "‘수업은 쉽게, 참여는 깊게’ iPad로 만드는 참여 중심 수업" },
       { round: 2, date: "11.1.(일)", time: "09:30~10:30", title: "‘수업은 쉽게, 참여는 깊게’ iPad로 만드는 참여 중심 수업" },
