@@ -245,6 +245,25 @@ a {
   }
 }
 
+/* 헤더 실시간 현황: 3개 항목 + 첫 항목 복제본(4줄)을 한 줄씩 위로 올리고, 복제본에서 처음으로 끊김 없이 되돌아간다. */
+@keyframes status-ticker {
+  0%,
+  26% {
+    transform: translateY(0);
+  }
+  33%,
+  59% {
+    transform: translateY(-25%);
+  }
+  66%,
+  92% {
+    transform: translateY(-50%);
+  }
+  100% {
+    transform: translateY(-75%);
+  }
+}
+
 /* 메인 CTA 위를 비스듬한 빛줄기가 왼쪽 밖에서 오른쪽 밖으로 스치고, 남은 시간은 쉰다. */
 @keyframes cta-shine {
   0% {

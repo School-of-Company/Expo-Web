@@ -28,3 +28,12 @@ export const overallCongestionLevel: CongestionLevel = congestionZones.reduce(
   (worst, z) => (LEVEL_ORDER[z.level] > LEVEL_ORDER[worst] ? z.level : worst),
   "여유" as CongestionLevel
 );
+
+export const roadCongestionLevel: CongestionLevel = "보통";
+export const parkingCongestionLevel: CongestionLevel = "혼잡";
+
+export const liveStatusItems: { label: string; icon: "users" | "car" | "parking"; level: CongestionLevel }[] = [
+  { label: "행사장 현황", icon: "users", level: overallCongestionLevel },
+  { label: "도로 현황", icon: "car", level: roadCongestionLevel },
+  { label: "주차 현황", icon: "parking", level: parkingCongestionLevel },
+];
