@@ -19,7 +19,7 @@ const OVERVIEW: { label: string; value: string | string[]; note?: string }[] = [
     value: ["2026. 10. 31.(토) 9:30 ~ 17:00 /", "11. 1.(일) 9:30 ~ 16:00"],
     note: "(행사장 개방 9:00 예정)",
   },
-  { label: "장소", value: "전남광주통합특별시교육청AI교육원 일원 (주차장 야외 부스 포함)" },
+  { label: "장소", value: "전남광주통합특별시교육청AI교육원 일원" },
   { label: "대상", value: "관내 초‧중‧고‧특수학교 학생, 교직원, 학부모, 일반시민 등" },
 ];
 
