@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "../views/developers/styles/theme.css";
 
 :root {
   /* Gray */
