@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import type { Booth } from "@/entities/booth/model/data";
 import BoothTable from "./BoothTable";
 import ZoomableImageModal, { type ZoomableImage } from "./ZoomableImageModal";
@@ -20,6 +20,8 @@ interface BoothBoardProps {
   mapLabel: string;
   /** 배치도 이미지. 에셋을 아직 받지 못했다면 생략하면 준비중 안내를 보여준다. */
   map?: ZoomableImage;
+  /** true면 목록들을 차례로 늘어놓지 않고, 각 목록의 title을 탭으로 두어 고른 목록 하나만 보여준다. */
+  tabbed?: boolean;
 }
 
 /**
@@ -28,8 +30,18 @@ interface BoothBoardProps {
  * 배치도를 위에, 목록을 그 아래에 둔다. 모바일(md 미만)에서는 배치도를 헤더 바로 아래에
  * 고정해 두어 부스 목록을 스크롤하면서도 위치를 함께 볼 수 있다.
  */
-export default function BoothBoard({ groups, listLabel, mapLabel, map }: BoothBoardProps) {
+export default function BoothBoard({ groups, listLabel, mapLabel, map, tabbed = false }: BoothBoardProps) {
   const [isZoomOpen, setIsZoomOpen] = useState(false);
+  const [activeTab, setActiveTab] = useState(0);
+  const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
+
+  const handleTabKeyDown = (e: React.KeyboardEvent<HTMLButtonElement>) => {
+    if (e.key !== "ArrowLeft" && e.key !== "ArrowRight") return;
+    e.preventDefault();
+    const next = (activeTab + (e.key === "ArrowRight" ? 1 : -1) + groups.length) % groups.length;
+    setActiveTab(next);
+    tabRefs.current[next]?.focus();
+  };
 
   return (
     <>
@@ -65,14 +77,50 @@ export default function BoothBoard({ groups, listLabel, mapLabel, map }: BoothBo
           )}
         </section>
 
-        <div className="flex flex-col gap-10">
-          {groups.map((g) => (
-            <section key={g.title ?? listLabel} aria-label={g.title}>
-              {g.title && <h3 className="mb-3 text-body-l font-bold text-fg-1">{g.title}</h3>}
-              <BoothTable booths={g.booths} caption={g.title ?? listLabel} nameLabel={g.nameLabel} />
-            </section>
-          ))}
-        </div>
+        {tabbed ? (
+          <div>
+            <div role="tablist" aria-label={listLabel} className="flex gap-1 border-b border-border-default">
+              {groups.map((g, i) => {
+                const isActive = i === activeTab;
+                return (
+                  <button
+                    key={g.title}
+                    ref={(el) => {
+                      tabRefs.current[i] = el;
+                    }}
+                    type="button"
+                    role="tab"
+                    id={`booth-tab-${i}`}
+                    aria-selected={isActive}
+                    aria-controls={`booth-panel-${i}`}
+                    tabIndex={isActive ? 0 : -1}
+                    onClick={() => setActiveTab(i)}
+                    onKeyDown={handleTabKeyDown}
+                    className={`-mb-px min-w-0 flex-1 border-b-2 px-2 py-3 sm:flex-none sm:px-4 text-body-s font-bold transition-colors duration-150 ease-out ${
+                      isActive ? "border-primary-50 text-primary-60" : "border-transparent text-fg-3 hover:text-primary-60"
+                    }`}
+                  >
+                    {g.title}
+                  </button>
+                );
+              })}
+            </div>
+            {groups.map((g, i) => (
+              <div key={g.title} role="tabpanel" id={`booth-panel-${i}`} aria-labelledby={`booth-tab-${i}`} hidden={i !== activeTab} className="mt-4">
+                <BoothTable booths={g.booths} caption={`${g.title} ${listLabel}`} nameLabel={g.nameLabel} />
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="flex flex-col gap-10">
+            {groups.map((g) => (
+              <section key={g.title ?? listLabel} aria-label={g.title}>
+                {g.title && <h3 className="mb-3 text-body-l font-bold text-fg-1">{g.title}</h3>}
+                <BoothTable booths={g.booths} caption={g.title ?? listLabel} nameLabel={g.nameLabel} />
+              </section>
+            ))}
+          </div>
+        )}
       </div>
 
       {map && isZoomOpen && <ZoomableImageModal image={map} onClose={() => setIsZoomOpen(false)} />}

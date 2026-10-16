@@ -18,12 +18,12 @@ export default function StudentsAiTourPage() {
           { label: "3회차", value: "10.31.(토) 14:00~15:00" },
         ]}
         facts={[
-          { label: "대상", value: "초·중·고·특수 학생" },
-          { label: "장소", value: "AI교육원 1층" },
+          { label: "대상", value: "초·중·고 학생" },
+          { label: "장소", value: "AI교육원 1층 안내데스크" },
         ]}
         notes={[
           { label: "내용", text: "AI교육원 내 아이콘 시티·스쿨·넥스트를 둘러보는 AI·SW 탐험 프로그램" },
-          { label: "운영방식", text: "회차별 2팀 운영(팀당 8명)" },
+          { label: "운영방식", text: "회차별 16명 참여 가능" },
         ]}
         cta={{ href: EXTERNAL_APPLY_LINKS.aiTour || "#", label: "투어 사전 신청 및 조회", external: true }}
       />

@@ -11,7 +11,8 @@ const PATHS = {
   "check-circle": "M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Zm-4-9 2.5 2.5L16 9",
   "x-circle": "M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Zm-3-9h6",
   users: "M8 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm8 0a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM2 20c0-3.3 2.7-6 6-6s6 2.7 6 6M14 14c3.3 0 6 2.7 6 6",
-  car: "M5 16h14M6 16l1.5-5h9L18 16M6 16v3H4v-3m14 0v3h2v-3M8 19v1M16 19v1M9 11h6",
+  parking: "M6 4h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2Zm4 13V8h3a2.5 2.5 0 0 1 0 5h-3",
+  car: "M5 10 6.5 6.3A2 2 0 0 1 8.4 5h7.2a2 2 0 0 1 1.9 1.3L19 10M5 10h14a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4a2 2 0 0 1 2-2Zm2 4h.01M17 14h.01M5 18v2M19 18v2",
   clipboard: "M9 5h6a1 1 0 0 1 1 1v1H8V6a1 1 0 0 1 1-1ZM6 8h12v11a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V8Zm3 5h6m-6 4h6",
   mic: "M12 15a3 3 0 0 0 3-3V6a3 3 0 0 0-6 0v6a3 3 0 0 0 3 3Zm-6-3a6 6 0 0 0 12 0M12 18v3",
   trophy: "M8 4h8v4a4 4 0 0 1-8 0V4Zm0 1H5v2a3 3 0 0 0 3 2.8M16 5h3v2a3 3 0 0 1-3 2.8M10 16h4M12 12v4m-3 5h6l-1-3h-4l-1 3Z",
@@ -32,15 +33,19 @@ export default function Icon({
   name,
   className = "h-5 w-5",
   strokeWidth = 1.75,
+  filled = false,
 }: {
   name: IconName;
   className?: string;
   strokeWidth?: number;
+  /** true면 외곽선 안을 같은 색으로 채운다. 안쪽 구멍(지도 핀의 원 등)은 비워 둔다. */
+  filled?: boolean;
 }) {
   return (
     <svg
       viewBox="0 0 24 24"
-      fill="none"
+      fill={filled ? "currentColor" : "none"}
+      fillRule="evenodd"
       stroke="currentColor"
       strokeWidth={strokeWidth}
       strokeLinecap="round"
