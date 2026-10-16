@@ -34,7 +34,7 @@ export default function EventIntro() {
         <div aria-hidden className="mt-5 h-1 w-16 rounded-pill bg-gradient-to-r from-[oklch(0.84_0.14_85)] to-accent-50 sm:mt-6 sm:w-20" />
 
         <p className="mt-5 break-keep text-body-xs font-medium leading-loose text-fg-2 sm:mt-6 sm:text-body-s">
-          올해 AI미래교육박람회는 학생 중심의 AI·SW교육체험한마당과
+          올해 AI미래교육박람회는 학생 중심의 AI·SW 체험 축전과
           <LineBreak /> 교원 중심의 미래교육박람회를 하나로 합쳐 운영합니다.
           <LineBreak /> 학생들은 AI·SW를 직접 체험하며 미래 사회의 주인공으로 자라나고,
           <LineBreak /> 선생님들은 새로운 기술을 수업에 담아 더 나은 수업을 만들어 갑니다.

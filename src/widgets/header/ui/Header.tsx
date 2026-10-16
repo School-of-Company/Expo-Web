@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useCallback, useRef, useState } from "react";
 import { NAV_SECTIONS } from "@/shared/config/site-nav";
-import { overallCongestionLevel, CONGESTION_STYLE } from "@/entities/congestion/model/data";
+import { liveStatusItems, CONGESTION_STYLE } from "@/entities/congestion/model/data";
 import Icon from "@/shared/ui/Icon";
 import { useExternalLinkGuard } from "@/shared/lib/useExternalLinkGuard";
 import { getBackgroundImage } from "@/shared/lib/getBackgroundImage";
@@ -72,11 +72,25 @@ export default function Header({ searchIndex }: { searchIndex: SearchItem[] }) {
 
           <div className="flex items-center gap-3">
             <div className="hidden items-center gap-2 md:flex">
-              <span className="flex items-center gap-2 whitespace-nowrap rounded-pill bg-bg-subtle px-3 py-1 text-body-xs font-semibold text-fg-2">
-                행사장 현황
-                <span className={`h-2 w-2 shrink-0 rounded-full ${CONGESTION_STYLE[overallCongestionLevel].dot}`} />
-                <span className={`font-bold ${CONGESTION_STYLE[overallCongestionLevel].text}`}>{overallCongestionLevel}</span>
-              </span>
+              <div className="group h-8 overflow-hidden px-1 text-body-xs font-semibold text-fg-1">
+                <ul className="animate-[status-ticker_9s_ease-in-out_infinite] group-hover:[animation-play-state:paused] motion-reduce:animate-none">
+                  {[...liveStatusItems, liveStatusItems[0]].map((item, i) => (
+                    <li
+                      key={i}
+                      aria-hidden={i === liveStatusItems.length || undefined}
+                      className="flex h-8 items-center gap-1.5 whitespace-nowrap"
+                    >
+                      <Icon name={item.icon} className="h-[18px] w-[18px] shrink-0 text-primary-50" />
+                      {item.label}
+                      <span
+                        className={`ml-1 rounded-pill px-2.5 text-[13px] leading-6 font-bold text-fg-on-primary ${CONGESTION_STYLE[item.level].bar}`}
+                      >
+                        {item.level}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
               <a
                 href={parkingLink.isConfigured ? PARKING_GUIDE_URL : "#"}
                 target={parkingLink.isConfigured ? "_blank" : undefined}

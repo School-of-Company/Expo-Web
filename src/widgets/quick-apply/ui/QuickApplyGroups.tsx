@@ -6,6 +6,8 @@ interface QuickApplyItem {
   icon: IconName;
   title: string;
   desc: string;
+  /** 부스 안내처럼 눈에 띄어야 하는 항목은 아이콘만 빨간색으로 채워 강조한다. */
+  highlightIcon?: boolean;
 }
 
 interface QuickApplyGroup {
@@ -34,7 +36,7 @@ const GROUPS: QuickApplyGroup[] = [
     desc: "AI·SW로 꿈을 키우는 미래의 주인공",
     gradient: ["#676BD6", "#8782FF"],
     items: [
-      { href: "/students", icon: "map-pin", title: "AI·SW 체험 프로그램 부스 안내", desc: "체험 부스 위치와 프로그램을 확인하세요" },
+      { href: "/students", icon: "map-pin", title: "AI·SW 체험한마당 부스 안내", desc: "체험 부스 위치와 프로그램을 확인하세요", highlightIcon: true },
       { href: "/apply/goldenbell", icon: "trophy", title: "AI·SW 골든벨 신청", desc: "도전하고, 배우고, 성장하는 AI·SW 퀴즈 대회" },
       { href: "/apply/odyssey", icon: "compass", title: "AI교육원 전시체험 투어 신청", desc: "보고, 체험하고, 탐험하는 AI·SW 체험 투어" },
     ],
@@ -46,7 +48,7 @@ const GROUPS: QuickApplyGroup[] = [
     desc: "함께 만들어가는 2030 미래교육",
     gradient: ["#06A4C3", "#03BDF1"],
     items: [
-      { href: "/teachers", icon: "map-pin", title: "미래교육박람회 부스 안내", desc: "교사를 위한 미래교육 부스 전시를 확인하세요" },
+      { href: "/teachers", icon: "map-pin", title: "미래교육박람회 부스 안내", desc: "교사를 위한 미래교육 부스 전시를 확인하세요", highlightIcon: true },
       { href: "/apply/training", icon: "book", title: "교사 연수 신청", desc: "AI 시대, 교사의 성장을 지원하는 전문 연수" },
     ],
   },
@@ -80,7 +82,13 @@ export default function QuickApplyGroups() {
               >
                 <div className="flex items-center justify-between gap-2">
                   <span className="flex items-center gap-2 text-body-s font-bold text-white transition-colors duration-300 ease-out group-hover:text-primary-50">
-                    <Icon name={item.icon} className="h-4 w-4 text-white transition-colors duration-300 ease-out group-hover:text-primary-50" />
+                    <Icon
+                      name={item.icon}
+                      filled={item.highlightIcon}
+                      className={`h-4 w-4 transition-colors duration-300 ease-out ${
+                        item.highlightIcon ? "text-[#FF3B3B]" : "text-white group-hover:text-primary-50"
+                      }`}
+                    />
                     {item.title}
                   </span>
                   <Icon
