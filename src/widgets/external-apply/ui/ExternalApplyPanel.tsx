@@ -1,9 +1,8 @@
 "use client";
 
+import type { ReactNode } from "react";
 import Icon from "@/shared/ui/Icon";
-import { getBackgroundImage } from "@/shared/lib/getBackgroundImage";
 import { useExternalLinkGuard } from "@/shared/lib/useExternalLinkGuard";
-import heroBgOrange from "../../../../public/hero-bg-orange.png";
 
 export default function ExternalApplyPanel({
   href,
@@ -16,19 +15,17 @@ export default function ExternalApplyPanel({
   label: string;
   title: string;
   tagline: string;
-  body: string;
+  body: ReactNode;
 }) {
   const { isConfigured, onClick } = useExternalLinkGuard(href);
 
   return (
     <div
-      className="rounded-xlarge bg-bg-muted bg-cover bg-center px-6 py-16 text-center text-fg-1 sm:px-12 sm:py-24"
-      style={{ backgroundImage: getBackgroundImage(heroBgOrange, { shouldPreload: true }) }}
-    >
+      className="rounded-xlarge bg-bg-subtle px-6 py-16 text-center text-fg-1 sm:px-12 sm:py-24">
       <div className="mx-auto max-w-2xl">
         <p className="text-heading-xs font-bold sm:text-heading-l">{title}</p>
         <p className="mt-3 text-body-l font-semibold text-primary-50 sm:text-heading-m">&ldquo;{tagline}&rdquo;</p>
-        <p className="mt-6 whitespace-pre-line text-left text-body-m leading-relaxed text-fg-2 sm:text-center sm:text-body-l">{body}</p>
+        <p className="mt-6 text-left text-body-m leading-relaxed text-fg-2 sm:text-center sm:text-body-l">{body}</p>
 
         <a
           href={isConfigured ? href : "#"}
