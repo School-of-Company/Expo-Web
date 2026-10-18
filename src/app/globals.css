@@ -265,6 +265,16 @@ a {
   }
 }
 
+/* 모바일 메뉴 실시간 현황: 같은 목록을 두 벌 이어 붙여 왼쪽으로 계속 흘리고, 한 벌만큼 가면 처음으로 끊김 없이 되돌아간다. */
+@keyframes status-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
 /* 메인 CTA 위를 비스듬한 빛줄기가 왼쪽 밖에서 오른쪽 밖으로 스치고, 남은 시간은 쉰다. */
 @keyframes cta-shine {
   0% {
