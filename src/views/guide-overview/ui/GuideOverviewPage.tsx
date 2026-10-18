@@ -49,7 +49,7 @@ function OverviewRow({ label, value, note }: (typeof OVERVIEW)[number]) {
               </Fragment>
             ))
           : value}
-        {note && <span className="block text-right">{note}</span>}
+        {note && <span className="block">{note}</span>}
       </dd>
     </div>
   );
