@@ -16,6 +16,7 @@ const STATIC_PATHS = [
   "/apply/odyssey",
   "/apply/training",
   "/apply/lecture",
+  "/apply/robot-dance",
   "/notice",
   "/notice/faq",
   "/notice/parking",

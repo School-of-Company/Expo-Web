@@ -98,7 +98,7 @@ export default function Header({ searchIndex }: { searchIndex: SearchItem[] }) {
                 onClick={parkingLink.onClick}
                 className="flex items-center whitespace-nowrap rounded-pill bg-bg-subtle px-3 py-1 text-body-xs font-semibold text-fg-2 transition-colors duration-150 ease-out hover:text-primary-50"
               >
-                주차 현황
+                자세히 보기
               </a>
             </div>
 
