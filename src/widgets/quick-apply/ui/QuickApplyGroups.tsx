@@ -29,7 +29,7 @@ const GROUPS: QuickApplyGroup[] = [
     gradient: ["#9C53C9", "#C070F4"],
     items: [
       { href: "/apply/lecture", icon: "mic", title: "기조 강연 신청", desc: "AI가 만드는 우리의 일상, 미래를 만나는 시간" },
-      { href: "/guide/robot-dance", icon: "play", title: "로봇 댄스 공연", desc: "로봇이 펼치는 신나는 댄스 공연" },
+      { href: "/apply/robot-dance", icon: "play", title: "로봇 댄스 공연", desc: "로봇이 펼치는 신나는 댄스 공연" },
     ],
   },
   {

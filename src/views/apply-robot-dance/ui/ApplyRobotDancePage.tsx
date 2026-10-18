@@ -1,4 +1,3 @@
-import { guideNavItems } from "@/shared/config/guide-nav";
 import { SectionPage } from "@/widgets/section-page";
 import { EVENT_DATES, type EventDate } from "@/entities/schedule/model/data";
 
@@ -18,13 +17,12 @@ const SHOWS: Record<EventDate, Show[]> = {
   ],
 };
 
-export default function GuideRobotDancePage() {
+export default function ApplyRobotDancePage() {
   return (
     <SectionPage
-      navTitle="박람회 안내"
-      navItems={guideNavItems}
       title="로봇 댄스 공연"
       desc="박람회 기간 동안 로봇개(GO2)와 알파미니·파이보 로봇이 펼치는 댄스 공연을 만나보세요."
+      showNav={false}
     >
       <h2 className="text-heading-s font-bold text-fg-1">로봇 댄스 공연</h2>
       <p className="mt-2 text-body-s text-fg-2">공연 일정: 10.31(토) ~ 11.1(일)</p>
