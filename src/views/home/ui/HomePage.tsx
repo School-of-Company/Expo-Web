@@ -68,8 +68,9 @@ export default function HomePage() {
                 <p className="text-[28px] font-extrabold leading-none tracking-tight text-primary-50 sm:text-[34px]">
                   10.31.<sup className="-top-[1em] ml-0.5 text-[0.4em] font-bold">토</sup> – 11.01.<sup className="-top-[1em] ml-0.5 text-[0.4em] font-bold">일</sup>
                 </p>
-                <p className="mt-3 w-fit bg-primary-50 px-4 py-2 text-body-s font-bold text-fg-on-primary sm:text-body-m">
-                  시작 시간 9:30 ~ 끝나는 시간 16:00
+                <p className="mt-3 flex w-fit gap-6 bg-primary-50 px-4 py-2 text-body-s font-bold tabular-nums text-fg-on-primary sm:text-body-m">
+                  <span>시작 09:30</span>
+                  <span>종료 16:00</span>
                 </p>
               </div>
             </div>
