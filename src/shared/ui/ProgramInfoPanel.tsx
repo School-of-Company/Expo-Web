@@ -51,7 +51,7 @@ export default function ProgramInfoPanel({
             <Badge variant="outlined-primary" className="shrink-0 px-3 py-1.5 text-body-s">
               {f.label}
             </Badge>
-            <p className="text-body-s text-fg-2">{f.value}</p>
+            <p className="whitespace-pre-line text-body-s text-fg-2">{f.value}</p>
           </div>
         ))}
       </div>
