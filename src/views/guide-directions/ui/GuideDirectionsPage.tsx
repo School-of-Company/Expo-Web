@@ -52,7 +52,9 @@ export default function GuideDirectionsPage() {
         </div>
       </div>
 
-      <h2 className="mt-10 text-heading-s font-bold text-fg-1">대중교통 이용 방법</h2>
+      <h2 className="mt-10 text-heading-s font-bold text-fg-1">
+        <span aria-hidden="true">🚌</span> 대중교통 이용 방법
+      </h2>
       <ul className="mt-4 grid gap-3 sm:grid-cols-2">
         {BUS_STOPS.map(({ stop, walk, buses }) => (
           <li key={stop} className="rounded-xlarge border border-border-default bg-bg-canvas p-5">
