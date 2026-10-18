@@ -18,7 +18,7 @@ export default function TeachersLecturePage() {
           { label: "장소", value: "AI교육원 3층 대강당" },
         ]}
         notes={[
-          { label: "내용", text: "“AI시대, 살아남기를 넘어 번영하기: 핵심역량과 확장된 AI리터러시”" },
+          { label: "내용", text: "“AI 시대, 살아남기를 넘어 번영하기: 핵심 역량과 확장된 AI 리터러시”" },
           { label: "운영방식", text: "선착순 300명, 사전신청 권장" },
         ]}
         cta={{ href: EXTERNAL_APPLY_LINKS.teacherLecture || "#", label: "기조 강연 사전 신청 및 조회", external: true }}
