@@ -60,14 +60,13 @@ export default function NoticeFaqPage() {
       <ul className="mt-6 border-t-2 border-fg-1">
         {visibleFaqs.map((f) => (
           <li key={f.q} className="border-b border-border-default px-2 py-5 sm:px-4 sm:py-6">
-            <div className="flex items-start gap-3 sm:gap-4">
+            {/* 카테고리는 Q 행 위로 빼서 Q가 질문 첫 줄과 나란히 오게 한다. */}
+            <p className="pl-8 text-body-xs font-bold text-fg-3 sm:pl-9">{f.category}</p>
+            <div className="mt-1 flex items-start gap-3 sm:gap-4">
               <span aria-hidden className="w-5 shrink-0 text-body-s font-extrabold leading-snug text-primary-50 sm:text-body-m">
                 Q
               </span>
-              <div className="min-w-0 flex-1">
-                <p className="text-body-xs font-bold text-fg-3">{f.category}</p>
-                <h3 className="mt-1 text-body-s font-bold leading-snug text-fg-1 sm:text-body-m">{f.q}</h3>
-              </div>
+              <h3 className="min-w-0 flex-1 text-body-s font-bold leading-snug text-fg-1 sm:text-body-m">{f.q}</h3>
             </div>
             <div className="mt-4 flex gap-3 sm:gap-4">
               <span aria-hidden className="w-5 shrink-0 text-body-s font-extrabold leading-relaxed text-fg-3 sm:text-body-m">
