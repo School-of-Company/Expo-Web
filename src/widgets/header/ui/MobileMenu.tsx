@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { NAV_SECTIONS, type NavSection } from "@/shared/config/site-nav";
-import { overallCongestionLevel, CONGESTION_STYLE } from "@/entities/congestion/model/data";
+import { liveStatusItems, CONGESTION_STYLE } from "@/entities/congestion/model/data";
 import Icon from "@/shared/ui/Icon";
 
 /**
@@ -33,7 +33,7 @@ interface MobileMenuProps {
  * - 헤더 뒤에서 아래로 펼쳐지고, 메뉴 아래로는 어둡게 깐 현재 페이지가 비친다. 그 부분을 누르면 닫힌다.
  * - 메뉴가 화면보다 길어지면 메뉴 안에서만 스크롤되고, 열려 있는 동안 뒤쪽 페이지 스크롤은 잠근다.
  * - 섹션은 한 번에 하나만 펼치는 아코디언이며, 지금 보고 있는 페이지의 섹션을 처음부터 펼쳐 둔다.
- * - 데스크톱 헤더에만 있는 행사장 현황·주차 현황을 메뉴 맨 위로 옮겨 온다.
+ * - 데스크톱 헤더에만 있는 실시간 현황 티커와 자세히 보기 버튼을 메뉴 맨 위로 옮겨 온다.
  * - Esc, 링크 이동, md 이상으로 화면이 넓어지는 경우에 닫힌다.
  */
 export default function MobileMenu({ open, onClose, parkingHref, parkingExternal, onParkingClick }: MobileMenuProps) {
@@ -74,9 +74,6 @@ export default function MobileMenu({ open, onClose, parkingHref, parkingExternal
     };
   }, [open, onClose]);
 
-  const pillClass =
-    "flex items-center gap-2 whitespace-nowrap rounded-pill bg-bg-subtle px-3 py-1.5 text-body-xs font-semibold text-fg-2";
-
   return (
     <div
       id="mobile-menu"
@@ -101,12 +98,29 @@ export default function MobileMenu({ open, onClose, parkingHref, parkingExternal
           open ? `translate-y-0 delay-[100ms] duration-[450ms] ${EASE_ENTER}` : `-translate-y-full duration-[280ms] ${EASE_EXIT}`
         }`}
       >
-        <div className="flex flex-wrap gap-2 border-b border-border-default px-4 py-4">
-          <span className={pillClass}>
-            행사장 현황
-            <span className={`h-2 w-2 shrink-0 rounded-full ${CONGESTION_STYLE[overallCongestionLevel].dot}`} />
-            <span className={`font-bold ${CONGESTION_STYLE[overallCongestionLevel].text}`}>{overallCongestionLevel}</span>
-          </span>
+        <div className="flex items-center justify-between gap-2 border-b border-border-default px-4 py-4">
+          {/* 양 끝을 투명하게 가려, 흘러 들어오고 나가는 항목이 칼같이 잘리지 않고 서서히 나타나고 사라지게 한다. */}
+          <div className="h-8 min-w-0 flex-1 overflow-hidden text-body-xs font-semibold text-fg-1 [mask-image:linear-gradient(to_right,transparent,black_24px,black_calc(100%-24px),transparent)]">
+            <ul className="flex w-max animate-[status-marquee_14s_linear_infinite] motion-reduce:animate-none">
+              {[...liveStatusItems, ...liveStatusItems].map((item, i) => (
+                <li
+                  key={i}
+                  aria-hidden={i >= liveStatusItems.length || undefined}
+                  className="flex h-8 items-center gap-1.5 whitespace-nowrap"
+                >
+                  <Icon name={item.icon} className="h-[18px] w-[18px] shrink-0 text-primary-50" />
+                  {item.label}
+                  <span
+                    className={`ml-1 rounded-pill px-2.5 text-[13px] leading-6 font-bold text-fg-on-primary ${CONGESTION_STYLE[item.level].bar}`}
+                  >
+                    {item.level}
+                  </span>
+                  {/* 끝 항목 뒤에도 붙여야 복제본과 이어질 때 간격과 구분선이 똑같이 유지된다. */}
+                  <span aria-hidden className="mx-3.5 h-3.5 w-px shrink-0 bg-border-strong" />
+                </li>
+              ))}
+            </ul>
+          </div>
           <a
             href={parkingHref}
             target={parkingExternal ? "_blank" : undefined}
@@ -115,9 +129,9 @@ export default function MobileMenu({ open, onClose, parkingHref, parkingExternal
               onParkingClick(e);
               onClose();
             }}
-            className={`${pillClass} transition-colors duration-150 ease-out active:text-primary-50`}
+            className="flex shrink-0 items-center whitespace-nowrap rounded-pill bg-bg-subtle px-3 py-1 text-body-xs font-semibold text-fg-2 transition-colors duration-150 ease-out active:text-primary-50"
           >
-            주차 현황
+            자세히 보기
           </a>
         </div>
 
