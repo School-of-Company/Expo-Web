@@ -105,7 +105,9 @@ export default function TeachersTrainingPage() {
             운영방식
           </Badge>
           <p className="text-body-s text-fg-2">
-            세션별 정원 한정 사전신청제로 운영되며, 연수 소개는 샘플로 확정 내용은 추후 안내됩니다.
+            각 세션은 <strong className="font-bold text-fg-1">정원 제한에 따라 사전 신청제로 운영</strong>됩니다.
+            <br />
+            단, <strong className="font-bold text-fg-1">잔여석이 있는 세션에 한해 현장 신청이 가능</strong>합니다.
           </p>
         </div>
       </div>

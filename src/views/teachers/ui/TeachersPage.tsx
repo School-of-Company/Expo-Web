@@ -8,7 +8,7 @@ export default function TeachersPage() {
     <SectionPage
       title="미래교육박람회 부스 안내"
       desc="미래교육의 변화를 만나고, 2030 미래교실을 그려보세요!"
-      navTitle="교사마당 (미래교육)"
+      navTitle="미래교육박람회"
       navItems={teachersNavItems}
       showNav={false}
     >
