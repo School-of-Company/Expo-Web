@@ -51,7 +51,7 @@ const GROUPS: QuickApplyGroup[] = [
     desc: "함께 만들어가는 2030 미래교육",
     gradient: ["#06A4C3", "#03BDF1"],
     items: [
-      { href: "/teachers", icon: "star", title: "미래교육박람회 부스 안내", desc: "교사를 위한 미래교육 부스 전시를 확인하세요", highlightIcon: true },
+      { href: "/teachers", icon: "star", title: "AI코스웨어·에듀테크 체험 부스", desc: "교사를 위한 미래교육 부스 전시를 확인하세요", highlightIcon: true },
       { href: "/apply/training", icon: "book", title: "교사 연수 신청", desc: "AI 시대, 교사의 성장을 지원하는 전문 연수" },
     ],
   },
