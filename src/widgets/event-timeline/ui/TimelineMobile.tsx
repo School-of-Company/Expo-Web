@@ -115,22 +115,31 @@ export default function TimelineMobile() {
 
       <div role="tabpanel" id="timeline-panel" aria-labelledby={`timeline-tab-${active}`} className="mt-4">
         {day.allDay.length > 0 && (
-          <section aria-label="종일 운영" className="rounded-large border border-border-default p-4">
-            <p className="text-body-xs font-bold text-primary-50">
-              종일 운영 <span className="tabular-nums">{day.allDay[0].time}</span>
-            </p>
-            <ul className="mt-2 flex flex-col gap-1.5">
+          <section
+            aria-label="종일 운영"
+            className="flex items-center gap-4 rounded-large border border-border-default bg-bg-canvas bg-[radial-gradient(70%_120%_at_100%_100%,oklch(0.96_0.03_40),transparent_70%)] px-4 py-5 shadow-1"
+          >
+            {/* 종일 운영은 모든 시간대에 걸치므로 왼쪽에 따로 세워 아래 시간표와 구분한다. */}
+            <div className="shrink-0 self-stretch border-r border-border-default pr-4 flex flex-col justify-center">
+              <p className="text-heading-xs font-bold text-primary-50">종일 운영</p>
+              <p className="mt-1 text-body-xs font-medium leading-tight tabular-nums text-fg-3">
+                {startOf(day.allDay[0].time)}
+                {/* 좁은 폭에서는 오른쪽 목록에 자리를 내주려고 끝나는 시각을 아랫줄로 내린다. */}
+                <span className="block @min-[30rem]:inline"> ~ {endOf(day.allDay[0].time)}</span>
+              </p>
+            </div>
+            <ul className="flex min-w-0 flex-1 flex-col gap-2.5 @min-[30rem]:gap-2">
               {day.allDay.map((t) => (
-                <li key={t.title} className="flex items-baseline justify-between gap-3 text-body-xs">
-                  <span className="font-semibold text-fg-1">{t.title}</span>
-                  <span className="shrink-0 text-right text-fg-3">{t.location}</span>
+                <li key={t.title} className="flex flex-col @min-[30rem]:flex-row @min-[30rem]:items-baseline @min-[30rem]:justify-between @min-[30rem]:gap-2">
+                  <span className="break-keep text-body-s font-bold leading-snug text-fg-1">{t.title}</span>
+                  <span className="shrink-0 text-body-xs text-fg-3 @min-[30rem]:text-right">{t.location}</span>
                 </li>
               ))}
             </ul>
           </section>
         )}
 
-        <ul className="mt-2 divide-y divide-border-default">
+        <ul className="mt-3 divide-y divide-border-default">
           {day.rows.map((row) =>
             row.kind === "group" ? (
               <SessionGroup key={row.title} title={row.title} sessions={row.sessions} />
