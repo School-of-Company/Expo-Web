@@ -2,7 +2,9 @@
 
 import type { ReactNode } from "react";
 import Icon from "@/shared/ui/Icon";
+import { getBackgroundImage } from "@/shared/lib/getBackgroundImage";
 import { useExternalLinkGuard } from "@/shared/lib/useExternalLinkGuard";
+import heroBgOrange from "../../../../public/hero-bg-orange.png";
 
 export default function ExternalApplyPanel({
   href,
@@ -20,8 +22,14 @@ export default function ExternalApplyPanel({
   const { isConfigured, onClick } = useExternalLinkGuard(href);
 
   return (
-    <div
-      className="rounded-xlarge bg-bg-subtle px-6 py-16 text-center text-fg-1 sm:px-12 sm:py-24">
+    <div className="relative isolate overflow-hidden rounded-xlarge border border-border-default bg-bg-canvas px-6 py-16 text-center text-fg-1 sm:px-12 sm:py-24">
+      {/* 오른쪽 아래로 번지는 주황 물결 사진을 옅게 깔아, 글자가 사진에 묻히지 않게 한다. */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 -z-10 bg-cover bg-center opacity-45"
+        style={{ backgroundImage: getBackgroundImage(heroBgOrange) }}
+      />
+
       <div className="mx-auto max-w-2xl">
         <p className="text-heading-xs font-bold sm:text-heading-l">{title}</p>
         <p className="mt-3 text-body-l font-semibold text-primary-50 sm:text-heading-m">&ldquo;{tagline}&rdquo;</p>
