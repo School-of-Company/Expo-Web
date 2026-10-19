@@ -13,7 +13,7 @@ export default function TeachersPage() {
       showNav={false}
     >
       <BoothBoard
-        groups={[{ booths: teacherBooths }]}
+        groups={[{ nameLabel: "부스명", booths: teacherBooths }]}
         listLabel="부스 안내"
         mapLabel="부스 배치도"
         // TODO: 실제 배치도 에셋을 받으면 src만 교체한다.

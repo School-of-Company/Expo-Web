@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import Link from "next/link";
 import PromoVideo from "@/widgets/promo-video/ui/PromoVideo";
 import TimelineSection from "@/widgets/event-timeline/ui/TimelineSection";
@@ -15,6 +16,11 @@ import logoStacked from "../../../../public/logo-stacked.png";
 const HERO_FACTS = [
   { label: "장소", value: "전남광주통합특별시교육청AI교육원 일원" },
   { label: "대상", value: "관내 학생 · 교원 · 학부모 등" },
+];
+
+const HERO_DAYS = [
+  { date: "10.31.", day: "토", label: "시작", time: "09:30" },
+  { date: "11.01.", day: "일", label: "종료", time: "16:00" },
 ];
 
 export default function HomePage() {
@@ -64,14 +70,22 @@ export default function HomePage() {
                 <p className="mt-2 max-w-xl text-balance break-keep text-[22px] font-extrabold leading-[1.3] text-primary-50 sm:text-[30px]">AI로 연결되는 배움, 함께 여는 미래</p>
               </div>
 
-              <div className="mt-4">
-                <p className="text-[28px] font-extrabold leading-none tracking-tight text-primary-50 sm:text-[34px]">
-                  10.31.<sup className="-top-[1em] ml-0.5 text-[0.4em] font-bold">토</sup> – 11.01.<sup className="-top-[1em] ml-0.5 text-[0.4em] font-bold">일</sup>
-                </p>
-                <p className="mt-3 flex w-fit gap-6 bg-primary-50 px-4 py-2 text-body-s font-bold tabular-nums text-fg-on-primary sm:text-body-m">
-                  <span>시작 09:30</span>
-                  <span>종료 16:00</span>
-                </p>
+              {/* 날짜 한 줄마다 오른쪽에 그날의 시작·종료 시각을 붙인다. */}
+              <div className="mt-4 grid w-fit grid-cols-[auto_auto] items-center gap-x-5 gap-y-2 text-primary-50">
+                {HERO_DAYS.map((d) => (
+                  <Fragment key={d.date}>
+                    <p className="text-[44px] font-extrabold leading-none tracking-tight tabular-nums sm:text-[52px]">
+                      {d.date}
+                      <sup className="-top-[1em] ml-1 text-[0.36em] font-bold">{d.day}</sup>
+                    </p>
+                    <p className="flex flex-col gap-1.5 text-body-m font-bold tabular-nums sm:text-body-l">
+                      <span aria-hidden className="block h-0.5 w-7 bg-current" />
+                      <span>
+                        {d.label} {d.time}
+                      </span>
+                    </p>
+                  </Fragment>
+                ))}
               </div>
             </div>
 
