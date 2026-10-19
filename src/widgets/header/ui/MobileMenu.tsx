@@ -24,7 +24,6 @@ interface MobileMenuProps {
   onClose: () => void;
   parkingHref: string;
   parkingExternal: boolean;
-  onParkingClick: (e: React.MouseEvent) => void;
 }
 
 /**
@@ -36,7 +35,7 @@ interface MobileMenuProps {
  * - 데스크톱 헤더에만 있는 실시간 현황 티커와 자세히 보기 버튼을 메뉴 맨 위로 옮겨 온다.
  * - Esc, 링크 이동, md 이상으로 화면이 넓어지는 경우에 닫힌다.
  */
-export default function MobileMenu({ open, onClose, parkingHref, parkingExternal, onParkingClick }: MobileMenuProps) {
+export default function MobileMenu({ open, onClose, parkingHref, parkingExternal }: MobileMenuProps) {
   const pathname = usePathname();
   const sections = NAV_SECTIONS.filter((section) => !section.external);
   const activeKey = sections.find((section) => isSectionActive(section, pathname))?.key ?? null;
@@ -125,10 +124,7 @@ export default function MobileMenu({ open, onClose, parkingHref, parkingExternal
             href={parkingHref}
             target={parkingExternal ? "_blank" : undefined}
             rel={parkingExternal ? "noopener noreferrer" : undefined}
-            onClick={(e) => {
-              onParkingClick(e);
-              onClose();
-            }}
+            onClick={onClose}
             className="flex shrink-0 items-center whitespace-nowrap rounded-pill bg-bg-subtle px-3 py-1 text-body-xs font-semibold text-fg-2 transition-colors duration-150 ease-out active:text-primary-50"
           >
             자세히 보기

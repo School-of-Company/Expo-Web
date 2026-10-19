@@ -6,18 +6,20 @@ import { useCallback, useRef, useState } from "react";
 import { NAV_SECTIONS } from "@/shared/config/site-nav";
 import { liveStatusItems, CONGESTION_STYLE } from "@/entities/congestion/model/data";
 import Icon from "@/shared/ui/Icon";
-import { useExternalLinkGuard } from "@/shared/lib/useExternalLinkGuard";
 import { getBackgroundImage } from "@/shared/lib/getBackgroundImage";
 import HeaderSearch from "./HeaderSearch";
 import MobileMenu from "./MobileMenu";
 import type { SearchItem } from "@/shared/config/search-index";
 import logo from "../../../../public/logo.png";
 
-const PARKING_GUIDE_URL = process.env.NEXT_PUBLIC_PARKING_GUIDE_URL ?? "";
+const PARKING_GUIDE_URL = process.env.NEXT_PUBLIC_PARKING_GUIDE_URL?.trim() ?? "";
+/** 외부 현황 링크가 아직 설정되지 않았으면 안내 페이지로 보낸다. */
+const STATUS_GUIDE_PATH = "/status";
+const isParkingGuideExternal = PARKING_GUIDE_URL.length > 0 && PARKING_GUIDE_URL !== "#";
+const parkingGuideHref = isParkingGuideExternal ? PARKING_GUIDE_URL : STATUS_GUIDE_PATH;
 
 export default function Header({ searchIndex }: { searchIndex: SearchItem[] }) {
   const pathname = usePathname();
-  const parkingLink = useExternalLinkGuard(PARKING_GUIDE_URL);
   const [searchOpen, setSearchOpen] = useState(false);
   const [openDesktopKey, setOpenDesktopKey] = useState<string | null>(null);
   const [openSeq, setOpenSeq] = useState(0);
@@ -92,10 +94,9 @@ export default function Header({ searchIndex }: { searchIndex: SearchItem[] }) {
                 </ul>
               </div>
               <a
-                href={parkingLink.isConfigured ? PARKING_GUIDE_URL : "#"}
-                target={parkingLink.isConfigured ? "_blank" : undefined}
-                rel={parkingLink.isConfigured ? "noopener noreferrer" : undefined}
-                onClick={parkingLink.onClick}
+                href={parkingGuideHref}
+                target={isParkingGuideExternal ? "_blank" : undefined}
+                rel={isParkingGuideExternal ? "noopener noreferrer" : undefined}
                 className="flex items-center whitespace-nowrap rounded-pill bg-bg-subtle px-3 py-1 text-body-xs font-semibold text-fg-2 transition-colors duration-150 ease-out hover:text-primary-50"
               >
                 자세히 보기
@@ -168,9 +169,8 @@ export default function Header({ searchIndex }: { searchIndex: SearchItem[] }) {
       <MobileMenu
         open={mobileOpen}
         onClose={closeMobileMenu}
-        parkingHref={parkingLink.isConfigured ? PARKING_GUIDE_URL : "#"}
-        parkingExternal={parkingLink.isConfigured}
-        onParkingClick={parkingLink.onClick}
+        parkingHref={parkingGuideHref}
+        parkingExternal={isParkingGuideExternal}
       />
 
       <HeaderSearch open={searchOpen} onClose={() => setSearchOpen(false)} searchIndex={searchIndex} />
