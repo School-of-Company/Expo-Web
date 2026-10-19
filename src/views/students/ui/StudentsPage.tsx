@@ -15,10 +15,10 @@ export default function StudentsPage() {
 
       <BoothBoard
         groups={[
-          { title: "드론", nameLabel: "학교명", booths: byPrefix(booths, "D") },
           { title: "초등", nameLabel: "학교명", booths: byPrefix(booths, "E") },
           { title: "중등", nameLabel: "학교명", booths: byPrefix(booths, "M") },
           { title: "고등", nameLabel: "학교명", booths: byPrefix(booths, "H") },
+          { title: "드론", nameLabel: "학교명", booths: byPrefix(booths, "D") },
           { title: "특별", nameLabel: "운영 기관", booths: [...companyBooths, ...invitedSchoolBooths] },
         ]}
         listLabel="체험부스 안내"
