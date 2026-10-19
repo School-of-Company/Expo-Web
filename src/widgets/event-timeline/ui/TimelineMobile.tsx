@@ -33,7 +33,7 @@ const DAYS = EVENT_DATES.map((date) => ({ date, ...buildDay(date) }));
 
 function TimeCell({ time }: { time: string }) {
   return (
-    <p className="w-12 shrink-0 pt-0.5 text-body-xs font-bold leading-tight tabular-nums text-primary-50">
+    <p className="w-14 shrink-0 pt-0.5 text-body-s font-bold leading-tight tabular-nums text-primary-50">
       {startOf(time)}
       <span className="block font-medium text-fg-3">~{endOf(time)}</span>
     </p>
@@ -55,8 +55,8 @@ function SessionGroup({ title, sessions }: { title: string; sessions: TimelineIt
           className="flex w-full items-start justify-between gap-2 text-left"
         >
           <span>
-            <span className="block text-body-s font-bold text-fg-1">{title}</span>
-            <span className="text-body-xs text-fg-3">{sessions.length}개 회차 · 회차별 강의실 상이</span>
+            <span className="block text-body-m font-bold text-fg-1">{title}</span>
+            <span className="text-body-s text-fg-3">{sessions.length}개 회차 · 회차별 강의실 상이</span>
           </span>
           <Icon
             name="chevron-down"
@@ -67,7 +67,7 @@ function SessionGroup({ title, sessions }: { title: string; sessions: TimelineIt
         {open && (
           <ul className="mt-2 flex flex-col gap-2 rounded-medium bg-bg-subtle p-3">
             {sessions.map((s) => (
-              <li key={s.time} className="text-body-xs">
+              <li key={s.time} className="text-body-s">
                 <p className="font-semibold tabular-nums text-fg-1">
                   {s.time} <span className="font-medium text-fg-3">· {s.location}</span>
                 </p>
@@ -138,13 +138,13 @@ export default function TimelineMobile() {
               <li key={`${row.item.time}-${row.item.title}`} className="flex gap-3 py-3">
                 <TimeCell time={row.item.time} />
                 <div className="min-w-0 flex-1">
-                  <p className="text-body-s font-bold text-fg-1">{row.item.title}</p>
-                  <p className="flex items-center gap-1 text-body-xs text-fg-3">
-                    <Icon name="map-pin" className="h-3.5 w-3.5 shrink-0" />
+                  <p className="text-body-m font-bold text-fg-1">{row.item.title}</p>
+                  <p className="flex items-center gap-1 text-body-s text-fg-3">
+                    <Icon name="map-pin" className="h-4 w-4 shrink-0" />
                     {row.item.location}
                   </p>
                   {row.item.detail.length > 0 && (
-                    <p className="mt-1 break-keep text-body-xs text-fg-2">{row.item.detail.join(" · ")}</p>
+                    <p className="mt-1 break-keep text-body-s text-fg-2">{row.item.detail.join(" · ")}</p>
                   )}
                 </div>
               </li>
