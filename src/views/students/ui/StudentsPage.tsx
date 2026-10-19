@@ -11,13 +11,11 @@ export default function StudentsPage() {
       title="AI·SW 체험한마당 부스 안내"
       desc="전남광주 초·중·고 학생들과 기관에서 운영하는 다채로운 AI·SW 체험 프로그램을 만나보세요."
     >
-      <h2 className="text-heading-s font-bold text-fg-1">AI·SW 체험한마당 부스 안내</h2>
-
       <BoothBoard
         groups={[
-          { title: "초등", nameLabel: "학교명", booths: byPrefix(booths, "E") },
-          { title: "중등", nameLabel: "학교명", booths: byPrefix(booths, "M") },
-          { title: "고등", nameLabel: "학교명", booths: byPrefix(booths, "H") },
+          { title: "초등학교", nameLabel: "학교명", booths: byPrefix(booths, "E") },
+          { title: "중학교", nameLabel: "학교명", booths: byPrefix(booths, "M") },
+          { title: "고등학교", nameLabel: "학교명", booths: byPrefix(booths, "H") },
           { title: "드론", nameLabel: "학교명", booths: byPrefix(booths, "D") },
           { title: "특별", nameLabel: "운영 기관", booths: [...companyBooths, ...invitedSchoolBooths] },
         ]}
