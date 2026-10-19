@@ -3,16 +3,10 @@
 import { useState } from "react";
 import { EVENT_DATES, timeline, type EventDate, type TimelineItem } from "@/entities/schedule/model/data";
 import Icon from "@/shared/ui/Icon";
+import { formatEventDate, GROUPED_TITLE, toMinutes } from "../lib/schedule";
 
 /** 이 시간 이상 이어지는 프로그램은 "종일 운영"으로 묶어 타임라인 위에 한 번만 보여준다. */
 const ALL_DAY_MINUTES = 4 * 60;
-/** 회차가 여러 개인 프로그램. 타임라인에서는 한 줄로 접어 두고 펼쳐서 회차를 본다. */
-const GROUPED_TITLE = "교원 자율연수";
-
-const toMinutes = (hhmm: string) => {
-  const [h, m] = hhmm.split(":").map(Number);
-  return h * 60 + m;
-};
 const startOf = (time: string) => time.split("~")[0];
 const endOf = (time: string) => time.split("~")[1];
 const durationOf = (time: string) => toMinutes(endOf(time)) - toMinutes(startOf(time));
@@ -109,11 +103,11 @@ export default function TimelineMobile() {
               aria-selected={isActive}
               aria-controls="timeline-panel"
               onClick={() => setActive(i)}
-              className={`rounded-medium py-2 text-body-s font-bold transition-colors duration-150 ease-out ${
+              className={`rounded-medium py-2.5 text-body-m font-bold transition-colors duration-150 ease-out ${
                 isActive ? "bg-bg-canvas text-primary-50 shadow-1" : "text-fg-3"
               }`}
             >
-              {d.date}
+              {formatEventDate(d.date)}
             </button>
           );
         })}
