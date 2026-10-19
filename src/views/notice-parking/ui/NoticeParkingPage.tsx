@@ -2,24 +2,11 @@ import SectionPage from "@/widgets/section-page/ui/SectionPage";
 import Icon from "@/shared/ui/Icon";
 import ParkingMapPreview from "./ParkingMapPreview";
 import { noticeNavItems } from "@/shared/config/notice-nav";
+import { TEMP_PARKING } from "@/entities/parking/model/data";
 
 const BUS_STOPS = [
   { stop: "자연과학고 정류장", walk: "7분", buses: ["송정19", "첨단23", "문흥53", "용전86", "운림35"] },
   { stop: "문흥1동행정복지센터 정류장", walk: "10분", buses: ["문흥18", "문흥53", "운림35"] },
-];
-
-/** 임시 주차장. 지도 링크는 주소로 검색해 연다. */
-const TEMP_PARKING = [
-  { name: "문산초등학교", address: "북구 문산로 66" },
-  { name: "문산중학교", address: "북구 대천로 174" },
-  { name: "용봉중학교", address: "북구 서하로274번길 33" },
-  { name: "오정초등학교", address: "북구 대천로 55" },
-  { name: "문우초등학교", address: "북구 능안로 7" },
-  { name: "문흥중학교", address: "북구 능안로 2" },
-  { name: "우산중학교", address: "북구 신촌로 22" },
-  { name: "문정초등학교", address: "북구 대천로169번길 7" },
-  { name: "문정여자고등학교", address: "북구 능안로30번길 33" },
-  { name: "교육연수원", address: "북구 능안로30번길 5" },
 ];
 
 const mapLinks = (address: string) => {
