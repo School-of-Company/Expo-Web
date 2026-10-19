@@ -3,16 +3,10 @@
 import { useState } from "react";
 import { EVENT_DATES, timeline, type EventDate, type TimelineItem } from "@/entities/schedule/model/data";
 import Icon from "@/shared/ui/Icon";
+import { formatEventDate, GROUPED_TITLE, toMinutes } from "../lib/schedule";
 
 /** 이 시간 이상 이어지는 프로그램은 "종일 운영"으로 묶어 타임라인 위에 한 번만 보여준다. */
 const ALL_DAY_MINUTES = 4 * 60;
-/** 회차가 여러 개인 프로그램. 타임라인에서는 한 줄로 접어 두고 펼쳐서 회차를 본다. */
-const GROUPED_TITLE = "교원 자율연수";
-
-const toMinutes = (hhmm: string) => {
-  const [h, m] = hhmm.split(":").map(Number);
-  return h * 60 + m;
-};
 const startOf = (time: string) => time.split("~")[0];
 const endOf = (time: string) => time.split("~")[1];
 const durationOf = (time: string) => toMinutes(endOf(time)) - toMinutes(startOf(time));
@@ -39,7 +33,7 @@ const DAYS = EVENT_DATES.map((date) => ({ date, ...buildDay(date) }));
 
 function TimeCell({ time }: { time: string }) {
   return (
-    <p className="w-12 shrink-0 pt-0.5 text-body-xs font-bold leading-tight tabular-nums text-primary-50">
+    <p className="w-14 shrink-0 pt-0.5 text-body-s font-bold leading-tight tabular-nums text-primary-50">
       {startOf(time)}
       <span className="block font-medium text-fg-3">~{endOf(time)}</span>
     </p>
@@ -61,8 +55,8 @@ function SessionGroup({ title, sessions }: { title: string; sessions: TimelineIt
           className="flex w-full items-start justify-between gap-2 text-left"
         >
           <span>
-            <span className="block text-body-s font-bold text-fg-1">{title}</span>
-            <span className="text-body-xs text-fg-3">{sessions.length}개 회차 · 회차별 강의실 상이</span>
+            <span className="block text-body-m font-bold text-fg-1">{title}</span>
+            <span className="text-body-s text-fg-3">{sessions.length}개 회차 · 회차별 강의실 상이</span>
           </span>
           <Icon
             name="chevron-down"
@@ -73,7 +67,7 @@ function SessionGroup({ title, sessions }: { title: string; sessions: TimelineIt
         {open && (
           <ul className="mt-2 flex flex-col gap-2 rounded-medium bg-bg-subtle p-3">
             {sessions.map((s) => (
-              <li key={s.time} className="text-body-xs">
+              <li key={s.time} className="text-body-s">
                 <p className="font-semibold tabular-nums text-fg-1">
                   {s.time} <span className="font-medium text-fg-3">· {s.location}</span>
                 </p>
@@ -109,11 +103,11 @@ export default function TimelineMobile() {
               aria-selected={isActive}
               aria-controls="timeline-panel"
               onClick={() => setActive(i)}
-              className={`rounded-medium py-2 text-body-s font-bold transition-colors duration-150 ease-out ${
+              className={`rounded-medium py-2.5 text-body-m font-bold transition-colors duration-150 ease-out ${
                 isActive ? "bg-bg-canvas text-primary-50 shadow-1" : "text-fg-3"
               }`}
             >
-              {d.date}
+              {formatEventDate(d.date)}
             </button>
           );
         })}
@@ -121,22 +115,31 @@ export default function TimelineMobile() {
 
       <div role="tabpanel" id="timeline-panel" aria-labelledby={`timeline-tab-${active}`} className="mt-4">
         {day.allDay.length > 0 && (
-          <section aria-label="종일 운영" className="rounded-large border border-border-default p-4">
-            <p className="text-body-xs font-bold text-primary-50">
-              종일 운영 <span className="tabular-nums">{day.allDay[0].time}</span>
-            </p>
-            <ul className="mt-2 flex flex-col gap-1.5">
+          <section
+            aria-label="종일 운영"
+            className="flex items-center gap-4 rounded-large border border-border-default bg-bg-canvas bg-[radial-gradient(70%_120%_at_100%_100%,oklch(0.96_0.03_40),transparent_70%)] px-4 py-5 shadow-1"
+          >
+            {/* 종일 운영은 모든 시간대에 걸치므로 왼쪽에 따로 세워 아래 시간표와 구분한다. */}
+            <div className="shrink-0 self-stretch border-r border-border-default pr-4 flex flex-col justify-center">
+              <p className="text-heading-xs font-bold text-primary-50">종일 운영</p>
+              <p className="mt-1 text-body-xs font-medium leading-tight tabular-nums text-fg-3">
+                {startOf(day.allDay[0].time)}
+                {/* 좁은 폭에서는 오른쪽 목록에 자리를 내주려고 끝나는 시각을 아랫줄로 내린다. */}
+                <span className="block @min-[30rem]:inline"> ~ {endOf(day.allDay[0].time)}</span>
+              </p>
+            </div>
+            <ul className="flex min-w-0 flex-1 flex-col gap-2.5 @min-[30rem]:gap-2">
               {day.allDay.map((t) => (
-                <li key={t.title} className="flex items-baseline justify-between gap-3 text-body-xs">
-                  <span className="font-semibold text-fg-1">{t.title}</span>
-                  <span className="shrink-0 text-right text-fg-3">{t.location}</span>
+                <li key={t.title} className="flex flex-col @min-[30rem]:flex-row @min-[30rem]:items-baseline @min-[30rem]:justify-between @min-[30rem]:gap-2">
+                  <span className="break-keep text-body-s font-bold leading-snug text-fg-1">{t.title}</span>
+                  <span className="shrink-0 text-body-xs text-fg-3 @min-[30rem]:text-right">{t.location}</span>
                 </li>
               ))}
             </ul>
           </section>
         )}
 
-        <ul className="mt-2 divide-y divide-border-default">
+        <ul className="mt-3 divide-y divide-border-default">
           {day.rows.map((row) =>
             row.kind === "group" ? (
               <SessionGroup key={row.title} title={row.title} sessions={row.sessions} />
@@ -144,13 +147,13 @@ export default function TimelineMobile() {
               <li key={`${row.item.time}-${row.item.title}`} className="flex gap-3 py-3">
                 <TimeCell time={row.item.time} />
                 <div className="min-w-0 flex-1">
-                  <p className="text-body-s font-bold text-fg-1">{row.item.title}</p>
-                  <p className="flex items-center gap-1 text-body-xs text-fg-3">
-                    <Icon name="map-pin" className="h-3.5 w-3.5 shrink-0" />
+                  <p className="text-body-m font-bold text-fg-1">{row.item.title}</p>
+                  <p className="flex items-center gap-1 text-body-s text-fg-3">
+                    <Icon name="map-pin" className="h-4 w-4 shrink-0" />
                     {row.item.location}
                   </p>
                   {row.item.detail.length > 0 && (
-                    <p className="mt-1 break-keep text-body-xs text-fg-2">{row.item.detail.join(" · ")}</p>
+                    <p className="mt-1 break-keep text-body-s text-fg-2">{row.item.detail.join(" · ")}</p>
                   )}
                 </div>
               </li>
