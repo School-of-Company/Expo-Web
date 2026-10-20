@@ -27,7 +27,8 @@ export default function PromoVideo() {
     if (video.canPlayType("application/vnd.apple.mpegurl")) {
       video.src = PROMO_HLS_SRC;
     } else {
-      import("hls.js").then(({ default: Hls }) => {
+      // 자막·다중 오디오·DRM이 없는 단순 HLS라 기능을 덜어 낸 light 빌드로 충분하다(약 35% 작음).
+      import("hls.js/light").then(({ default: Hls }) => {
         if (cancelled || !Hls.isSupported()) return;
         const hls = new Hls({ startLevel: 0, capLevelToPlayerSize: true });
         hls.loadSource(PROMO_HLS_SRC);
