@@ -21,7 +21,7 @@ export default function Input({ label, required, error, className = "", id, ...r
         className={`w-full rounded-small border px-3 py-2.5 text-body-s outline-none transition-colors duration-150 ease-out focus:ring-2 disabled:cursor-not-allowed disabled:bg-bg-subtle disabled:text-fg-4 ${
           error
             ? "border-danger focus:border-danger focus:ring-danger/10"
-            : "border-border-default focus:border-primary-50 focus:ring-primary-10"
+            : "border-border-default focus:border-primary-50 focus:ring-gray-20"
         } ${className}`}
         {...rest}
       />

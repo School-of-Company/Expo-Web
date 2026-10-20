@@ -1,6 +1,6 @@
 import { NAV_SECTIONS } from "./site-nav";
-import { notices } from "@/entities/notice/model/data";
-import { faqs } from "@/entities/faq/model/data";
+import type { Notice } from "@/entities/notice/model/types";
+import { faqs, faqPlainAnswer } from "@/entities/faq/model/data";
 
 export interface SearchItem {
   title: string;
@@ -13,18 +13,14 @@ const pageItems: SearchItem[] = NAV_SECTIONS.flatMap((section) =>
   section.sub.map((s) => ({ title: s.label, desc: section.label, href: s.href, group: "페이지" }))
 );
 
-const noticeItems: SearchItem[] = notices.map((n) => ({
-  title: n.title,
-  desc: n.content[0] ?? "",
-  href: `/notice/${n.id}`,
-  group: "공지사항",
-}));
-
 const faqItems: SearchItem[] = faqs.map((f) => ({
   title: f.q,
-  desc: f.a,
+  desc: faqPlainAnswer(f.a),
   href: "/notice/faq",
   group: "FAQ",
 }));
 
-export const searchIndex: SearchItem[] = [...pageItems, ...noticeItems, ...faqItems];
+export function buildSearchIndex(notices: Notice[]): SearchItem[] {
+  const noticeItems = notices.map((n) => ({ title: n.title, desc: n.content[0] ?? "", href: `/notice/${n.id}`, group: "공지사항" }));
+  return [...pageItems, ...noticeItems, ...faqItems];
+}

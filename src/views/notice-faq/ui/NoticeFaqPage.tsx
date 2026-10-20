@@ -1,56 +1,88 @@
 "use client";
 
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import SectionPage from "@/widgets/section-page/ui/SectionPage";
-import Badge from "@/shared/ui/Badge";
-import Icon from "@/shared/ui/Icon";
 import { noticeNavItems } from "@/shared/config/notice-nav";
-import { faqs } from "@/entities/faq/model/data";
+import { faqs, type Faq } from "@/entities/faq/model/data";
+
+type Filter = "전체" | Faq["category"];
+
+/** 질문이 하나도 없는 대상은 탭에서 뺀다. */
+const FILTERS: Filter[] = (["전체", "공통", "학생", "교사"] as const).filter(
+  (f) => f === "전체" || faqs.some((faq) => faq.category === f),
+);
+
+/** "**굵게**" 표기를 <strong>으로 바꿔 답변 속 핵심 문구를 강조한다. */
+function RichText({ text }: { text: string }) {
+  return text.split(/(\*\*[^*]+\*\*)/).map((part, i) =>
+    part.startsWith("**") && part.endsWith("**") ? (
+      <strong key={i} className="font-bold text-fg-1">
+        {part.slice(2, -2)}
+      </strong>
+    ) : (
+      <Fragment key={i}>{part}</Fragment>
+    ),
+  );
+}
 
 export default function NoticeFaqPage() {
-  const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const [filter, setFilter] = useState<Filter>("전체");
+
+  const visibleFaqs = filter === "전체" ? faqs : faqs.filter((f) => f.category === filter);
+  const countOf = (f: Filter) => (f === "전체" ? faqs.length : faqs.filter((faq) => faq.category === f).length);
 
   return (
-    <SectionPage
-      title="FAQ"
-      desc="자주 묻는 질문을 확인하세요."
-      navTitle="알림마당"
-      navItems={noticeNavItems}
-    >
+    <SectionPage title="FAQ" desc="자주 묻는 질문을 확인하세요." navTitle="알림마당" navItems={noticeNavItems}>
       <h2 className="text-heading-s font-bold text-fg-1">FAQ</h2>
-      <div className="mt-4 divide-y divide-gray-20 border-t-2 border-fg-1">
-        {faqs.map((f, i) => {
-          const isOpen = openIndex === i;
 
+      {/* 탭은 사이트의 다른 탭(부스 안내 등)과 같은 밑줄형으로 맞춘다. */}
+      <div role="group" aria-label="질문 대상" className="mt-4 flex gap-1 border-b border-border-default">
+        {FILTERS.map((f) => {
+          const isActive = filter === f;
           return (
-            <div key={i} className="px-3 py-4">
-              <button
-                type="button"
-                onClick={() => setOpenIndex(isOpen ? null : i)}
-                className="flex w-full cursor-pointer items-center justify-between gap-3 text-left"
-                aria-expanded={isOpen}
-              >
-                <span className="flex min-w-0 items-center gap-2">
-                  <Badge variant="solid-pastel">{f.category}</Badge>
-                  <span className="text-body-m font-bold text-fg-1">{f.q}</span>
-                </span>
-                <Icon
-                  name="chevron-down"
-                  className={`h-4 w-4 shrink-0 text-fg-3 transition-transform duration-200 ease-out ${isOpen ? "rotate-180" : ""}`}
-                />
-              </button>
-              <div
-                className="grid transition-[grid-template-rows] duration-200 ease-in-out"
-                style={{ gridTemplateRows: isOpen ? "1fr" : "0fr" }}
-              >
-                <div className="overflow-hidden">
-                  <p className="mt-3 text-body-s leading-relaxed text-fg-2">{f.a}</p>
-                </div>
-              </div>
-            </div>
+            <button
+              key={f}
+              type="button"
+              aria-pressed={isActive}
+              onClick={() => setFilter(f)}
+              className={`-mb-px flex shrink-0 items-center gap-1 border-b-2 px-3 py-3 text-body-s font-bold transition-colors duration-150 ease-out sm:px-4 ${
+                isActive ? "border-primary-50 text-primary-50" : "border-transparent text-fg-3 hover:text-fg-1"
+              }`}
+            >
+              {f}
+              <span className="font-semibold tabular-nums">{countOf(f)}</span>
+            </button>
           );
         })}
       </div>
+
+      {/* 질문이 몇 개 안 되므로 접지 않고 답변까지 모두 펼쳐 보여준다. */}
+      <ul className="mt-6 border-t-2 border-fg-1">
+        {visibleFaqs.map((f) => (
+          <li key={f.q} className="border-b border-border-default px-2 py-5 sm:px-4 sm:py-6">
+            {/* 카테고리는 Q 행 위로 빼서 Q가 질문 첫 줄과 나란히 오게 한다. */}
+            <p className="pl-8 text-body-xs font-bold text-fg-3 sm:pl-9">{f.category}</p>
+            <div className="mt-1 flex items-start gap-3 sm:gap-4">
+              <span aria-hidden className="w-5 shrink-0 text-body-s font-extrabold leading-snug text-primary-50 sm:text-body-m">
+                Q
+              </span>
+              <h3 className="min-w-0 flex-1 text-body-s font-bold leading-snug text-fg-1 sm:text-body-m">{f.q}</h3>
+            </div>
+            <div className="mt-4 flex gap-3 sm:gap-4">
+              <span aria-hidden className="w-5 shrink-0 text-body-s font-extrabold leading-relaxed text-fg-3 sm:text-body-m">
+                A
+              </span>
+              <div className="flex min-w-0 flex-1 flex-col gap-3 text-body-xs leading-relaxed text-fg-2 sm:text-body-s">
+                {f.a.split("\n\n").map((paragraph) => (
+                  <p key={paragraph}>
+                    <RichText text={paragraph} />
+                  </p>
+                ))}
+              </div>
+            </div>
+          </li>
+        ))}
+      </ul>
     </SectionPage>
   );
 }

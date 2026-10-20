@@ -26,7 +26,7 @@ export default function GuideMapPage() {
               aria-pressed={mapKey === map.key}
               onClick={() => setMapKey(map.key)}
               className={`rounded-small px-3 py-1.5 font-medium transition-colors duration-150 ease-out ${
-                mapKey === map.key ? "bg-bg-canvas text-primary-60 shadow-1" : "text-fg-3 hover:text-fg-1"
+                mapKey === map.key ? "bg-bg-canvas text-primary-50 shadow-1" : "text-fg-3 hover:text-fg-1"
               }`}
             >
               {map.label}

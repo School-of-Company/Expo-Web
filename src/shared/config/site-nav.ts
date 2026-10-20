@@ -29,13 +29,13 @@ export const NAV_SECTIONS: NavSection[] = [
   {
     key: "students",
     href: "/students",
-    label: "학생마당",
+    label: "AI·SW체험 한마당",
     sub: studentsNavItems,
   },
   {
     key: "teachers",
     href: "/teachers",
-    label: "교사마당",
+    label: "미래교육박람회",
     sub: teachersNavItems,
   },
   {

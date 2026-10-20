@@ -1,44 +1,92 @@
-import Image from "next/image";
+import { Fragment } from "react";
 import Link from "next/link";
 import PromoVideo from "@/widgets/promo-video/ui/PromoVideo";
 import TimelineSection from "@/widgets/event-timeline/ui/TimelineSection";
 import QuickApplyGroups from "@/widgets/quick-apply/ui/QuickApplyGroups";
 import RecentNotices from "@/widgets/recent-notices/ui/RecentNotices";
+import { AdminShortcut } from "@/widgets/admin-shortcut";
 import Button from "@/shared/ui/Button";
 import Badge from "@/shared/ui/Badge";
 import Icon from "@/shared/ui/Icon";
+import { getBackgroundImage } from "@/shared/lib/getBackgroundImage";
+import heroBg from "../../../../public/hero-bg.png";
+import logo from "../../../../public/logo.png";
+import logoStacked from "../../../../public/logo-stacked.png";
 
 const HERO_FACTS = [
-  { label: "일정", value: "2026.10.31.(토)-11.1.(일)" },
-  { label: "장소", value: "전남광주통합특별시교육청AI교육원" },
-  { label: "대상", value: "학생 · 교원 · 일반 시민 누구나" },
+  { label: "장소", value: "전남광주통합특별시교육청AI교육원 일원" },
+  { label: "대상", value: "관내 학생 · 교원 · 학부모 등" },
+];
+
+const HERO_DAYS = [
+  { date: "10.31.", day: "토", label: "시작", time: "09:30" },
+  { date: "11.01.", day: "일", label: "종료", time: "16:00" },
 ];
 
 export default function HomePage() {
+  const heroBgImage = getBackgroundImage(heroBg, { shouldPreload: true });
+
   return (
     <div>
-      <section className="border-b border-border-default bg-bg-muted bg-cover bg-center bg-[url('/hero-bg.png')]">
-        <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20">
-          <div className="grid grid-cols-1 gap-8 lg:grid-cols-[9fr_11fr] lg:items-stretch">
-            <div className="flex flex-col justify-between">
+      <AdminShortcut />
+      {/* <img>가 아닌 배경으로 깔아 사진을 끌거나 저장할 수 없게 한다. 영상 로딩 전·모션 축소 시에는 이 이미지가 보인다. */}
+      <section
+        className="relative overflow-hidden border-b border-border-default bg-[#eef0fb] bg-cover bg-center"
+        style={{ backgroundImage: heroBgImage }}
+      >
+        <video
+          className="pointer-events-none absolute inset-0 h-full w-full object-cover motion-reduce:hidden"
+          src="/hero-bg.webm"
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+          aria-hidden="true"
+        />
+        <div className="relative mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20">
+          <div className="grid grid-cols-1 gap-8 lg:grid-cols-[2fr_3fr] xl:grid-cols-[3fr_5fr] lg:items-stretch">
+            <div className="flex flex-col">
               <div>
+                {/* 영상과 나란히 놓이는 lg 이상에서는 세로형 로고, 한 줄로 쌓이는 좁은 화면에서는 가로형 로고를 쓴다. */}
                 <h1>
-                  <Image
-                    src="/logo.png"
-                    alt="2026 전남광주통합특별시교육청 AI미래교육박람회"
-                    width={1200}
-                    height={438}
-                    className="h-26 w-auto sm:h-38"
-                    priority
+                  <span
+                    role="img"
+                    aria-label="2026 전남광주통합특별시교육청 AI미래교육박람회"
+                    className="block aspect-[2400/612] w-[351px] max-w-full bg-contain bg-no-repeat sm:w-[526px] lg:hidden"
+                    style={{
+                      backgroundImage: getBackgroundImage(logo, { shouldPreload: true, blur: false, width: 526, media: "(max-width: 1023.98px)" }),
+                    }}
+                  />
+                  <span
+                    role="img"
+                    aria-label="2026 전남광주통합특별시교육청 AI미래교육박람회"
+                    className="hidden aspect-[1080/1024] w-[300px] bg-contain bg-no-repeat lg:block xl:w-[340px]"
+                    style={{
+                      backgroundImage: getBackgroundImage(logoStacked, { shouldPreload: true, blur: false, width: 340, media: "(min-width: 1024px)" }),
+                    }}
                   />
                 </h1>
-                <p className="mt-4 max-w-xl text-[22px] font-extrabold leading-[1.3] text-primary-50 sm:text-[29px]">AI로 연결되는 배움, 함께 여는 미래</p>
+                <p className="mt-2 max-w-xl text-balance break-keep text-[22px] font-extrabold leading-[1.3] text-primary-50 sm:text-[30px]">AI로 연결되는 배움, 함께 여는 미래</p>
               </div>
 
-              <Button href="/apply/register" size="l" className="mt-8 w-fit">
-                사전등록하기
-                <Icon name="arrow-right" className="h-6 w-6 transition-transform duration-150 ease-out group-hover:translate-x-1" />
-              </Button>
+              {/* 날짜 한 줄마다 오른쪽에 그날의 시작·종료 시각을 붙인다. */}
+              <div className="mt-4 grid w-fit grid-cols-[auto_auto] items-center gap-x-5 gap-y-2 text-primary-50">
+                {HERO_DAYS.map((d) => (
+                  <Fragment key={d.date}>
+                    <p className="text-[44px] font-extrabold leading-none tracking-tight tabular-nums sm:text-[52px]">
+                      {d.date}
+                      <sup className="-top-[1em] ml-1 text-[0.36em] font-bold">{d.day}</sup>
+                    </p>
+                    <p className="flex flex-col gap-1.5 text-body-m font-bold tabular-nums sm:text-body-l">
+                      <span aria-hidden className="block h-0.5 w-7 bg-current" />
+                      <span>
+                        {d.label} {d.time}
+                      </span>
+                    </p>
+                  </Fragment>
+                ))}
+              </div>
             </div>
 
             <div>
@@ -46,13 +94,33 @@ export default function HomePage() {
             </div>
           </div>
 
-          <div className="mt-10 flex w-full flex-col items-start gap-4 rounded-xlarge bg-bg-canvas px-6 py-5 sm:flex-row sm:items-center sm:justify-between sm:gap-8">
-            {HERO_FACTS.map((f) => (
-              <div key={f.label} className="flex items-center gap-3">
-                <Badge variant="solid-primary">{f.label}</Badge>
-                <span className="text-body-s font-bold text-fg-1 sm:text-body-m">{f.value}</span>
-              </div>
-            ))}
+          <div className="mt-10 grid grid-cols-1 gap-4 lg:grid-cols-[3fr_2fr] lg:gap-6">
+            <div className="flex flex-col items-start gap-4 rounded-xlarge bg-bg-canvas px-6 py-5 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-8 sm:gap-y-3">
+              {HERO_FACTS.map((f) => (
+                <div key={f.label} className="flex items-center gap-3">
+                  <Badge variant="solid-primary">{f.label}</Badge>
+                  <span className="text-body-s font-bold text-fg-1 sm:whitespace-nowrap sm:text-body-m">{f.value}</span>
+                </div>
+              ))}
+            </div>
+
+            {/* 주기적으로 빛이 스치는 메인 CTA. 동작 줄이기 설정에서는 빛을 끈다. */}
+            <Button
+              href="/apply/register"
+              size="l"
+              fullWidth
+              className="relative overflow-hidden bg-linear-to-r from-primary-60 via-primary-50 to-primary-40 shadow-3 hover:from-primary-50 hover:via-primary-40 lg:h-full lg:rounded-xlarge lg:text-heading-s"
+            >
+              <span
+                aria-hidden
+                className="pointer-events-none absolute inset-y-0 left-0 w-1/3 animate-[cta-shine_4s_ease-in-out_infinite] bg-gradient-to-r from-transparent via-white/25 to-transparent motion-reduce:hidden"
+              />
+              사전등록하기
+              <Icon
+                name="arrow-right"
+                className="h-6 w-6 transition-transform duration-200 ease-out group-hover:translate-x-1.5 motion-reduce:transition-none"
+              />
+            </Button>
           </div>
         </div>
       </section>
