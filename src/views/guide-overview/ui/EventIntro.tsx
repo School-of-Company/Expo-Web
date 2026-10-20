@@ -35,7 +35,7 @@ export default function EventIntro() {
           <p>
             올해 AI미래교육박람회는
             <br />
-            학생 중심의 AI·SW 체험 축전과
+            학생 중심의 AI·SW 체험한마당과
             <br />
             교원 중심의 미래교육박람회를 하나로 합쳐 운영합니다.
           </p>
