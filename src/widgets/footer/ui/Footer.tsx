@@ -2,6 +2,7 @@ import Link from "next/link";
 import { getBackgroundImage } from "@/shared/lib/getBackgroundImage";
 import organizerLogo from "../../../../public/logos/organizer.svg";
 import hostLogo from "../../../../public/logos/host.svg";
+import VisitCounter from "./VisitCounter";
 
 /**
  * 주최·주관 로고. SVG를 인라인으로 두면 모든 페이지 HTML과 RSC 페이로드에 100KB씩 실려서,
@@ -51,6 +52,7 @@ export default function Footer() {
           <p className="mt-4 text-body-xs text-white/40">
             Copyright © 2026 전남광주통합특별시교육청 AI미래교육박람회. All rights reserved.
           </p>
+          <VisitCounter />
         </div>
       </div>
     </footer>
