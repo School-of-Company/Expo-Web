@@ -52,8 +52,9 @@ export default function Button(props: ButtonAsButton | ButtonAsLink) {
           target={isConfigured ? "_blank" : undefined}
           rel={isConfigured ? "noopener noreferrer" : undefined}
           onClick={(e) => {
-            guardClick(e);
+            // 호출한 쪽이 이미 기본 동작을 막았으면(신청 안내 창 등) 404로 보내지 않는다.
             onClick?.(e);
+            if (!e.defaultPrevented) guardClick(e);
           }}
           className={classes}
           {...anchorRest}
