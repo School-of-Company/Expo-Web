@@ -51,10 +51,18 @@ export default function TeachersTrainingPage() {
         </div>
       </div>
 
-      <Button href={EXTERNAL_APPLY_LINKS.teacherTraining || "#"} external size="l" fullWidth className="mt-3">
-        연수 사전 신청 및 조회
-        <span aria-hidden="true">→</span>
-      </Button>
+      <div className="mt-3 flex flex-col gap-1 rounded-large bg-primary-10 p-5 text-body-s text-fg-1">
+        <p>사전 신청 기간: 2026.10.22.(목) 09:00 ~ 2026.10.29.(목) 17:00까지</p>
+        <p>장소: AI교육원 202호</p>
+        <p>※ 선착순 사전 마감되며, 잔여석에 한해 당일 연수 장소에서 현장 등록이 가능합니다.</p>
+      </div>
+
+      {EXTERNAL_APPLY_LINKS.teacherTraining && (
+        <Button href={EXTERNAL_APPLY_LINKS.teacherTraining} external size="l" fullWidth className="mt-3">
+          연수 사전 신청 및 조회
+          <span aria-hidden="true">→</span>
+        </Button>
+      )}
     </SectionPage>
   );
 }
