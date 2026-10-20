@@ -3,6 +3,30 @@ import { EXTERNAL_APPLY_LINKS } from "@/shared/config/external-apply-links";
 import { ExternalApplyPanel } from "@/widgets/external-apply";
 import { SectionPage } from "@/widgets/section-page";
 
+/** 대상별 사전등록 오픈 일정. 신청 주소(env)가 비어 있을 때 신청 버튼을 누르면 안내 창으로 보여 준다. */
+const REGISTER_SCHEDULE = [
+  { target: "교원 및 예비교원", label: "2026. 10. 22.(목) 09:00 ~" },
+  { target: "학생·학부모·일반 시민", label: "2026. 10. 26.(월) 08:30 ~" },
+];
+
+function RegisterSchedule() {
+  return (
+    <>
+      <dl className="flex flex-col gap-2">
+        {REGISTER_SCHEDULE.map(({ target, label }) => (
+          <div key={target} className="flex flex-col gap-0.5 sm:flex-row sm:items-baseline sm:justify-between sm:gap-4">
+            <dt className="text-body-s font-semibold text-fg-2">{target}</dt>
+            <dd className="text-body-m font-bold text-primary-50 tabular-nums">{label}</dd>
+          </div>
+        ))}
+      </dl>
+      <p className="mt-3 border-t border-border-default pt-3 text-body-xs leading-relaxed text-fg-3">
+        ※ 사전등록 선착순 1,000명 기준은 학생·학부모·일반 시민 대상이며, 교원 및 예비교원은 해당 인원에 포함되지 않습니다.
+      </p>
+    </>
+  );
+}
+
 const Strong = ({ children }: { children: React.ReactNode }) => <strong className="font-bold text-fg-1">{children}</strong>;
 
 export default function ApplyRegisterPage() {
@@ -34,6 +58,7 @@ export default function ApplyRegisterPage() {
             <Strong>가급적 사전 등록 후 방문</Strong>해 주시기 바랍니다.
           </>
         }
+        notice={<RegisterSchedule />}
       />
     </SectionPage>
   );

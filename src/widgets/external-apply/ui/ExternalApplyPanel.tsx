@@ -1,6 +1,7 @@
 "use client";
 
-import type { ReactNode } from "react";
+import { useRef, type MouseEvent, type ReactNode } from "react";
+import ApplyNoticeDialog from "@/shared/ui/ApplyNoticeDialog";
 import Icon from "@/shared/ui/Icon";
 import { getBackgroundImage } from "@/shared/lib/getBackgroundImage";
 import { useExternalLinkGuard } from "@/shared/lib/useExternalLinkGuard";
@@ -12,14 +13,27 @@ export default function ExternalApplyPanel({
   title,
   tagline,
   body,
+  notice,
 }: {
   href: string;
   label: string;
   title: string;
   tagline: string;
   body: ReactNode;
+  /** 신청 주소(env)가 비어 있을 때 버튼을 누르면 404 대신 띄울 신청 안내. */
+  notice?: ReactNode;
 }) {
-  const { isConfigured, onClick } = useExternalLinkGuard(href);
+  const { isConfigured, onClick: guardClick } = useExternalLinkGuard(href);
+  const dialogRef = useRef<HTMLDialogElement>(null);
+
+  const onClick = (e: MouseEvent) => {
+    if (notice && !isConfigured) {
+      e.preventDefault();
+      dialogRef.current?.showModal();
+      return;
+    }
+    guardClick(e);
+  };
 
   return (
     <div className="relative isolate overflow-hidden rounded-xlarge border border-border-default bg-bg-canvas px-6 py-16 text-center text-fg-1 sm:px-12 sm:py-24">
@@ -46,6 +60,12 @@ export default function ExternalApplyPanel({
           <Icon name="arrow-right" className="h-6 w-6 transition-transform duration-150 ease-out group-hover:translate-x-1" />
         </a>
       </div>
+
+      {notice && (
+        <ApplyNoticeDialog ref={dialogRef} title="신청 오픈 일정">
+          {notice}
+        </ApplyNoticeDialog>
+      )}
     </div>
   );
 }
