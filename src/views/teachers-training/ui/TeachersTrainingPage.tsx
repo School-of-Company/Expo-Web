@@ -1,10 +1,20 @@
 import SectionPage from "@/widgets/section-page/ui/SectionPage";
 import Badge from "@/shared/ui/Badge";
-import Button from "@/shared/ui/Button";
+import ApplyCtaButton from "@/shared/ui/ApplyCtaButton";
 import Icon from "@/shared/ui/Icon";
 import BrandMark from "@/shared/ui/logos/BrandMark";
 import { trainingPrograms } from "@/entities/training-program/model/data";
 import { EXTERNAL_APPLY_LINKS } from "@/shared/config/external-apply-links";
+
+const applyNotice = (
+  <>
+    사전 신청 기간: <strong className="font-bold text-fg-1">2026.10.22.(목) 09:00 ~ 2026.10.29.(목) 17:00</strong>까지
+    <br />
+    장소: AI교육원 202호
+    <br />
+    ※ 선착순 사전 마감되며, 잔여석에 한해 당일 연수 장소에서 현장 등록이 가능합니다.
+  </>
+);
 
 export default function TeachersTrainingPage() {
   return (
@@ -112,18 +122,14 @@ export default function TeachersTrainingPage() {
         </div>
       </div>
 
-      <div className="mt-3 flex flex-col gap-1 rounded-large bg-primary-10 p-5 text-body-s text-fg-1">
-        <p>사전 신청 기간: 2026.10.22.(목) 09:00 ~ 2026.10.29.(목) 17:00까지</p>
-        <p>장소: AI교육원 202호</p>
-        <p>※ 선착순 사전 마감되며, 잔여석에 한해 당일 연수 장소에서 현장 등록이 가능합니다.</p>
-      </div>
-
-      {EXTERNAL_APPLY_LINKS.teacherTraining && (
-        <Button href={EXTERNAL_APPLY_LINKS.teacherTraining} external size="l" fullWidth className="mt-3">
-          연수 사전 신청 및 조회
-          <span aria-hidden="true">→</span>
-        </Button>
-      )}
+      <ApplyCtaButton
+        href={EXTERNAL_APPLY_LINKS.teacherTraining}
+        label="연수 사전 신청 및 조회"
+        noticeTitle="연수 사전 신청 안내"
+        notice={<p className="text-body-s leading-relaxed text-fg-2">{applyNotice}</p>}
+        opensAt="2026-10-22T09:00:00+09:00"
+        closesAt="2026-10-29T17:00:00+09:00"
+      />
     </SectionPage>
   );
 }
