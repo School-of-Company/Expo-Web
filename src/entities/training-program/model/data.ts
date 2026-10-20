@@ -45,7 +45,7 @@ export const trainingPrograms: TrainingProgram[] = [
     id: "apple",
     brand: "apple",
     title: "애플 연수",
-    place: "AI교육원 201호",
+    place: "AI교육원 202호",
     sessions: [
       { round: 1, date: "10.31.(토)", time: "16:00~17:00", title: "‘수업은 쉽게, 참여는 깊게’ iPad로 만드는 참여 중심 수업" },
       { round: 2, date: "11.1.(일)", time: "09:30~10:30", title: "‘수업은 쉽게, 참여는 깊게’ iPad로 만드는 참여 중심 수업" },

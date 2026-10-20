@@ -86,7 +86,7 @@ export const timeline: TimelineItem[] = [
   {
     time: "16:00~17:00",
     title: "교원 자율연수",
-    location: "201호",
+    location: "202호",
     detail: ["‘수업은 쉽게, 참여는 깊게’ iPad로 만드는 참여 중심 수업"],
     date: "10.31(토)",
   },
@@ -114,7 +114,7 @@ export const timeline: TimelineItem[] = [
   {
     time: "09:30~10:30",
     title: "교원 자율연수",
-    location: "201호",
+    location: "202호",
     detail: ["‘수업은 쉽게, 참여는 깊게’ iPad로 만드는 참여 중심 수업"],
     date: "11.1(일)",
   },
@@ -142,7 +142,7 @@ export const timeline: TimelineItem[] = [
   {
     time: "13:00~14:00",
     title: "교원 자율연수",
-    location: "201호",
+    location: "202호",
     detail: ["‘수업은 쉽게, 참여는 깊게’ iPad로 만드는 참여 중심 수업"],
     date: "11.1(일)",
   },
