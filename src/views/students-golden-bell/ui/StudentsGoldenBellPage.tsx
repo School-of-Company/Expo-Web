@@ -2,6 +2,14 @@ import SectionPage from "@/widgets/section-page/ui/SectionPage";
 import ProgramInfoPanel from "@/shared/ui/ProgramInfoPanel";
 import { EXTERNAL_APPLY_LINKS } from "@/shared/config/external-apply-links";
 
+const applyNotice = (
+  <>
+    사전 신청: <strong className="font-bold text-fg-1">10.26.(월) 08:30</strong>부터 홈페이지에서 선착순 접수
+    <br />
+    현장 신청: 행사 당일 <strong className="font-bold text-fg-1">09:30</strong>부터 홈페이지에서 선착순 접수
+  </>
+);
+
 export default function StudentsGoldenBellPage() {
   return (
     <SectionPage
@@ -26,7 +34,14 @@ export default function StudentsGoldenBellPage() {
             text: "사전 신청: 10.26.(월) 8:30부터 홈페이지에서 선착순 접수\n현장 신청: 행사 당일 9:30부터 홈페이지에서 선착순 접수",
           },
         ]}
-        cta={{ href: EXTERNAL_APPLY_LINKS.goldenBell || "#", label: "골든벨 사전 신청 및 조회", external: true }}
+        cta={{
+          href: EXTERNAL_APPLY_LINKS.goldenBell,
+          label: "골든벨 사전 신청 및 조회",
+          external: true,
+          notice: <p className="text-body-s leading-relaxed text-fg-2">{applyNotice}</p>,
+          noticeTitle: "골든벨 사전 신청 안내",
+          opensAt: "2026-10-26T08:30:00+09:00",
+        }}
       />
     </SectionPage>
   );
