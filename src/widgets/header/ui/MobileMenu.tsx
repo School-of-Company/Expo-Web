@@ -4,8 +4,9 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { NAV_SECTIONS, type NavSection } from "@/shared/config/site-nav";
-import { liveStatusItems, CONGESTION_STYLE } from "@/entities/congestion/model/data";
+import { liveStatusItems } from "@/entities/congestion/model/data";
 import Icon from "@/shared/ui/Icon";
+import { LiveLevelText, LiveNowLabel, shortLabel } from "./LiveStatusBar";
 
 /**
  * 토스처럼 빠르게 출발해 길게 감속하는 곡선(ease-out-expo 계열). 열 때는 이 곡선으로 느긋하게,
@@ -97,25 +98,21 @@ export default function MobileMenu({ open, onClose, parkingHref, parkingExternal
           open ? `translate-y-0 delay-[100ms] duration-[450ms] ${EASE_ENTER}` : `-translate-y-full duration-[280ms] ${EASE_EXIT}`
         }`}
       >
-        <div className="flex items-center justify-between gap-2 border-b border-border-default px-4 py-4">
+        {/* 데스크톱 헤더와 같은 "● 지금 행사장 없음 · 도로 없음 · …" 모양을 쓰되, 폭이 좁아 항목만 왼쪽으로 흘린다. */}
+        <div className="flex items-center gap-2.5 border-b border-border-default px-4 py-4 text-body-xs font-semibold text-fg-2">
+          <LiveNowLabel />
           {/* 양 끝을 투명하게 가려, 흘러 들어오고 나가는 항목이 칼같이 잘리지 않고 서서히 나타나고 사라지게 한다. */}
-          <div className="h-8 min-w-0 flex-1 overflow-hidden text-body-xs font-semibold text-fg-1 [mask-image:linear-gradient(to_right,transparent,black_24px,black_calc(100%-24px),transparent)]">
+          <div className="h-8 min-w-0 flex-1 overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_16px,black_calc(100%-16px),transparent)]">
             <ul className="flex w-max animate-[status-marquee_14s_linear_infinite] motion-reduce:animate-none">
               {[...liveStatusItems, ...liveStatusItems].map((item, i) => (
                 <li
                   key={i}
                   aria-hidden={i >= liveStatusItems.length || undefined}
-                  className="flex h-8 items-center gap-1.5 whitespace-nowrap"
+                  // 끝 항목 뒤에도 구분점을 붙여야 복제본과 이어질 때 간격이 똑같이 유지된다.
+                  className="flex h-8 items-center whitespace-nowrap after:mx-2 after:text-fg-4 after:content-['·']"
                 >
-                  <Icon name={item.icon} className="h-[18px] w-[18px] shrink-0 text-primary-50" />
-                  {item.label}
-                  <span
-                    className={`ml-1 rounded-pill px-2.5 text-[13px] leading-6 font-bold text-fg-on-primary ${CONGESTION_STYLE[item.level].bar}`}
-                  >
-                    {item.level}
-                  </span>
-                  {/* 끝 항목 뒤에도 붙여야 복제본과 이어질 때 간격과 구분선이 똑같이 유지된다. */}
-                  <span aria-hidden className="mx-3.5 h-3.5 w-px shrink-0 bg-border-strong" />
+                  {shortLabel(item.label)}
+                  <LiveLevelText level={item.level} />
                 </li>
               ))}
             </ul>
@@ -125,9 +122,10 @@ export default function MobileMenu({ open, onClose, parkingHref, parkingExternal
             target={parkingExternal ? "_blank" : undefined}
             rel={parkingExternal ? "noopener noreferrer" : undefined}
             onClick={onClose}
-            className="flex shrink-0 items-center whitespace-nowrap rounded-pill bg-bg-subtle px-3 py-1 text-body-xs font-semibold text-fg-2 transition-colors duration-150 ease-out active:text-primary-50"
+            className="flex shrink-0 items-center whitespace-nowrap text-fg-3 transition-colors duration-150 ease-out active:text-primary-50"
           >
             자세히 보기
+            <Icon name="chevron-right" className="h-3.5 w-3.5" />
           </a>
         </div>
 

@@ -4,11 +4,12 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useCallback, useRef, useState } from "react";
 import { NAV_SECTIONS } from "@/shared/config/site-nav";
-import { liveStatusItems, CONGESTION_STYLE } from "@/entities/congestion/model/data";
+import { liveStatusItems } from "@/entities/congestion/model/data";
 import Icon from "@/shared/ui/Icon";
 import { getBackgroundImage } from "@/shared/lib/getBackgroundImage";
 import HeaderSearch from "./HeaderSearch";
 import MobileMenu from "./MobileMenu";
+import { LiveLevelText, LiveNowLabel, LiveStatusBarV6, shortLabel } from "./LiveStatusBar";
 import type { SearchItem } from "@/shared/config/search-index";
 import logo from "../../../../public/logo.png";
 
@@ -74,33 +75,36 @@ export default function Header({ searchIndex }: { searchIndex: SearchItem[] }) {
 
           <div className="flex items-center gap-3">
             <div className="hidden items-center gap-2 md:flex">
-              <div className="group h-8 overflow-hidden px-1 text-body-xs font-semibold text-fg-1">
-                <ul className="animate-[status-ticker_9s_ease-in-out_infinite] group-hover:[animation-play-state:paused] motion-reduce:animate-none">
-                  {[...liveStatusItems, liveStatusItems[0]].map((item, i) => (
-                    <li
-                      key={i}
-                      aria-hidden={i === liveStatusItems.length || undefined}
-                      className="flex h-8 items-center gap-1.5 whitespace-nowrap"
-                    >
-                      <Icon name={item.icon} className="h-[18px] w-[18px] shrink-0 text-primary-50" />
-                      {item.label}
-                      <span
-                        className={`ml-1 rounded-pill px-2.5 text-[13px] leading-6 font-bold text-fg-on-primary ${CONGESTION_STYLE[item.level].bar}`}
-                      >
-                        {item.level}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
+              {/* lg 이상은 세 항목을 한 줄에 모두 보여 준다. 다른 안은 LiveStatusBarV1~V6으로 보관해 두었다. 폭이 모자란 md 구간은 같은 모양으로 항목만 한 줄씩 넘긴다. */}
+              <div className="hidden lg:flex">
+                <LiveStatusBarV6 href={parkingGuideHref} external={isParkingGuideExternal} />
               </div>
-              <a
-                href={parkingGuideHref}
-                target={isParkingGuideExternal ? "_blank" : undefined}
-                rel={isParkingGuideExternal ? "noopener noreferrer" : undefined}
-                className="flex items-center whitespace-nowrap rounded-pill bg-bg-subtle px-3 py-1 text-body-xs font-semibold text-fg-2 transition-colors duration-150 ease-out hover:text-primary-50"
-              >
-                자세히 보기
-              </a>
+              <div className="flex items-center gap-2.5 text-body-xs font-semibold text-fg-2 lg:hidden">
+                <LiveNowLabel />
+                <div className="group h-8 overflow-hidden">
+                  <ul className="animate-[status-ticker_9s_ease-in-out_infinite] group-hover:[animation-play-state:paused] motion-reduce:animate-none">
+                    {[...liveStatusItems, liveStatusItems[0]].map((item, i) => (
+                      <li
+                        key={i}
+                        aria-hidden={i === liveStatusItems.length || undefined}
+                        className="flex h-8 items-center whitespace-nowrap"
+                      >
+                        {shortLabel(item.label)}
+                        <LiveLevelText level={item.level} />
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <a
+                  href={parkingGuideHref}
+                  target={isParkingGuideExternal ? "_blank" : undefined}
+                  rel={isParkingGuideExternal ? "noopener noreferrer" : undefined}
+                  className="flex items-center whitespace-nowrap text-fg-3 transition-colors duration-150 ease-out hover:text-primary-50"
+                >
+                  자세히 보기
+                  <Icon name="chevron-right" className="h-3.5 w-3.5" />
+                </a>
+              </div>
             </div>
 
             <button
