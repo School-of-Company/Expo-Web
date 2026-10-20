@@ -27,8 +27,8 @@ export default function ProgramInfoPanel({
   schedules?: ScheduleItem[];
   facts: FactItem[];
   notes: NoteItem[];
-  /** notice를 주면 신청 주소(env)가 비어 있을 때 404 대신 그 안내를 창으로 띄운다. */
-  cta: { href: string; label: string; external?: boolean; notice?: ReactNode; noticeTitle?: string };
+  /** notice를 주면 신청 주소(env)가 비어 있거나 신청 기간이 아니면 404 대신 그 안내를 창으로 띄운다. */
+  cta: { href: string; label: string; external?: boolean; notice?: ReactNode; noticeTitle?: string; opensAt?: string; closesAt?: string };
 }) {
   return (
     <div className="mt-4 flex flex-col gap-3">
@@ -76,6 +76,8 @@ export default function ProgramInfoPanel({
           label={cta.label}
           notice={cta.notice}
           noticeTitle={cta.noticeTitle ?? "신청 안내"}
+          opensAt={cta.opensAt}
+          closesAt={cta.closesAt}
         />
       ) : (
         <Button href={cta.href} external={cta.external} size="l" fullWidth className="mt-3">
