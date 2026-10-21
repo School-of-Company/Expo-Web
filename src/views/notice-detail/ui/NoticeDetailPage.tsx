@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import ZoomImage from "./ZoomImage";
 import SectionPage from "@/widgets/section-page/ui/SectionPage";
 import Icon from "@/shared/ui/Icon";
 import { noticeNavItems } from "@/shared/config/notice-nav";
@@ -38,8 +39,7 @@ export default async function NoticeDetailPage({ id }: { id: string }) {
         <div className="mt-6 space-y-4">
           {notice.attachments.map((a) =>
             a.type.startsWith("image/") ? (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img key={a.url} src={a.url} alt={a.name} className="max-w-full rounded-small" />
+              <ZoomImage key={a.url} src={a.url} alt={a.name} />
             ) : (
               // Blob은 다른 도메인이라 download 속성이 무시된다. ?download=1을 붙여야 바로 내려받는다.
               <a
