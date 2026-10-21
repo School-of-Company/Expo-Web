@@ -11,4 +11,6 @@ await sql`create table if not exists notices (
   date date not null default current_date
 )`;
 
+await sql`alter table notices add column if not exists attachments jsonb not null default '[]'`;
+
 console.log("notices table ready");

@@ -1,3 +1,10 @@
+export interface Attachment {
+  url: string;
+  name: string;
+  /** MIME type */
+  type: string;
+}
+
 export interface Notice {
   id: string;
   title: string;
@@ -5,4 +12,5 @@ export interface Notice {
   date: string;
   /** 문단 단위 */
   content: string[];
+  attachments: Attachment[];
 }
