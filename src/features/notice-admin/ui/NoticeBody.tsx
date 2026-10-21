@@ -49,7 +49,7 @@ export default function NoticeBody({ initialContent = "", initialAttachments = [
             {items.map((a) =>
               a.type.startsWith("image/") ? (
                 // eslint-disable-next-line @next/next/no-img-element
-                <img key={a.url} src={a.url} alt={a.name} className="max-w-full rounded-small" />
+                <img key={a.url} src={a.url} alt={a.name} className="mx-auto max-h-[70vh] max-w-full rounded-small object-contain" />
               ) : (
                 <p key={a.url} className="rounded-small border border-border-default px-4 py-3 font-medium text-fg-1">
                   {a.name}
