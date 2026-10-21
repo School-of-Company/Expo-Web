@@ -34,6 +34,26 @@ export default async function NoticeDetailPage({ id }: { id: string }) {
         ))}
       </div>
 
+      {notice.attachments.length > 0 && (
+        <div className="mt-6 space-y-4">
+          {notice.attachments.map((a) =>
+            a.type.startsWith("image/") ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img key={a.url} src={a.url} alt={a.name} className="max-w-full rounded-small" />
+            ) : (
+              // Blob은 다른 도메인이라 download 속성이 무시된다. ?download=1을 붙여야 바로 내려받는다.
+              <a
+                key={a.url}
+                href={`${a.url}?download=1`}
+                className="flex items-center gap-2 rounded-small border border-border-default px-4 py-3 text-body-s font-medium text-fg-1 hover:bg-bg-subtle"
+              >
+                <span className="min-w-0 flex-1 truncate">{a.name}</span>
+                <span className="shrink-0 text-body-xs text-primary-50">다운로드</span>
+              </a>
+            ),
+          )}
+        </div>
+      )}
     </SectionPage>
   );
 }
