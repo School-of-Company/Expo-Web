@@ -1,5 +1,7 @@
+import type { ReactNode } from "react";
 import Button from "./Button";
 import Badge from "./Badge";
+import ApplyCtaButton from "./ApplyCtaButton";
 
 interface ScheduleItem {
   label: string;
@@ -13,7 +15,7 @@ interface FactItem {
 
 interface NoteItem {
   label: string;
-  text: string;
+  text: ReactNode;
 }
 
 export default function ProgramInfoPanel({
@@ -25,7 +27,8 @@ export default function ProgramInfoPanel({
   schedules?: ScheduleItem[];
   facts: FactItem[];
   notes: NoteItem[];
-  cta: { href: string; label: string; external?: boolean };
+  /** notice를 주면 신청 주소(env)가 비어 있거나 신청 기간이 아니면 404 대신 그 안내를 창으로 띄운다. */
+  cta: { href: string; label: string; external?: boolean; notice?: ReactNode; noticeTitle?: string; opensAt?: string; closesAt?: string };
 }) {
   return (
     <div className="mt-4 flex flex-col gap-3">
@@ -51,7 +54,7 @@ export default function ProgramInfoPanel({
             <Badge variant="outlined-primary" className="shrink-0 px-3 py-1.5 text-body-s">
               {f.label}
             </Badge>
-            <p className="text-body-s text-fg-2">{f.value}</p>
+            <p className="whitespace-pre-line text-body-s text-fg-2">{f.value}</p>
           </div>
         ))}
       </div>
@@ -62,15 +65,26 @@ export default function ProgramInfoPanel({
             <Badge variant="outlined-tertiary" className="mt-0.5 shrink-0">
               {n.label}
             </Badge>
-            <p className="text-body-s text-fg-2">{n.text}</p>
+            <p className="whitespace-pre-line text-body-s text-fg-2">{n.text}</p>
           </div>
         ))}
       </div>
 
-      <Button href={cta.href} external={cta.external} size="l" fullWidth className="mt-3">
-        {cta.label}
-        <span aria-hidden="true">→</span>
-      </Button>
+      {cta.notice ? (
+        <ApplyCtaButton
+          href={cta.href}
+          label={cta.label}
+          notice={cta.notice}
+          noticeTitle={cta.noticeTitle ?? "신청 안내"}
+          opensAt={cta.opensAt}
+          closesAt={cta.closesAt}
+        />
+      ) : (
+        <Button href={cta.href} external={cta.external} size="l" fullWidth className="mt-3">
+          {cta.label}
+          <span aria-hidden="true">→</span>
+        </Button>
+      )}
     </div>
   );
 }

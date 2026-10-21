@@ -4,7 +4,8 @@ import type { Attachment, Notice } from "../model/types";
 
 export const NOTICES_TAG = "notices";
 
-// 전체 공지를 한 번에 캐시하고, 관리자가 글을 바꿀 때만 NOTICES_TAG로 무효화한다.
+// 전체 공지를 한 번에 캐시하고, 관리자가 글을 바꾸면 NOTICES_TAG로 바로 무효화한다.
+// 관리자 화면을 거치지 않고 DB를 직접 고친 경우에도 늦어도 1시간 뒤에는 새로 읽는다.
 // 목록 전체를 한 번에 읽는다. 공지가 수천 건이 되면 페이지 단위 쿼리로 바꿀 것
 export const getNotices = unstable_cache(
   async (): Promise<Notice[]> => {
@@ -25,7 +26,7 @@ export const getNotices = unstable_cache(
     }));
   },
   ["notices"],
-  { tags: [NOTICES_TAG] },
+  { tags: [NOTICES_TAG], revalidate: 3600 },
 );
 
 export async function getNotice(id: string) {

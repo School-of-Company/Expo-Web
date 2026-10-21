@@ -1,6 +1,8 @@
-export type CongestionLevel = "여유" | "보통" | "혼잡" | "매우 혼잡";
+/** "없음"은 행사 전처럼 아직 집계된 현황이 없을 때 쓴다. */
+export type CongestionLevel = "없음" | "여유" | "보통" | "혼잡" | "매우 혼잡";
 
 export const CONGESTION_STYLE: Record<CongestionLevel, { dot: string; text: string; bar: string }> = {
+  "없음": { dot: "bg-gray-40", text: "text-fg-3", bar: "bg-gray-40" },
   "여유": { dot: "bg-success", text: "text-success", bar: "bg-success" },
   "보통": { dot: "bg-warning", text: "text-warning", bar: "bg-warning" },
   "혼잡": { dot: "bg-danger", text: "text-danger", bar: "bg-danger" },
@@ -20,11 +22,15 @@ export const congestionZones: CongestionZone[] = [
   { zone: "교사 연수실", level: "보통", percent: 48 },
 ];
 
-export const congestionUpdatedAt = "14:20 기준";
+export const congestionUpdatedAt = "집계 전";
 
-const LEVEL_ORDER: Record<CongestionLevel, number> = { "여유": 0, "보통": 1, "혼잡": 2, "매우 혼잡": 3 };
+export const overallCongestionLevel: CongestionLevel = "없음";
 
-export const overallCongestionLevel: CongestionLevel = congestionZones.reduce(
-  (worst, z) => (LEVEL_ORDER[z.level] > LEVEL_ORDER[worst] ? z.level : worst),
-  "여유" as CongestionLevel
-);
+export const roadCongestionLevel: CongestionLevel = "없음";
+export const parkingCongestionLevel: CongestionLevel = "없음";
+
+export const liveStatusItems: { label: string; icon: "users" | "car" | "parking"; level: CongestionLevel }[] = [
+  { label: "행사장 현황", icon: "users", level: overallCongestionLevel },
+  { label: "도로 현황", icon: "car", level: roadCongestionLevel },
+  { label: "주차 현황", icon: "parking", level: parkingCongestionLevel },
+];

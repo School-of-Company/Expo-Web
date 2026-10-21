@@ -4,20 +4,23 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useCallback, useRef, useState } from "react";
 import { NAV_SECTIONS } from "@/shared/config/site-nav";
-import { overallCongestionLevel, CONGESTION_STYLE } from "@/entities/congestion/model/data";
+import { liveStatusItems } from "@/entities/congestion/model/data";
 import Icon from "@/shared/ui/Icon";
-import { useExternalLinkGuard } from "@/shared/lib/useExternalLinkGuard";
 import { getBackgroundImage } from "@/shared/lib/getBackgroundImage";
 import HeaderSearch from "./HeaderSearch";
 import MobileMenu from "./MobileMenu";
+import { LiveLevelText, LiveNowLabel, LiveStatusBarV6, shortLabel } from "./LiveStatusBar";
 import type { SearchItem } from "@/shared/config/search-index";
 import logo from "../../../../public/logo.png";
 
-const PARKING_GUIDE_URL = process.env.NEXT_PUBLIC_PARKING_GUIDE_URL ?? "";
+const PARKING_GUIDE_URL = process.env.NEXT_PUBLIC_PARKING_GUIDE_URL?.trim() ?? "";
+/** 외부 현황 링크가 아직 설정되지 않았으면 안내 페이지로 보낸다. */
+const STATUS_GUIDE_PATH = "/status";
+const isParkingGuideExternal = PARKING_GUIDE_URL.length > 0 && PARKING_GUIDE_URL !== "#";
+const parkingGuideHref = isParkingGuideExternal ? PARKING_GUIDE_URL : STATUS_GUIDE_PATH;
 
 export default function Header({ searchIndex }: { searchIndex: SearchItem[] }) {
   const pathname = usePathname();
-  const parkingLink = useExternalLinkGuard(PARKING_GUIDE_URL);
   const [searchOpen, setSearchOpen] = useState(false);
   const [openDesktopKey, setOpenDesktopKey] = useState<string | null>(null);
   const [openSeq, setOpenSeq] = useState(0);
@@ -65,27 +68,43 @@ export default function Header({ searchIndex }: { searchIndex: SearchItem[] }) {
             <span
               role="img"
               aria-label="2026 전남광주통합특별시교육청 AI미래교육박람회"
-              className="block aspect-[1200/438] h-10 bg-contain bg-no-repeat sm:h-11"
-              style={{ backgroundImage: getBackgroundImage(logo, { shouldPreload: true, blur: false, width: 121 }) }}
+              className="block aspect-[2400/612] w-[150px] bg-contain bg-no-repeat sm:w-[180px]"
+              style={{ backgroundImage: getBackgroundImage(logo, { shouldPreload: true, blur: false, width: 180 }) }}
             />
           </Link>
 
           <div className="flex items-center gap-3">
             <div className="hidden items-center gap-2 md:flex">
-              <span className="flex items-center gap-2 whitespace-nowrap rounded-pill bg-bg-subtle px-3 py-1 text-body-xs font-semibold text-fg-2">
-                실시간 현황
-                <span className={`h-2 w-2 shrink-0 rounded-full ${CONGESTION_STYLE[overallCongestionLevel].dot}`} />
-                <span className={`font-bold ${CONGESTION_STYLE[overallCongestionLevel].text}`}>{overallCongestionLevel}</span>
-              </span>
-              <a
-                href={parkingLink.isConfigured ? PARKING_GUIDE_URL : "#"}
-                target={parkingLink.isConfigured ? "_blank" : undefined}
-                rel={parkingLink.isConfigured ? "noopener noreferrer" : undefined}
-                onClick={parkingLink.onClick}
-                className="flex items-center whitespace-nowrap rounded-pill bg-bg-subtle px-3 py-1 text-body-xs font-semibold text-fg-2 transition-colors duration-150 ease-out hover:text-primary-50"
-              >
-                주차장 안내
-              </a>
+              {/* lg 이상은 세 항목을 한 줄에 모두 보여 준다. 다른 안은 LiveStatusBarV1~V6으로 보관해 두었다. 폭이 모자란 md 구간은 같은 모양으로 항목만 한 줄씩 넘긴다. */}
+              <div className="hidden lg:flex">
+                <LiveStatusBarV6 href={parkingGuideHref} external={isParkingGuideExternal} />
+              </div>
+              <div className="flex items-center gap-2.5 text-body-xs font-semibold text-fg-2 lg:hidden">
+                <LiveNowLabel />
+                <div className="group h-8 overflow-hidden">
+                  <ul className="animate-[status-ticker_9s_ease-in-out_infinite] group-hover:[animation-play-state:paused] motion-reduce:animate-none">
+                    {[...liveStatusItems, liveStatusItems[0]].map((item, i) => (
+                      <li
+                        key={i}
+                        aria-hidden={i === liveStatusItems.length || undefined}
+                        className="flex h-8 items-center whitespace-nowrap"
+                      >
+                        {shortLabel(item.label)}
+                        <LiveLevelText level={item.level} />
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <a
+                  href={parkingGuideHref}
+                  target={isParkingGuideExternal ? "_blank" : undefined}
+                  rel={isParkingGuideExternal ? "noopener noreferrer" : undefined}
+                  className="flex items-center whitespace-nowrap text-fg-3 transition-colors duration-150 ease-out hover:text-primary-50"
+                >
+                  자세히 보기
+                  <Icon name="chevron-right" className="h-3.5 w-3.5" />
+                </a>
+              </div>
             </div>
 
             <button
@@ -128,7 +147,7 @@ export default function Header({ searchIndex }: { searchIndex: SearchItem[] }) {
             openDesktopKey ? "pointer-events-auto opacity-100 duration-200" : "pointer-events-none opacity-0 duration-300"
           }`}
         >
-          <div key={openSeq} className="mx-auto grid max-w-7xl grid-cols-2 gap-6 px-4 py-8 sm:grid-cols-3 sm:px-6 md:grid-cols-5 md:gap-8">
+          <div key={openSeq} className="mx-auto grid max-w-7xl grid-cols-2 gap-6 px-4 py-8 sm:grid-cols-3 sm:px-6 md:grid-cols-5 md:gap-8 lg:grid-cols-[repeat(5,minmax(max-content,1fr))]">
             {NAV_SECTIONS.filter((section) => !section.external).map((section) => (
               <div key={section.key}>
                 <p className="text-body-xs font-bold text-fg-3">{section.label}</p>
@@ -138,7 +157,7 @@ export default function Header({ searchIndex }: { searchIndex: SearchItem[] }) {
                       <Link
                         href={s.href}
                         onClick={() => setOpenDesktopKey(null)}
-                        className="block text-body-m font-semibold text-fg-1 transition-colors duration-150 ease-out hover:text-primary-50"
+                        className="block text-body-m font-semibold text-fg-1 transition-colors duration-150 ease-out hover:text-primary-50 lg:whitespace-nowrap"
                       >
                         {s.label}
                       </Link>
@@ -154,9 +173,8 @@ export default function Header({ searchIndex }: { searchIndex: SearchItem[] }) {
       <MobileMenu
         open={mobileOpen}
         onClose={closeMobileMenu}
-        parkingHref={parkingLink.isConfigured ? PARKING_GUIDE_URL : "#"}
-        parkingExternal={parkingLink.isConfigured}
-        onParkingClick={parkingLink.onClick}
+        parkingHref={parkingGuideHref}
+        parkingExternal={isParkingGuideExternal}
       />
 
       <HeaderSearch open={searchOpen} onClose={() => setSearchOpen(false)} searchIndex={searchIndex} />

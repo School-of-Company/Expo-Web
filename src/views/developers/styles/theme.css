@@ -1,0 +1,85 @@
+/*
+ * 개발자 후기 페이지 전용 디자인 시스템.
+ * 사이트 공통 토큰(globals.css)과 분리해 두고, 이 페이지 컴포넌트는 dev- 접두어 유틸리티만 쓴다.
+ * 예: bg-dev-surface, text-dev-quote, rounded-dev-card, shadow-dev-card, ease-dev-out
+ */
+
+:root {
+  /* 글자 */
+  --dev-ink: oklch(0.22 0.01 268);
+  --dev-ink-2: oklch(0.38 0.012 268);
+  --dev-ink-3: oklch(0.55 0.01 268);
+  --dev-ink-inverse: oklch(1 0 0);
+
+  /* 면 */
+  --dev-surface: oklch(1 0 0);
+  --dev-surface-muted: oklch(0.975 0.002 268);
+  --dev-line: oklch(0 0 0 / 0.06);
+  --dev-line-strong: oklch(0 0 0 / 0.14);
+
+  /* 소개 패널 */
+  --dev-hero: oklch(0.2 0.06 280);
+  --dev-hero-ink-2: oklch(1 0 0 / 0.7);
+  --dev-hero-ink-3: oklch(1 0 0 / 0.5);
+  --dev-hero-line: oklch(1 0 0 / 0.1);
+
+  /* 프로젝트 색. 카드 윗선·프로필 원·빛 번짐·필터 점에 함께 쓴다. */
+  --dev-project-1: oklch(0.62 0.19 280);
+  --dev-project-2: oklch(0.7 0.14 200);
+  --dev-project-3: oklch(0.7 0.18 30);
+}
+
+@theme inline {
+  --color-dev-ink: var(--dev-ink);
+  --color-dev-ink-2: var(--dev-ink-2);
+  --color-dev-ink-3: var(--dev-ink-3);
+  --color-dev-ink-inverse: var(--dev-ink-inverse);
+  --color-dev-surface: var(--dev-surface);
+  --color-dev-surface-muted: var(--dev-surface-muted);
+  --color-dev-line: var(--dev-line);
+  --color-dev-line-strong: var(--dev-line-strong);
+  --color-dev-hero: var(--dev-hero);
+  --color-dev-hero-ink-2: var(--dev-hero-ink-2);
+  --color-dev-hero-ink-3: var(--dev-hero-ink-3);
+  --color-dev-hero-line: var(--dev-hero-line);
+  --color-dev-project-1: var(--dev-project-1);
+  --color-dev-project-2: var(--dev-project-2);
+  --color-dev-project-3: var(--dev-project-3);
+
+  --radius-dev-tag: 8px;
+  --radius-dev-card: 16px;
+  --radius-dev-panel: 24px;
+
+  --shadow-dev-card: 0 1px 2px oklch(0 0 0 / 0.04), 0 8px 24px -12px oklch(0 0 0 / 0.12);
+  --shadow-dev-card-hover: 0 2px 4px oklch(0 0 0 / 0.05), 0 18px 40px -16px oklch(0 0 0 / 0.2);
+  --shadow-dev-chip: 0 6px 16px -8px oklch(0 0 0 / 0.5);
+
+  --text-dev-eyebrow: 13px;
+  --text-dev-eyebrow--line-height: 1.4;
+  --text-dev-eyebrow--letter-spacing: 0.2em;
+  --text-dev-display: 36px;
+  --text-dev-display--line-height: 1.25;
+  --text-dev-display--letter-spacing: -0.02em;
+  --text-dev-display-sm: 28px;
+  --text-dev-display-sm--line-height: 1.25;
+  --text-dev-display-sm--letter-spacing: -0.02em;
+  --text-dev-stat: 32px;
+  --text-dev-stat--line-height: 1.2;
+  --text-dev-stat--letter-spacing: -0.02em;
+  --text-dev-stat-sm: 26px;
+  --text-dev-stat-sm--line-height: 1.2;
+  --text-dev-stat-sm--letter-spacing: -0.02em;
+  --text-dev-quote: 17px;
+  --text-dev-quote--line-height: 1.7;
+  --text-dev-quote--letter-spacing: -0.01em;
+  --text-dev-body: 15px;
+  --text-dev-body--line-height: 1.6;
+  --text-dev-label: 14px;
+  --text-dev-label--line-height: 1.4;
+  --text-dev-meta: 13px;
+  --text-dev-meta--line-height: 1.45;
+  --text-dev-caption: 12px;
+  --text-dev-caption--line-height: 1.4;
+
+  --ease-dev-out: cubic-bezier(0.16, 1, 0.3, 1);
+}

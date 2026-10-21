@@ -7,6 +7,7 @@ import hostLogo from "../../../../public/logos/host-dark.svg";
 import { guideNavItems } from "@/shared/config/guide-nav";
 import { SectionPage } from "@/widgets/section-page";
 
+import EventIntro from "./EventIntro";
 import PosterPreview from "./PosterPreview";
 
 /** value를 배열로 주면 각 조각은 줄바꿈 없이 붙여 두고, 좁은 화면에서는 조각 사이에서만 줄을 바꾼다. */
@@ -18,11 +19,11 @@ const OVERVIEW: { label: string; value: string | string[]; note?: string }[] = [
     value: ["2026. 10. 31.(토) 9:30 ~ 17:00 /", "11. 1.(일) 9:30 ~ 16:00"],
     note: "(행사장 개방 9:00 예정)",
   },
-  { label: "장소", value: "전남광주통합특별시교육청AI교육원 일원 (주차장 야외 부스 포함)" },
+  { label: "장소", value: "전남광주통합특별시교육청AI교육원 일원" },
   { label: "대상", value: "관내 초‧중‧고‧특수학교 학생, 교직원, 학부모, 일반시민 등" },
 ];
 
-/** 포스터 아래까지 넓혀 로고로 보여주는 주최·주관. 밝은 배경용으로 글자는 어둡고 엠블럼은 컬러인 SVG를 쓴다. */
+/** 개요 표 마지막 줄에 로고로 보여주는 주최·주관. 밝은 배경용으로 글자는 어둡고 엠블럼은 컬러인 SVG를 쓴다. */
 const ORGANIZERS = [
   { role: "주최", label: "전남광주통합특별시교육청", logo: organizerLogo, aspect: "aspect-[1923/180]" },
   { role: "주관", label: "전남광주통합특별시교육청AI교육원", logo: hostLogo, aspect: "aspect-[2200/180]" },
@@ -48,7 +49,7 @@ function OverviewRow({ label, value, note }: (typeof OVERVIEW)[number]) {
               </Fragment>
             ))
           : value}
-        {note && <span className="block text-right">{note}</span>}
+        {note && <span className="block">{note}</span>}
       </dd>
     </div>
   );
@@ -66,32 +67,35 @@ export default function GuideOverviewPage() {
 
       <div className="mt-4 flex flex-col gap-6 xl:flex-row">
         <PosterPreview />
-        <dl className="grid min-w-0 flex-1 grid-cols-[auto_1fr] items-center gap-x-3 gap-y-4 rounded-xlarge border border-border-default bg-bg-canvas p-4 sm:gap-x-5 sm:p-6">
-          {OVERVIEW.map((row) => (
-            <OverviewRow key={row.label} {...row} />
-          ))}
-        </dl>
+        <EventIntro />
       </div>
 
-      <div className="mt-6 flex flex-col items-center gap-x-8 gap-y-4 rounded-xlarge border border-border-default bg-bg-canvas p-4 sm:p-6 lg:flex-row">
-        <Badge
-          variant="solid-primary"
-          className="shrink-0 justify-center whitespace-nowrap px-3 py-1 text-body-xs sm:px-4 sm:py-1.5 sm:text-body-s"
-        >
-          주최/주관
-        </Badge>
-        <div className="flex flex-wrap items-center justify-center gap-x-10 gap-y-3 lg:justify-start">
-          {ORGANIZERS.map(({ role, label, logo, aspect }) => (
-            <span
-              key={role}
-              role="img"
-              aria-label={`${role} ${label} 로고`}
-              className={`block h-5 sm:h-6 ${aspect} max-w-full bg-contain bg-center bg-no-repeat`}
-              style={{ backgroundImage: getBackgroundImage(logo, { unoptimized: true }) }}
-            />
-          ))}
+      <dl className="mt-6 grid grid-cols-[auto_1fr] items-center gap-x-3 gap-y-4 rounded-xlarge border border-border-default bg-bg-canvas p-4 sm:gap-x-5 sm:p-6">
+        {OVERVIEW.map((row) => (
+          <OverviewRow key={row.label} {...row} />
+        ))}
+        <div className="contents">
+          <dt>
+            <Badge
+              variant="solid-primary"
+              className="w-full justify-center whitespace-nowrap px-3 py-1 text-body-xs sm:px-4 sm:py-1.5 sm:text-body-s"
+            >
+              주최/주관
+            </Badge>
+          </dt>
+          <dd className="flex flex-wrap items-center gap-x-10 gap-y-3">
+            {ORGANIZERS.map(({ role, label, logo, aspect }) => (
+              <span
+                key={role}
+                role="img"
+                aria-label={`${role} ${label} 로고`}
+                className={`block h-5 sm:h-6 ${aspect} max-w-full bg-contain bg-left bg-no-repeat`}
+                style={{ backgroundImage: getBackgroundImage(logo, { unoptimized: true }) }}
+              />
+            ))}
+          </dd>
         </div>
-      </div>
+      </dl>
     </SectionPage>
   );
 }

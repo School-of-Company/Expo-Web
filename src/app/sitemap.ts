@@ -10,16 +10,17 @@ const STATIC_PATHS = [
   "/guide/map",
   "/guide/directions",
   "/students",
-  "/students/standing",
   "/teachers",
   "/apply/register",
   "/apply/goldenbell",
   "/apply/odyssey",
   "/apply/training",
   "/apply/lecture",
+  "/apply/robot-dance",
   "/notice",
   "/notice/faq",
   "/notice/parking",
+  "/status",
 ];
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {

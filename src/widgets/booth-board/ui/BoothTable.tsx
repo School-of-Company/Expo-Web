@@ -9,28 +9,24 @@ import Badge from "@/shared/ui/Badge";
  *
  * 표에서는 셀 텍스트가 인접 셀로 넘치던 문제(#20)를 막기 위해 각 셀에 break-words를 준다.
  * 부스번호 열은 "C02"가 "C0/2"로 쪼개지지 않을 만큼 폭을 잡아 둔다.
+ * 연번은 데이터에 두지 않고 목록 순서로 매긴다. 부스번호가 아직 없으면 칸을 비워 두고,
+ * 프로그램 분야가 있는 목록에서만 분야 열을 더한다.
  */
-export default function BoothTable({ booths, caption }: { booths: Booth[]; caption: string }) {
+export default function BoothTable({ booths, caption, nameLabel = "부스 이름" }: { booths: Booth[]; caption: string; nameLabel?: string }) {
+  const hasField = booths.some((b) => b.field);
+
   return (
     <div className="@container">
       <ul aria-label={caption} className="flex flex-col gap-3 @min-[48rem]:hidden">
-        {booths.map((b) => (
-          <li key={b.no} className="rounded-large border border-border-default bg-bg-canvas p-4">
+        {booths.map((b, i) => (
+          <li key={i} className="rounded-large border border-border-default bg-bg-canvas p-4">
             <div className="flex items-center gap-2">
-              <Badge variant="solid-pastel">{b.no}</Badge>
+              <span className="shrink-0 text-body-xs font-semibold text-fg-3">{i + 1}</span>
+              {b.no && <Badge variant="solid-pastel">{b.no}</Badge>}
               <p className="min-w-0 break-words text-body-s font-bold text-fg-1">{b.name}</p>
             </div>
+            {b.field && <p className="mt-1 text-body-xs font-semibold text-fg-3">{b.field}</p>}
             <p className="mt-2 break-words text-body-s text-fg-2">{b.title}</p>
-            <dl className="mt-2 flex flex-wrap gap-x-4 gap-y-1 border-t border-gray-20 pt-2 text-body-xs">
-              <div className="flex gap-1">
-                <dt className="text-fg-3">유형</dt>
-                <dd className="font-semibold text-fg-2">{b.type}</dd>
-              </div>
-              <div className="flex gap-1">
-                <dt className="text-fg-3">참여대상</dt>
-                <dd className="font-semibold text-fg-2">{b.audience}</dd>
-              </div>
-            </dl>
           </li>
         ))}
       </ul>
@@ -38,41 +34,52 @@ export default function BoothTable({ booths, caption }: { booths: Booth[]; capti
       <div className="hidden overflow-x-auto rounded-xlarge border border-border-default @min-[48rem]:block">
         <table className="w-full table-fixed border-collapse text-left text-body-s">
           <caption className="sr-only">{caption}</caption>
-          <colgroup>
-            <col className="w-[16%]" />
-            <col className="w-[20%]" />
-            <col className="w-[12%]" />
-            <col className="w-[16%]" />
-            <col className="w-[36%]" />
-          </colgroup>
+          {hasField ? (
+            <colgroup>
+              <col className="w-[7%]" />
+              <col className="w-[10%]" />
+              <col className="w-[22%]" />
+              <col className="w-[16%]" />
+              <col className="w-[45%]" />
+            </colgroup>
+          ) : (
+            <colgroup>
+              <col className="w-[8%]" />
+              <col className="w-[12%]" />
+              <col className="w-[28%]" />
+              <col className="w-[52%]" />
+            </colgroup>
+          )}
           <thead>
             <tr className="border-b-2 border-fg-1 bg-bg-canvas text-fg-1">
+              <th scope="col" className="h-12 border-r border-border-default px-4 text-center font-bold">
+                연번
+              </th>
               <th scope="col" className="h-12 border-r border-border-default px-4 text-center font-bold">
                 부스번호
               </th>
               <th scope="col" className="h-12 border-r border-border-default px-4 text-center font-bold">
-                부스 이름
+                {nameLabel}
               </th>
-              <th scope="col" className="h-12 border-r border-border-default px-4 text-center font-bold">
-                유형
-              </th>
-              <th scope="col" className="h-12 border-r border-border-default px-4 text-center font-bold">
-                참여대상
-              </th>
+              {hasField && (
+                <th scope="col" className="h-12 border-r border-border-default px-4 text-center font-bold">
+                  프로그램 분야
+                </th>
+              )}
               <th scope="col" className="h-12 px-4 text-center font-bold">
                 프로그램 제목
               </th>
             </tr>
           </thead>
           <tbody>
-            {booths.map((b) => (
-              <tr key={b.no} className="border-t border-gray-20">
+            {booths.map((b, i) => (
+              <tr key={i} className="border-t border-gray-20">
+                <td className="border-r border-gray-20 px-4 py-3 text-center text-fg-3">{i + 1}</td>
                 <td className="break-words border-r border-gray-20 bg-bg-subtle px-4 py-3 text-center font-bold text-fg-1">
                   {b.no}
                 </td>
                 <td className="break-words border-r border-gray-20 px-4 py-3 text-center text-fg-2">{b.name}</td>
-                <td className="break-words border-r border-gray-20 px-4 py-3 text-center text-fg-2">{b.type}</td>
-                <td className="break-words border-r border-gray-20 px-4 py-3 text-center text-fg-2">{b.audience}</td>
+                {hasField && <td className="break-words border-r border-gray-20 px-4 py-3 text-center text-fg-3">{b.field}</td>}
                 <td className="break-words px-4 py-3 text-center text-fg-2">{b.title}</td>
               </tr>
             ))}

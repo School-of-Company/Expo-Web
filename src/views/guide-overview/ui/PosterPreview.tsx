@@ -22,8 +22,8 @@ export default function PosterPreview() {
         <Image
           src="/poster.png"
           alt={ALT}
-          width={963}
-          height={1400}
+          width={964}
+          height={1438}
           sizes="(min-width: 1280px) 288px, 320px"
           className="h-auto w-full"
         />
@@ -49,8 +49,8 @@ export default function PosterPreview() {
         <Image
           src="/poster.png"
           alt={ALT}
-          width={963}
-          height={1400}
+          width={964}
+          height={1438}
           sizes="95vw"
           className="h-[85vh] w-auto max-w-[95vw] object-contain"
         />
