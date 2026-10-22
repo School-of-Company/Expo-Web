@@ -36,6 +36,7 @@ export default function TeachersLecturePage() {
           external: true,
           notice: <p className="text-body-s leading-relaxed text-fg-2">{applyNotice}</p>,
           noticeTitle: "기조 강연 사전 신청 안내",
+          opensAt: "2026-10-26T08:30:00+09:00",
         }}
       />
     </SectionPage>
