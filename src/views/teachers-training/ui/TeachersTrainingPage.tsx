@@ -8,7 +8,7 @@ import { EXTERNAL_APPLY_LINKS } from "@/shared/config/external-apply-links";
 
 const applyNotice = (
   <>
-    사전 신청 기간: <strong className="font-bold text-fg-1">2026.10.22.(목) 09:00 ~ 2026.10.29.(목) 17:00</strong>까지
+    사전 신청 기간: <strong className="font-bold text-fg-1">2026.10.23.(금) 09:00 ~ 2026.10.29.(목) 17:00</strong>까지
     <br />
     ※ 선착순 사전 마감되며, 잔여석에 한해 당일 연수 장소에서 현장 등록이 가능합니다.
   </>
@@ -125,7 +125,7 @@ export default function TeachersTrainingPage() {
         label="연수 사전 신청 및 조회"
         noticeTitle="연수 사전 신청 안내"
         notice={<p className="text-body-s leading-relaxed text-fg-2">{applyNotice}</p>}
-        opensAt="2026-10-22T09:00:00+09:00"
+        opensAt="2026-10-23T09:00:00+09:00"
         closesAt="2026-10-29T17:00:00+09:00"
       />
     </SectionPage>
