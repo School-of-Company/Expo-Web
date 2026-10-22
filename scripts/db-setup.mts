@@ -11,6 +11,8 @@ await sql`create table if not exists notices (
   date date not null default current_date
 )`;
 
+await sql`alter table notices add column if not exists attachments jsonb not null default '[]'`;
+
 // 푸터 TODAY/TOTAL 페이지뷰. 날짜는 한국 시간 기준이다.
 await sql`create table if not exists daily_visits (
   date date primary key,

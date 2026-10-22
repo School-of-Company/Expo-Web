@@ -5,7 +5,7 @@ import { SectionPage } from "@/widgets/section-page";
 
 /** 대상별 사전등록 오픈 일정. 신청 주소(env)가 비어 있을 때 신청 버튼을 누르면 안내 창으로 보여 준다. */
 const REGISTER_SCHEDULE = [
-  { target: "교원 및 예비교원", label: "2026. 10. 22.(목) 09:00 ~" },
+  { target: "교원 및 예비교원", label: "2026. 10. 23.(금) 09:00 ~" },
   { target: "학생·학부모·일반 시민", label: "2026. 10. 26.(월) 08:30 ~" },
 ];
 

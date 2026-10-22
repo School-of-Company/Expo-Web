@@ -1,6 +1,6 @@
 import { unstable_cache } from "next/cache";
 import { sql } from "@/shared/lib/db";
-import type { Notice } from "../model/types";
+import type { Attachment, Notice } from "../model/types";
 
 export const NOTICES_TAG = "notices";
 
@@ -10,7 +10,7 @@ export const NOTICES_TAG = "notices";
 export const getNotices = unstable_cache(
   async (): Promise<Notice[]> => {
     const rows = await sql`
-      select id::text, title, content, to_char(date, 'YYYY.MM.DD') as date
+      select id::text, title, content, attachments, to_char(date, 'YYYY.MM.DD') as date
       from notices
       order by date desc, id desc
     `;
@@ -18,6 +18,7 @@ export const getNotices = unstable_cache(
       id: r.id,
       title: r.title,
       date: r.date,
+      attachments: r.attachments as Attachment[],
       content: (r.content as string)
         .split("\n")
         .map((line) => line.trim())
