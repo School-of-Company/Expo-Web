@@ -59,6 +59,8 @@ export default function ApplyRegisterPage() {
           </>
         }
         notice={<RegisterSchedule />}
+        // 가장 이른 오픈(교원 및 예비교원) 기준. 대상별 구분은 신청 시스템에서 한다.
+        opensAt="2026-10-23T09:00:00+09:00"
       />
     </SectionPage>
   );

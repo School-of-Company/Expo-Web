@@ -14,20 +14,24 @@ export default function ExternalApplyPanel({
   tagline,
   body,
   notice,
+  opensAt,
 }: {
   href: string;
   label: string;
   title: string;
   tagline: string;
   body: ReactNode;
-  /** 신청 주소(env)가 비어 있을 때 버튼을 누르면 404 대신 띄울 신청 안내. */
+  /** 신청 주소(env)가 비어 있거나 오픈 전일 때 버튼을 누르면 404 대신 띄울 신청 안내. */
   notice?: ReactNode;
+  /** 신청 시작 시각(ISO). 클릭 시점이 이보다 이르면 이동 대신 notice 창을 띄운다. */
+  opensAt?: string;
 }) {
   const { isConfigured, onClick: guardClick } = useExternalLinkGuard(href);
   const dialogRef = useRef<HTMLDialogElement>(null);
 
   const onClick = (e: MouseEvent) => {
-    if (notice && !isConfigured) {
+    const notOpenYet = opensAt !== undefined && Date.now() < Date.parse(opensAt);
+    if (notice && (!isConfigured || notOpenYet)) {
       e.preventDefault();
       dialogRef.current?.showModal();
       return;
