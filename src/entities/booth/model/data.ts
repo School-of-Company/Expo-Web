@@ -76,7 +76,7 @@ export const booths: Booth[] = [
 /** 기업 연계 체험 프로그램 */
 export const companyBooths: Booth[] = [
   { no: "S-01", name: "플레이코딩", title: "찾아가는 인공지능 로봇버스" },
-  { no: "S-02", name: "미래채움", title: "모여봐요 채움의 숲 : 나만의 AI 아일랜드" },
+  { no: "S-02", name: "광주SW미래채움", title: "모여봐요 채움의 숲 : 나만의 AI 아일랜드" },
   { no: "S-03", name: "코더블", title: "자율주행 전기자동차 위즈오토!" },
 ];
 
