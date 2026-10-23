@@ -45,11 +45,10 @@ interface CardProps {
   developer: Developer;
   projectName: string;
   color: string;
-  dimmed: boolean;
   order: number;
 }
 
-function DeveloperCard({ developer, projectName, color, dimmed, order }: CardProps) {
+function DeveloperCard({ developer, projectName, color, order }: CardProps) {
   const { name, role, github, takeaway } = developer;
   const ref = useRef<HTMLLIElement>(null);
   const [visible, setVisible] = useState(false);
@@ -86,9 +85,7 @@ function DeveloperCard({ developer, projectName, color, dimmed, order }: CardPro
       className={`group relative mb-4 break-inside-avoid overflow-hidden rounded-dev-card border border-dev-line bg-dev-surface shadow-dev-card transition-[opacity,translate,filter,scale,box-shadow] duration-500 ease-dev-out motion-reduce:transition-none hover:shadow-dev-card-hover ${
         !visible
           ? "translate-y-6 opacity-0 motion-reduce:translate-y-0 motion-reduce:opacity-100"
-          : dimmed
-            ? "translate-y-0 scale-[0.97] opacity-25 grayscale"
-            : "translate-y-0 opacity-100"
+          : "translate-y-0 opacity-100"
       }`}
     >
       <div
@@ -98,7 +95,7 @@ function DeveloperCard({ developer, projectName, color, dimmed, order }: CardPro
       />
 
       <div className="relative p-5">
-        <p className="break-keep text-dev-quote font-semibold text-dev-ink">
+        <p className="line-clamp-5 break-keep text-dev-quote font-semibold text-dev-ink">
           <span aria-hidden className="mr-1 text-[var(--tone)]">
             &ldquo;
           </span>
@@ -138,7 +135,7 @@ function DeveloperCard({ developer, projectName, color, dimmed, order }: CardPro
 
 /**
  * 모든 프로젝트의 소감을 한 목록으로 이어 보여준다.
- * 위쪽 필터로 프로젝트를 고르면 목록을 나누지 않고 다른 프로젝트 카드만 흐리게 눌러 둔다.
+ * 위쪽 필터로 프로젝트를 고르면 그 프로젝트의 카드만 보여준다.
  */
 export default function DeveloperBoard({ projects }: { projects: DeveloperProject[] }) {
   const [focused, setFocused] = useState<string | null>(null);
@@ -153,6 +150,8 @@ export default function DeveloperBoard({ projects }: { projects: DeveloperProjec
       color: PROJECT_COLORS[projectIndex % PROJECT_COLORS.length],
     })),
   );
+
+  const visibleCards = focused === null ? cards : cards.filter((card) => card.projectKey === focused);
 
   const stats = [
     { label: "참여 개발자", value: cards.length, unit: "명" },
@@ -194,7 +193,7 @@ export default function DeveloperBoard({ projects }: { projects: DeveloperProjec
         </div>
       </div>
 
-      <div role="group" aria-label="프로젝트로 강조하기" className="mt-8 flex flex-wrap gap-2">
+      <div role="group" aria-label="프로젝트별로 보기" className="mt-8 flex flex-wrap gap-2">
         <FilterChip active={focused === null} onClick={() => setFocused(null)}>
           전체 <span className="tabular-nums opacity-60">{cards.length}</span>
         </FilterChip>
@@ -212,8 +211,8 @@ export default function DeveloperBoard({ projects }: { projects: DeveloperProjec
       </div>
 
       <ul className="mt-6 columns-1 gap-4 sm:columns-2 lg:columns-3">
-        {cards.map(({ key, projectKey, ...card }, i) => (
-          <DeveloperCard key={key} {...card} order={i} dimmed={focused !== null && focused !== projectKey} />
+        {visibleCards.map(({ key, developer, projectName, color }, i) => (
+          <DeveloperCard key={key} developer={developer} projectName={projectName} color={color} order={i} />
         ))}
       </ul>
     </>
