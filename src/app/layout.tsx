@@ -50,7 +50,7 @@ export const metadata: Metadata = {
     google: "vu9Nq7yzfAXSdblQVwrg0UQIe8xgn_zg5oWUMlJDjdU",
     // Bing 색인은 ChatGPT 검색·Copilot 이 쓰므로 웹마스터 도구 인증도 받는다.
     other: {
-      "naver-site-verification": "dac3966df1d212595cf0ea771039718423869050",
+      "naver-site-verification": ["dac3966df1d212595cf0ea771039718423869050", "8d7839e3e0fcef2a108908c136b875eac41afd11"],
       ...(process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION && { "msvalidate.01": process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION }),
     },
   },
