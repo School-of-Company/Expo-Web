@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { NAV_SECTIONS } from "@/shared/config/site-nav";
 import { liveStatusItems } from "@/entities/congestion/model/data";
 import Icon from "@/shared/ui/Icon";
@@ -48,12 +48,24 @@ export default function Header({ searchIndex }: { searchIndex: SearchItem[] }) {
     if (openDesktopKey && openDesktopKey !== "menu") setOpenDesktopKey(null);
   };
 
+  // 데스크톱 메뉴는 헤더 바깥을 누를 때 닫는다. 헤더 안쪽을 눌러서는 닫히지 않는다.
+  const headerRef = useRef<HTMLElement>(null);
+  useEffect(() => {
+    if (openDesktopKey === null) return;
+    const handlePointerDown = (e: PointerEvent) => {
+      if (headerRef.current?.contains(e.target as Node)) return;
+      setOpenDesktopKey(null);
+    };
+    document.addEventListener("pointerdown", handlePointerDown);
+    return () => document.removeEventListener("pointerdown", handlePointerDown);
+  }, [openDesktopKey]);
+
   return (
     <>
       <header
+        ref={headerRef}
         className="sticky top-0 z-50 border-b border-border-default bg-bg-canvas"
         onMouseLeave={closeOnHoverOut}
-        onClick={() => setOpenDesktopKey(null)}
       >
         <div className="relative mx-auto flex h-14 max-w-7xl items-center justify-between px-4 sm:px-6">
           <Link
@@ -111,7 +123,7 @@ export default function Header({ searchIndex }: { searchIndex: SearchItem[] }) {
               type="button"
               className="flex h-10 w-10 items-center justify-center text-fg-2 transition-colors duration-150 ease-out hover:text-primary-50"
               onClick={(e) => {
-                e.stopPropagation();
+                setOpenDesktopKey(null);
                 setMobileOpen(false);
                 setSearchOpen((v) => !v);
               }}
@@ -123,8 +135,7 @@ export default function Header({ searchIndex }: { searchIndex: SearchItem[] }) {
             <button
               type="button"
               className="flex h-10 w-10 items-center justify-center text-fg-2 transition-colors duration-150 ease-out hover:text-primary-50"
-              onClick={(e) => {
-                e.stopPropagation();
+              onClick={() => {
                 if (isMenuOpen) {
                   setOpenDesktopKey(null);
                   setMobileOpen(false);
