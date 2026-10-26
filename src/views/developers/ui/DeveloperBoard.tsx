@@ -82,7 +82,7 @@ function DeveloperCard({ developer, projectName, color, order }: CardProps) {
       ref={ref}
       onPointerMove={handlePointerMove}
       style={{ "--tone": color, transitionDelay: visible ? "0ms" : `${(order % 3) * 80}ms` } as ToneStyle}
-      className={`group relative mb-4 break-inside-avoid overflow-hidden rounded-dev-card border border-dev-line bg-dev-surface shadow-dev-card transition-[opacity,translate,filter,scale,box-shadow] duration-500 ease-dev-out motion-reduce:transition-none hover:shadow-dev-card-hover ${
+      className={`group relative overflow-hidden rounded-dev-card border border-dev-line bg-dev-surface shadow-dev-card transition-[opacity,translate,filter,scale,box-shadow] duration-500 ease-dev-out motion-reduce:transition-none hover:shadow-dev-card-hover ${
         !visible
           ? "translate-y-6 opacity-0 motion-reduce:translate-y-0 motion-reduce:opacity-100"
           : "translate-y-0 opacity-100"
@@ -140,16 +140,19 @@ function DeveloperCard({ developer, projectName, color, order }: CardProps) {
 export default function DeveloperBoard({ projects }: { projects: DeveloperProject[] }) {
   const [focused, setFocused] = useState<string | null>(null);
 
-  const cards = projects.flatMap((project, projectIndex) =>
-    project.members.map((developer, i) => ({
-      // 이름이 겹칠 수 있어(예: 닉네임 미기재) 순번을 함께 쓴다.
-      key: `${project.key}-${i}`,
-      projectKey: project.key,
-      developer,
-      projectName: project.name,
-      color: PROJECT_COLORS[projectIndex % PROJECT_COLORS.length],
-    })),
-  );
+  const cards = projects
+    .flatMap((project, projectIndex) =>
+      project.members.map((developer, i) => ({
+        // 이름이 겹칠 수 있어(예: 닉네임 미기재) 순번을 함께 쓴다.
+        key: `${project.key}-${i}`,
+        projectKey: project.key,
+        developer,
+        projectName: project.name,
+        color: PROJECT_COLORS[projectIndex % PROJECT_COLORS.length],
+      })),
+    )
+    // 프로젝트와 상관없이 설문을 제출한 순서대로 나열한다.
+    .sort((a, b) => Date.parse(a.developer.submittedAt) - Date.parse(b.developer.submittedAt));
 
   const visibleCards = focused === null ? cards : cards.filter((card) => card.projectKey === focused);
 
@@ -210,7 +213,7 @@ export default function DeveloperBoard({ projects }: { projects: DeveloperProjec
         ))}
       </div>
 
-      <ul className="mt-6 columns-1 gap-4 sm:columns-2 lg:columns-3">
+      <ul className="mt-6 grid grid-cols-1 items-start gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {visibleCards.map(({ key, developer, projectName, color }, i) => (
           <DeveloperCard key={key} developer={developer} projectName={projectName} color={color} order={i} />
         ))}

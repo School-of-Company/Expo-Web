@@ -16,6 +16,8 @@ export interface Developer {
   takeaway: string;
   /** 깃허브 프로필 URL. 적지 않았으면 비워 둔다. */
   github?: string;
+  /** 설문 제출 시각(ISO 8601). 카드는 이 순서로 나열한다. */
+  submittedAt: string;
 }
 
 export interface DeveloperProject {
@@ -24,11 +26,8 @@ export interface DeveloperProject {
   members: Developer[];
 }
 
-// TODO: 아직 설문 응답이 없는 인원은 빈 자리로 두었다. 응답을 받으면 placeholders 대신 실제 응답을 넣는다.
 // 프로젝트는 카드의 배지로 구분되며, 참여자가 없는 프로젝트는 목록에 나타나지 않는다.
 // 응답 본문은 설문 원문을 요약한 것이다.
-const placeholders = (count: number): Developer[] =>
-  Array.from({ length: count }, () => ({ name: "untitled", role: "NULL", moment: "NULL", challenge: "NULL", takeaway: "NULL" }));
 
 export const developerProjects: DeveloperProject[] = [
   {
@@ -43,8 +42,9 @@ export const developerProjects: DeveloperProject[] = [
         challenge:
           "참가자 유형, 회차, 동행자, 신청 시점이 겹치는 예외 상황이 가장 어려웠다. '일행 전체' 기준 판단이 실제와 어긋나 '참석자 한 명 단위'로 바꾸고, 판정 로직을 별도 함수로 분리해 자체 점검 테스트를 붙였다. 토큰 재발급 시점에 요청이 겹쳐 갑자기 로그아웃되는 문제는 재시도 timeout 시 로그아웃하던 동작을 바꾸고, 서버 호출 실패 시 시각·URL·소요시간을 로그로 남겨 원인을 추적할 수 있게 했다.",
         takeaway:
-          "기능을 만드는 것보다 사용자가 헷갈리지 않게 안내하는 일이 더 어렵고 중요하다는 걸 배웠다. 서버 팀과 계약을 맞추며 일하는 법과, 이슈 하나를 PR 하나로 끝내는 작은 단위 작업의 힘도 알게 됐다.",
+          "기능을 만드는 것보다 사용자가 헷갈리지 않게 안내하는 일이 더 어렵고 중요하다는 걸 배웠다. 박람회 현장에서 가장 필요했던 건 새 기능이 아니라 정확한 안내 문구와 예외 상황 처리였고, 많은 참가자가 쓰는 서비스를 직접 책임져 본 경험이었다.",
         github: "https://github.com/koreahghg",
+        submittedAt: "2026-10-08T18:24:30+09:00",
       },
       {
         name: "문강현",
@@ -56,8 +56,44 @@ export const developerProjects: DeveloperProject[] = [
         takeaway:
           "불분명한 부분을 추측으로 메우면 더 큰 수정이 필요해져서, 확인된 사실만 구현하고 모르는 건 먼저 질문하는 습관이 중요하다고 느꼈다. 오류 안내도 중요한 기능이었다.",
         github: "https://github.com/g-hyxn",
+        submittedAt: "2026-10-16T12:26:14+09:00",
       },
-      ...placeholders(3),
+      {
+        name: "정종윤",
+        role: "사전등록 QR 입퇴장·사전신청 후기 설문 폼 개발",
+        moment:
+          "써 보고 싶던 기술 스택을 직접 써 본 것이 좋은 경험이었고, 이런 큰 프로젝트에 참여하면서 소속감과 책임감이 더 강해졌다.",
+        challenge:
+          "하나의 QR로 입장과 프로그램 출석을 모두 체크해야 해서 설계가 어려웠다. 설계하는 과정에서 실력이 늘었다는 것을 느껴 뿌듯했다.",
+        takeaway:
+          "기능을 구현하는 것보다 사용자가 불편 없이 쓸 수 있게 설계하는 일이 훨씬 중요하다는 걸 느꼈다. QR 입퇴장과 출석을 하나로 처리하는 구조를 고민하며, 처음 설계를 잘해야 나중에 수정이 적다는 것을 깨달았다.",
+        github: "https://github.com/jyx-07",
+        submittedAt: "2026-10-23T11:05:01+09:00",
+      },
+      {
+        name: "박채은",
+        role: "서버 이전·CI/CD·보안·모니터링·운영 자동화",
+        moment:
+          "새 서버로 이전을 마치고 외부 주소에서 처음 200 응답을 받았을 때, 그리고 가입과 로그인 흐름이 끝까지 통과했을 때가 가장 기억에 남는다. 이후 main에 머지만 하면 서버에 자동 반영되는 것을 보며, 팀원들이 배포 걱정 없이 개발에 집중할 환경을 만들었다는 점이 뿌듯했다.",
+        challenge:
+          "행사 기간에 사용자 쪽에서 504가 났는데 서버의 모든 서비스는 정상이었다. 10초마다 서버 연결 수와 Gateway 응답 시간을 기록해 장애 시간대를 비교했고, 그 시간에 서버로 들어오는 연결 자체가 0이라는 근거로 네트워크·앞단 문제임을 정리해 전달했다. 모니터링 레포 배포 뒤 Grafana만 계속 재시작되던 문제는 디스코드 알림 설정의 웹훅 환경변수 누락이 원인이어서 값을 넣고 자동 감시와 알림을 추가했다. '추측하지 말고 기록부터 남기자'는 원칙이 생겼다.",
+        takeaway:
+          "기능을 만드는 것만큼 안정적으로 돌아가게 하는 일이 중요하다는 걸 느꼈다. MSA에서는 설정 하나만 어긋나도 전체가 멈출 수 있어 환경변수 하나도 영향을 확인하고 공유해야 했고, 로그와 모니터링이 없으면 원인을 설명할 수 없다는 것도 배웠다.",
+        github: "https://github.com/chaeeun-09",
+        submittedAt: "2026-10-26T12:02:10+09:00",
+      },
+      {
+        name: "박하민",
+        role: "박람회 관리 서비스 개발",
+        moment:
+          "새 기능인 카카오톡 알림이 추가된 것이 기억에 남는다. 작년 박람회에서 입퇴장 관리를 맡았을 때 문자에서 QR을 찾기 어려워하는 분이 많았는데, 이 기능이 그런 불편을 조금이나마 덜어 주리라 생각했다.",
+        challenge:
+          "짧은 개발 기간 동안 요구사항이 계속 추가·변경돼 하나의 기준으로 정립하기 어려웠다. 팀 내 업무를 명확히 나누고, 새 요구사항이 들어와도 기존 코드의 변경을 최소화할 수 있는 유연한 구조로 설계해 대응했다.",
+        takeaway:
+          "개발 역량을 성장시킬 수 있었던 프로젝트이기도 했지만, 팀 리더로서 지금까지 팀을 이끌어 온 과정과 나의 역할을 다시 돌아볼 수 있었던 계기였다. 이번 경험을 바탕으로 부족했던 점을 보완해 앞으로 팀과 함께 한 단계 더 성장하고 싶다.",
+        github: "https://github.com/cfcromn",
+        submittedAt: "2026-10-26T13:39:49+09:00",
+      },
     ],
   },
   {
@@ -74,6 +110,7 @@ export const developerProjects: DeveloperProject[] = [
         takeaway:
           "이번 개발을 통해 모델 지식뿐 아니라 데이터 전처리와 실제 개발 코드를 작성하는 실력까지 두루 필요하다는 것을 느꼈다.",
         github: "https://github.com/minki091212",
+        submittedAt: "2026-10-08T16:41:46+09:00",
       },
       {
         name: "이건우",
@@ -82,8 +119,9 @@ export const developerProjects: DeveloperProject[] = [
         challenge:
           "자원이 넉넉하지 않은 상황에서 안정적인 서비스를 위해 모델과 데이터셋을 골라야 했고, 개인정보 보호를 위한 블러 처리도 필요했다. 작은 모델을 선정해 파인튜닝으로 성능을 끌어올리고, 연산량과 처리 속도를 2배 이상 줄여 원활한 서비스를 제공했다.",
         takeaway:
-          "여러 팀과 협업해 하나의 서비스를 만들며 협업 능력과, 조건을 충족하면서 가장 이상적인 방안을 찾는 능력을 키울 수 있었다. 더 성장하는 계기가 됐다.",
+          "여러 팀과 협업해 하나의 서비스를 원활하게 제공하려 노력하면서 협업 능력과, 조건을 충족하는 가장 이상적인 방안을 찾는 능력을 키울 수 있었다. 이번 경험을 통해 더 성장해 실력 있는 개발자가 될 수 있는 계기가 된 것 같다.",
         github: "https://github.com/lkw-k",
+        submittedAt: "2026-10-08T20:32:42+09:00",
       },
     ],
   },
@@ -101,6 +139,7 @@ export const developerProjects: DeveloperProject[] = [
         takeaway:
           "동시 접속에 대비해 API 요청 제한, SSE 연결 수 제한, 캐시로 서버 부하를 줄이는 방법을 배웠다. 다른 조와의 소통이 아쉬워 다음엔 진행 상황을 더 자주 공유하고 싶다.",
         github: "https://github.com/DanMUZI1001",
+        submittedAt: "2026-10-11T03:36:55+09:00",
       },
       {
         name: "강태현",
@@ -112,6 +151,7 @@ export const developerProjects: DeveloperProject[] = [
         takeaway:
           "의사소통은 요구사항 전달에 그치지 않고 개발자 모두가 같은 서비스를 바라보게 해 어긋난 개발을 줄여 주는 역할이라는 걸 알았다. 정확하게 말하는 능력도 중요하다고 느꼈다.",
         github: "https://github.com/KangLongE",
+        submittedAt: "2026-10-16T13:38:12+09:00",
       },
     ],
   },
