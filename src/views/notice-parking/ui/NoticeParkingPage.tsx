@@ -2,7 +2,7 @@ import SectionPage from "@/widgets/section-page/ui/SectionPage";
 import Icon from "@/shared/ui/Icon";
 import ParkingMapPreview from "./ParkingMapPreview";
 import { noticeNavItems } from "@/shared/config/notice-nav";
-import { TEMP_PARKING } from "@/entities/parking/model/data";
+import { PARKING_DAYS, TEMP_PARKING } from "@/entities/parking/model/data";
 
 const BUS_STOPS = [
   { stop: "자연과학고 정류장", walk: "7분", buses: ["송정19", "첨단23", "문흥53", "용전86", "운림35"] },
@@ -88,10 +88,19 @@ export default function NoticeParkingPage() {
       </h3>
       <p className="mt-1 text-body-s text-fg-2">가까운 임시 주차장을 확인하고 지도로 이동하세요.</p>
       <ul className="mt-3 grid grid-cols-2 gap-2 sm:gap-3 lg:grid-cols-3">
-        {TEMP_PARKING.map(({ name, address }) => (
+        {TEMP_PARKING.map(({ name, address, days }) => (
           <li key={name} className="min-w-0 rounded-large border border-border-default p-3 sm:p-4">
             <p className="break-keep text-body-s font-bold text-primary-50">{name}</p>
             <p className="mt-0.5 break-keep text-body-xs text-fg-2">{address}</p>
+            {days && (
+              <p className="mt-2 flex flex-wrap gap-1">
+                {days.map((d) => (
+                  <span key={d} className="rounded-pill bg-primary-5 px-2 py-0.5 text-body-xs font-semibold text-primary-50">
+                    {PARKING_DAYS[d]}
+                  </span>
+                ))}
+              </p>
+            )}
             <div className="mt-2 flex flex-wrap gap-x-3 gap-y-1">
               {mapLinks(address).map(({ label, href, iconClass }) => (
                 <a
