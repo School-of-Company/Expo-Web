@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import type { CSSProperties, ReactNode } from "react";
 
 type Variant = "outlined-primary" | "outlined-tertiary" | "solid-primary" | "solid-pastel" | "success" | "warning" | "danger";
 
@@ -16,14 +16,17 @@ export default function Badge({
   variant = "outlined-primary",
   children,
   className = "",
+  style,
 }: {
   variant?: Variant;
   children: ReactNode;
   className?: string;
+  style?: CSSProperties;
 }) {
   return (
     <span
       className={`inline-flex shrink-0 items-center rounded-xsmall px-1.5 py-0.5 text-body-xs font-bold ${VARIANT_CLASS[variant]} ${className}`}
+      style={style}
     >
       {children}
     </span>
