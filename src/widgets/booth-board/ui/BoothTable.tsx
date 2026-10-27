@@ -1,4 +1,5 @@
 import type { Booth } from "@/entities/booth/model/data";
+import { boothColor } from "@/entities/booth/model/color";
 import Badge from "@/shared/ui/Badge";
 
 /**
@@ -22,7 +23,15 @@ export default function BoothTable({ booths, caption, nameLabel = "부스 이름
           <li key={i} className="rounded-large border border-border-default bg-bg-canvas p-4">
             <div className="flex items-center gap-2">
               <span className="shrink-0 text-body-xs font-semibold text-fg-3">{i + 1}</span>
-              {b.no && <Badge variant="solid-pastel">{b.no}</Badge>}
+              {b.no && (
+                <Badge
+                  variant="solid-pastel"
+                  className={boothColor(b.no) ? "text-white" : ""}
+                  style={boothColor(b.no) ? { backgroundColor: boothColor(b.no) } : undefined}
+                >
+                  {b.no}
+                </Badge>
+              )}
               <p className="min-w-0 break-words text-body-s font-bold text-fg-1">{b.name}</p>
             </div>
             {b.field && <p className="mt-1 text-body-xs font-semibold text-fg-3">{b.field}</p>}
@@ -75,7 +84,12 @@ export default function BoothTable({ booths, caption, nameLabel = "부스 이름
             {booths.map((b, i) => (
               <tr key={i} className="border-t border-gray-20">
                 <td className="border-r border-gray-20 px-4 py-3 text-center text-fg-3">{i + 1}</td>
-                <td className="break-words border-r border-gray-20 bg-bg-subtle px-4 py-3 text-center font-bold text-fg-1">
+                <td
+                  className={`break-words border-r border-gray-20 px-4 py-3 text-center font-bold ${
+                    boothColor(b.no) ? "text-white" : "bg-bg-subtle text-fg-1"
+                  }`}
+                  style={boothColor(b.no) ? { backgroundColor: boothColor(b.no) } : undefined}
+                >
                   {b.no}
                 </td>
                 <td className="break-words border-r border-gray-20 px-4 py-3 text-center text-fg-2">{b.name}</td>
