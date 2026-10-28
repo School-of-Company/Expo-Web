@@ -13,7 +13,7 @@ export interface AreaStatus {
 
 /**
  * 서버 상태 코드를 화면 색 단계로 옮긴다. 서버에는 "보통"이 없으므로 쓰지 않고,
- * 세 번째 단계(정체·포화·만차)는 가장 짙은 "매우 혼잡" 색으로 둔다. 모르는 코드는 "없음" 색이다.
+ * 세 번째 단계(정체·포화·만차)는 빨간 "매우 혼잡" 색으로 둔다. 모르는 코드는 "없음" 색이다.
  */
 const LEVEL_BY_STATUS: Record<string, CongestionLevel> = {
   SMOOTH: "여유",

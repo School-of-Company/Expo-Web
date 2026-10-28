@@ -68,8 +68,8 @@ const CHIP_TINT: Record<CongestionLevel, string> = {
   "없음": "bg-gray-10 ring-gray-20",
   "여유": "bg-success/10 ring-success/25",
   "보통": "bg-warning/10 ring-warning/25",
-  "혼잡": "bg-danger/10 ring-danger/25",
-  "매우 혼잡": "bg-accent-70/10 ring-accent-70/25",
+  "혼잡": "bg-warning/10 ring-warning/25",
+  "매우 혼잡": "bg-danger/10 ring-danger/25",
 };
 
 /**
@@ -165,8 +165,8 @@ const ICON_TINT: Record<CongestionLevel, string> = {
   "없음": "bg-gray-10 text-fg-3",
   "여유": "bg-success/10 text-success",
   "보통": "bg-warning/10 text-warning",
-  "혼잡": "bg-danger/10 text-danger",
-  "매우 혼잡": "bg-accent-70/10 text-accent-70",
+  "혼잡": "bg-warning/10 text-warning",
+  "매우 혼잡": "bg-danger/10 text-danger",
 };
 
 /**
@@ -248,8 +248,8 @@ const UNDERLINE_TINT: Record<CongestionLevel, string> = {
   "없음": "decoration-gray-30",
   "여유": "decoration-success/40",
   "보통": "decoration-warning/40",
-  "혼잡": "decoration-danger/40",
-  "매우 혼잡": "decoration-accent-70/40",
+  "혼잡": "decoration-warning/40",
+  "매우 혼잡": "decoration-danger/40",
 };
 
 /** 6안 맨 앞의 "● 지금" 표시. 빨간 점이 퍼져 나가며 실시간 정보임을 알린다. */
