@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { NAV_SECTIONS, type NavSection } from "@/shared/config/site-nav";
-import { liveStatusItems } from "@/entities/congestion/model/data";
+import { useLiveStatusItems } from "@/entities/area-status/model/useAreaStatuses";
 import Icon from "@/shared/ui/Icon";
 import { LiveLevelText, LiveNowLabel, shortLabel } from "./LiveStatusBar";
 
@@ -37,6 +37,7 @@ interface MobileMenuProps {
  * - Esc, 링크 이동, md 이상으로 화면이 넓어지는 경우에 닫힌다.
  */
 export default function MobileMenu({ open, onClose, parkingHref, parkingExternal }: MobileMenuProps) {
+  const liveStatusItems = useLiveStatusItems();
   const pathname = usePathname();
   const sections = NAV_SECTIONS.filter((section) => !section.external);
   const activeKey = sections.find((section) => isSectionActive(section, pathname))?.key ?? null;
@@ -112,7 +113,7 @@ export default function MobileMenu({ open, onClose, parkingHref, parkingExternal
                   className="flex h-8 items-center whitespace-nowrap after:mx-2 after:text-fg-4 after:content-['·']"
                 >
                   {shortLabel(item.label)}
-                  <LiveLevelText level={item.level} />
+                  <LiveLevelText level={item.level} text={item.text} />
                 </li>
               ))}
             </ul>
