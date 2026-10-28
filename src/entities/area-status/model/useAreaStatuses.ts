@@ -30,10 +30,9 @@ async function refresh() {
 function subscribe(listener: () => void) {
   listeners.add(listener);
   if (listeners.size === 1) {
-    void refresh();
     source = openAreaStatusEvents();
     source.addEventListener("area-status-changed", () => void refresh());
-    // 처음 연결과 재연결 직후에 다시 조회해, 연결이 끊긴 동안 놓친 변경을 메운다.
+    // 첫 조회는 연결이 열릴 때 한다. 재연결 직후에도 다시 조회해 끊긴 동안 놓친 변경을 메운다.
     source.onopen = () => void refresh();
   }
   return () => {
