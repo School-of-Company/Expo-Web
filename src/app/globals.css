@@ -52,8 +52,8 @@
   /* Semantic */
   --info: oklch(0.563 0.154 250);
   --success: oklch(0.51 0.12 154);
-  --warning: oklch(0.611 0.146 58);
-  --danger: oklch(0.576 0.201 27);
+  --warning: oklch(0.55 0.146 58);
+  --danger: oklch(0.56 0.201 27);
 
   /* Foreground / surface */
   --fg-1: var(--gray-100);
