@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { NAV_SECTIONS } from "@/shared/config/site-nav";
-import { liveStatusItems } from "@/entities/congestion/model/data";
+import { useLiveStatusItems } from "@/entities/area-status/model/useAreaStatuses";
 import Icon from "@/shared/ui/Icon";
 import { getBackgroundImage } from "@/shared/lib/getBackgroundImage";
 import HeaderSearch from "./HeaderSearch";
@@ -20,6 +20,7 @@ const isParkingGuideExternal = PARKING_GUIDE_URL.length > 0 && PARKING_GUIDE_URL
 const parkingGuideHref = isParkingGuideExternal ? PARKING_GUIDE_URL : STATUS_GUIDE_PATH;
 
 export default function Header({ searchIndex }: { searchIndex: SearchItem[] }) {
+  const liveStatusItems = useLiveStatusItems();
   const pathname = usePathname();
   const [searchOpen, setSearchOpen] = useState(false);
   const [openDesktopKey, setOpenDesktopKey] = useState<string | null>(null);
@@ -87,7 +88,7 @@ export default function Header({ searchIndex }: { searchIndex: SearchItem[] }) {
 
           <div className="flex items-center gap-3">
             <div className="hidden items-center gap-2 md:flex">
-              {/* lg 이상은 세 항목을 한 줄에 모두 보여 준다. 다른 안은 LiveStatusBarV1~V6으로 보관해 두었다. 폭이 모자란 md 구간은 같은 모양으로 항목만 한 줄씩 넘긴다. */}
+              {/* lg 이상은 세 항목을 한 줄에 모두 보여 준다. 폭이 모자란 md 구간은 같은 모양으로 항목만 한 줄씩 넘긴다. */}
               <div className="hidden lg:flex">
                 <LiveStatusBarV6 href={parkingGuideHref} external={isParkingGuideExternal} />
               </div>
@@ -102,7 +103,7 @@ export default function Header({ searchIndex }: { searchIndex: SearchItem[] }) {
                         className="flex h-8 items-center whitespace-nowrap"
                       >
                         {shortLabel(item.label)}
-                        <LiveLevelText level={item.level} />
+                        <LiveLevelText level={item.level} text={item.text} />
                       </li>
                     ))}
                   </ul>

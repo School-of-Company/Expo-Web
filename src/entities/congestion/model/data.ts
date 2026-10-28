@@ -5,8 +5,8 @@ export const CONGESTION_STYLE: Record<CongestionLevel, { dot: string; text: stri
   "없음": { dot: "bg-gray-40", text: "text-fg-3", bar: "bg-gray-40" },
   "여유": { dot: "bg-success", text: "text-success", bar: "bg-success" },
   "보통": { dot: "bg-warning", text: "text-warning", bar: "bg-warning" },
-  "혼잡": { dot: "bg-danger", text: "text-danger", bar: "bg-danger" },
-  "매우 혼잡": { dot: "bg-accent-70", text: "text-accent-70", bar: "bg-accent-70" },
+  "혼잡": { dot: "bg-warning", text: "text-warning", bar: "bg-warning" },
+  "매우 혼잡": { dot: "bg-danger", text: "text-danger", bar: "bg-danger" },
 };
 
 export interface CongestionZone {

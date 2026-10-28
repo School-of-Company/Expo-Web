@@ -3,6 +3,12 @@ import type { Metadata } from "next";
 /** 운영 도메인. hiaisw.kr 은 www 로 리다이렉트되므로 www 를 대표 주소로 쓴다. 미리보기 배포 등에서는 NEXT_PUBLIC_SITE_URL 로 덮어쓴다. */
 export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.hiaisw.kr").replace(/\/$/, "");
 
+/** 도로·행사장·주차장 실시간 상태 서버. 스테이징·미리보기 배포 등에서는 NEXT_PUBLIC_AREA_STATUS_URL 로 덮어쓴다. */
+export const AREA_STATUS_URL = (process.env.NEXT_PUBLIC_AREA_STATUS_URL?.trim() || "https://parking.https.gsmsv.site").replace(
+  /\/$/,
+  "",
+);
+
 export const SITE_NAME = "2026 전남광주통합특별시교육청 AI미래교육박람회";
 export const SITE_SHORT_NAME = "AI미래교육박람회";
 export const SITE_DESCRIPTION =
