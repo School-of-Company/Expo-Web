@@ -11,35 +11,57 @@ let statuses: AreaStatus[] | null = null;
 let source: EventSource | null = null;
 let controller: AbortController | null = null;
 let refreshTimer: ReturnType<typeof setTimeout> | undefined;
+let failures = 0;
 const listeners = new Set<() => void>();
 
+const notify = () => listeners.forEach((listener) => listener());
+
+/** 실패가 이어질수록 2초, 4초, 8초… 로 늘리고 1분에서 멈춘다. */
+const backoff = (attempt: number) => Math.min(1000 * 2 ** attempt, 60_000);
+
 /** 행사장·도로·주차 변경이 연달아 와도 한 번만 조회한다. */
-function scheduleRefresh() {
+function scheduleRefresh(delay = 200) {
   clearTimeout(refreshTimer);
-  refreshTimer = setTimeout(refresh, 200);
+  refreshTimer = setTimeout(refresh, delay);
 }
 
 async function refresh() {
   // 새 조회를 시작하면 진행 중인 이전 조회는 취소해, 늦게 온 이전 응답이 최신 값을 덮지 않게 한다.
   controller?.abort();
   const current = (controller = new AbortController());
+  const timeout = setTimeout(() => current.abort(), 10_000);
+  let data = null;
   try {
-    const data = await fetchAreaStatuses(current.signal);
-    if (!data) return;
-    statuses = data;
-    listeners.forEach((notify) => notify());
+    data = await fetchAreaStatuses(current.signal);
   } catch {
-    // 조회 실패·취소 시 마지막 값을 그대로 둔다. 처음부터 실패하면 "확인 중"으로 보인다.
+    // 네트워크 오류·타임아웃은 아래에서 실패로 센다.
+  } finally {
+    clearTimeout(timeout);
   }
+  // 더 새 조회가 시작됐거나 연결을 닫아 취소된 경우다.
+  if (current !== controller) return;
+  if (data) {
+    failures = 0;
+    statuses = data;
+    notify();
+    return;
+  }
+  failures++;
+  // 세 번 연달아 실패하면 오래된 값이 실시간처럼 보이지 않게 "확인 중"으로 돌린다.
+  if (failures >= 3 && statuses) {
+    statuses = null;
+    notify();
+  }
+  scheduleRefresh(backoff(failures));
 }
 
 function subscribe(listener: () => void) {
   listeners.add(listener);
   if (listeners.size === 1) {
     source = openAreaStatusEvents();
-    source.addEventListener("area-status-changed", scheduleRefresh);
+    source.addEventListener("area-status-changed", () => scheduleRefresh());
     // 첫 조회는 연결이 열릴 때 한다. 재연결 직후에도 다시 조회해 끊긴 동안 놓친 변경을 메운다.
-    source.onopen = scheduleRefresh;
+    source.onopen = () => scheduleRefresh();
   }
   return () => {
     listeners.delete(listener);
