@@ -5,7 +5,7 @@ import Image from "next/image";
 import Icon from "@/shared/ui/Icon";
 
 const ALT =
-  "AI교육원 주변 주차 가능 학교 지도: 우산중, 용봉중, 오정초, 문우초, 문흥중, 문정여고, 문정초, 교육연수원, 문산중, 문산초";
+  "AI교육원 주변 주차 가능 학교 지도: 우산중, 용봉중, 오정초, 문우초, 문흥중, 문정여고, 문정초, 교육연수원, 문산중";
 
 export default function ParkingMapPreview() {
   const dialogRef = useRef<HTMLDialogElement>(null);
@@ -21,7 +21,7 @@ export default function ParkingMapPreview() {
         className="relative mt-6 block w-full cursor-zoom-in overflow-hidden rounded-large border border-border-default"
       >
         <Image
-          src="/parking-map.png"
+          src="/parking-map-v2.png"
           alt={ALT}
           width={3648}
           height={1724}
@@ -48,7 +48,7 @@ export default function ParkingMapPreview() {
           <Icon name="close" />
         </button>
         <Image
-          src="/parking-map.png"
+          src="/parking-map-v2.png"
           alt={ALT}
           width={3648}
           height={1724}

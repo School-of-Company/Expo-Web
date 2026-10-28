@@ -9,7 +9,6 @@ export interface TempParking {
 
 /** 행사 당일 AI교육원 내 주차가 불가해 안내하는 인근 임시 주차장. 주차안내·오시는 길이 함께 쓴다. */
 export const TEMP_PARKING: TempParking[] = [
-  { name: "문산초등학교", address: "북구 문산로 66" },
   { name: "문산중학교", address: "북구 대천로 174", days: ["sat", "sun"] },
   { name: "용봉중학교", address: "북구 서하로274번길 33", days: ["sat", "sun"] },
   { name: "오정초등학교", address: "북구 대천로 55", days: ["sat"] },
