@@ -1,7 +1,7 @@
 "use client";
 
 import { useSyncExternalStore } from "react";
-import { liveStatusItems } from "@/entities/congestion/model/data";
+import { liveStatusItems } from "@/entities/congestion/@x/area-status";
 import { toLiveStatus, type AreaStatus, type AreaType } from "./areaStatus";
 
 const BASE_URL = (process.env.NEXT_PUBLIC_AREA_STATUS_URL ?? "https://parking.https.gsmsv.site").replace(/\/$/, "");

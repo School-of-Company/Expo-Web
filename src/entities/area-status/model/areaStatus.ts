@@ -1,4 +1,4 @@
-import type { CongestionLevel } from "@/entities/congestion/model/data";
+import type { CongestionLevel } from "@/entities/congestion/@x/area-status";
 
 export type AreaType = "VENUE" | "ROAD" | "PARKING";
 
