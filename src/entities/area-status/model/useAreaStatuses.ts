@@ -6,7 +6,7 @@ import { fetchAreaStatuses, openAreaStatusEvents } from "../api/areaStatuses";
 import { toLiveStatus, type AreaStatus, type AreaType } from "./areaStatus";
 
 // 헤더·모바일 메뉴·현황 페이지가 함께 쓰므로 조회 결과와 SSE 연결을 한 벌만 둔다.
-// 구독자가 하나라도 있는 동안만 연결을 유지하고, 모두 사라지면 닫는다.
+// 구독자가 있고 탭이 보이는 동안만 연결을 유지한다. 탭이 숨겨지거나 구독자가 모두 사라지면 닫는다.
 let statuses: AreaStatus[] | null = null;
 let source: EventSource | null = null;
 let controller: AbortController | null = null;
@@ -87,12 +87,24 @@ function disconnect() {
   controller = null;
 }
 
+// 다시 보이면 새로 연결하고, 연결이 열리면서 숨겨진 동안 바뀐 상태를 다시 조회한다.
+function onVisibilityChange() {
+  disconnect();
+  if (!document.hidden) connect();
+}
+
 function subscribe(listener: () => void) {
   listeners.add(listener);
-  if (listeners.size === 1) connect();
+  if (listeners.size === 1) {
+    document.addEventListener("visibilitychange", onVisibilityChange);
+    if (!document.hidden) connect();
+  }
   return () => {
     listeners.delete(listener);
-    if (listeners.size === 0) disconnect();
+    if (listeners.size === 0) {
+      document.removeEventListener("visibilitychange", onVisibilityChange);
+      disconnect();
+    }
   };
 }
 
