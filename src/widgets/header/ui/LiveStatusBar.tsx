@@ -1,3 +1,6 @@
+"use client";
+
+import { useLiveStatusItems } from "@/entities/area-status/model/useAreaStatuses";
 import {
   liveStatusItems,
   congestionUpdatedAt,
@@ -263,12 +266,12 @@ export function LiveNowLabel() {
 }
 
 /** 6안 상태 글자. 혼잡도 색 글자에 같은 색의 옅고 두꺼운 밑줄을 그어 형광펜처럼 보이게 한다. */
-export function LiveLevelText({ level }: { level: CongestionLevel }) {
+export function LiveLevelText({ level, text }: { level: CongestionLevel; text?: string }) {
   return (
     <span
       className={`ml-1 font-bold underline decoration-[3px] underline-offset-[3px] ${CONGESTION_STYLE[level].text} ${UNDERLINE_TINT[level]}`}
     >
-      {level}
+      {text ?? level}
     </span>
   );
 }
@@ -278,6 +281,7 @@ export function LiveLevelText({ level }: { level: CongestionLevel }) {
  * 상태 글자에만 혼잡도 색과 굵은 밑줄을 줘서 형광펜으로 표시한 것처럼 보이게 한다.
  */
 export function LiveStatusBarV6({ href, external }: LiveStatusBarProps) {
+  const items = useLiveStatusItems();
   return (
     <a
       {...linkProps(href, external)}
@@ -285,10 +289,10 @@ export function LiveStatusBarV6({ href, external }: LiveStatusBarProps) {
     >
       <LiveNowLabel />
       <ul className="flex items-center">
-        {liveStatusItems.map((item) => (
+        {items.map((item) => (
           <li key={item.label} className="flex items-center before:mx-2 before:text-fg-4 before:content-['·'] first:before:hidden">
             {shortLabel(item.label)}
-            <LiveLevelText level={item.level} />
+            <LiveLevelText level={item.level} text={item.text} />
           </li>
         ))}
       </ul>

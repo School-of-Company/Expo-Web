@@ -1,11 +1,13 @@
 import SectionPage from "@/widgets/section-page/ui/SectionPage";
 import Button from "@/shared/ui/Button";
 import Icon, { type IconName } from "@/shared/ui/Icon";
+import type { AreaType } from "@/entities/area-status/model/areaStatus";
+import LiveStatusBadge from "./LiveStatusBadge";
 
-const STATUS_ITEMS: { icon: IconName; label: string; desc: string }[] = [
-  { icon: "users", label: "행사장 현황", desc: "구역별 혼잡도" },
-  { icon: "car", label: "도로 현황", desc: "주변 도로 교통 상황" },
-  { icon: "parking", label: "주차 현황", desc: "임시 주차장 혼잡도" },
+const STATUS_ITEMS: { icon: IconName; type: AreaType; label: string; desc: string }[] = [
+  { icon: "users", type: "VENUE", label: "행사장 현황", desc: "구역별 혼잡도" },
+  { icon: "car", type: "ROAD", label: "도로 현황", desc: "주변 도로 교통 상황" },
+  { icon: "parking", type: "PARKING", label: "주차 현황", desc: "임시 주차장 혼잡도" },
 ];
 
 export default function StatusPage() {
@@ -30,7 +32,7 @@ export default function StatusPage() {
         </div>
 
         <ul className="mx-6 divide-y divide-border-default border-y border-border-default sm:mx-12">
-          {STATUS_ITEMS.map(({ icon, label, desc }) => (
+          {STATUS_ITEMS.map(({ icon, type, label, desc }) => (
             <li key={label} className="flex items-center gap-4 py-4">
               <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-medium bg-primary-5 text-primary-50">
                 <Icon name={icon} className="h-5 w-5" />
@@ -39,9 +41,7 @@ export default function StatusPage() {
                 <p className="text-body-m font-bold text-fg-1">{label}</p>
                 <p className="text-body-xs text-fg-3">{desc}</p>
               </div>
-              <span className="shrink-0 rounded-pill bg-bg-subtle px-3 py-1 text-body-xs font-semibold text-fg-3">
-                당일 공개
-              </span>
+              <LiveStatusBadge type={type} />
             </li>
           ))}
         </ul>

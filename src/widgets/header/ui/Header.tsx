@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { NAV_SECTIONS } from "@/shared/config/site-nav";
-import { liveStatusItems } from "@/entities/congestion/model/data";
+import { useLiveStatusItems } from "@/entities/area-status/model/useAreaStatuses";
 import Icon from "@/shared/ui/Icon";
 import { getBackgroundImage } from "@/shared/lib/getBackgroundImage";
 import HeaderSearch from "./HeaderSearch";
@@ -20,6 +20,7 @@ const isParkingGuideExternal = PARKING_GUIDE_URL.length > 0 && PARKING_GUIDE_URL
 const parkingGuideHref = isParkingGuideExternal ? PARKING_GUIDE_URL : STATUS_GUIDE_PATH;
 
 export default function Header({ searchIndex }: { searchIndex: SearchItem[] }) {
+  const liveStatusItems = useLiveStatusItems();
   const pathname = usePathname();
   const [searchOpen, setSearchOpen] = useState(false);
   const [openDesktopKey, setOpenDesktopKey] = useState<string | null>(null);
@@ -102,7 +103,7 @@ export default function Header({ searchIndex }: { searchIndex: SearchItem[] }) {
                         className="flex h-8 items-center whitespace-nowrap"
                       >
                         {shortLabel(item.label)}
-                        <LiveLevelText level={item.level} />
+                        <LiveLevelText level={item.level} text={item.text} />
                       </li>
                     ))}
                   </ul>
