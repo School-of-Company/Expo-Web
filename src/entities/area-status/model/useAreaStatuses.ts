@@ -10,14 +10,16 @@ import { toLiveStatus, type AreaStatus, type AreaType } from "./areaStatus";
 let statuses: AreaStatus[] | null = null;
 let source: EventSource | null = null;
 let latestRequest = 0;
+let appliedRequest = 0;
 const listeners = new Set<() => void>();
 
 async function refresh() {
   const request = ++latestRequest;
   try {
     const data = await fetchAreaStatuses();
-    // 늦게 도착한 이전 응답이 최신 값을 덮지 않게 한다.
-    if (!data || request !== latestRequest) return;
+    // 이미 적용된 응답보다 먼저 시작한 요청의 응답만 버린다. 나중 요청이 실패해도 앞선 정상 응답은 쓴다.
+    if (!data || request < appliedRequest) return;
+    appliedRequest = request;
     statuses = data;
     listeners.forEach((notify) => notify());
   } catch {
