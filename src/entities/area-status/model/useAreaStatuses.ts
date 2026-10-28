@@ -12,6 +12,9 @@ let source: EventSource | null = null;
 let controller: AbortController | null = null;
 let refreshTimer: ReturnType<typeof setTimeout> | undefined;
 let failures = 0;
+let reconnectTimer: ReturnType<typeof setTimeout> | undefined;
+let reconnects = 0;
+let openedAt = 0;
 const listeners = new Set<() => void>();
 
 const notify = () => listeners.forEach((listener) => listener());
@@ -55,23 +58,41 @@ async function refresh() {
   scheduleRefresh(backoff(failures));
 }
 
+function connect() {
+  source = openAreaStatusEvents();
+  source.addEventListener("area-status-changed", () => scheduleRefresh());
+  // 첫 조회는 연결이 열릴 때 한다. 재연결 직후에도 다시 조회해 끊긴 동안 놓친 변경을 메운다.
+  source.onopen = () => {
+    openedAt = Date.now();
+    scheduleRefresh();
+  };
+  // 브라우저는 4xx·5xx 응답으로 CLOSED가 되면 다시 잇지 않고, 그 밖의 끊김은 백오프 없이 몇 초마다 다시 잇는다.
+  // 그래서 오류가 나면 직접 닫고 백오프를 두고 다시 연다.
+  source.onerror = () => {
+    source?.close();
+    source = null;
+    // 30초 넘게 유지된 연결이었으면 일시적인 끊김으로 보고 대기 시간을 처음부터 센다.
+    if (openedAt && Date.now() - openedAt > 30_000) reconnects = 0;
+    openedAt = 0;
+    reconnectTimer = setTimeout(connect, backoff(reconnects++));
+  };
+}
+
+function disconnect() {
+  source?.close();
+  source = null;
+  clearTimeout(reconnectTimer);
+  clearTimeout(refreshTimer);
+  controller?.abort();
+  controller = null;
+}
+
 function subscribe(listener: () => void) {
   listeners.add(listener);
-  if (listeners.size === 1) {
-    source = openAreaStatusEvents();
-    source.addEventListener("area-status-changed", () => scheduleRefresh());
-    // 첫 조회는 연결이 열릴 때 한다. 재연결 직후에도 다시 조회해 끊긴 동안 놓친 변경을 메운다.
-    source.onopen = () => scheduleRefresh();
-  }
+  if (listeners.size === 1) connect();
   return () => {
     listeners.delete(listener);
-    if (listeners.size === 0) {
-      source?.close();
-      source = null;
-      clearTimeout(refreshTimer);
-      controller?.abort();
-      controller = null;
-    }
+    if (listeners.size === 0) disconnect();
   };
 }
 
