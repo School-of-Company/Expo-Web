@@ -42,5 +42,7 @@ export const PENDING_TEXT = "확인 중";
 
 export function toLiveStatus(entry: AreaStatus | undefined): { level: CongestionLevel; text: string } {
   if (!entry) return { level: "없음", text: PENDING_TEXT };
-  return { level: LEVEL_BY_STATUS[entry.status] ?? "없음", text: entry.statusName };
+  // "constructor" 같은 상속된 키가 걸리지 않도록 자기 키만 본다.
+  const level = Object.hasOwn(LEVEL_BY_STATUS, entry.status) ? LEVEL_BY_STATUS[entry.status] : "없음";
+  return { level, text: entry.statusName };
 }
