@@ -12,6 +12,18 @@ export interface AreaStatus {
 }
 
 /**
+ * 응답이 기대한 모양인지 확인한다. 배열이 아니면 null을 돌려줘 기존 값을 유지하게 하고,
+ * 모양이 어긋난 항목(null, 문자열이 아닌 필드)은 빼고 나머지만 쓴다.
+ */
+export function parseAreaStatuses(data: unknown): AreaStatus[] | null {
+  if (!Array.isArray(data)) return null;
+  return data.filter(
+    (s): s is AreaStatus =>
+      typeof s?.type === "string" && typeof s.status === "string" && typeof s.statusName === "string",
+  );
+}
+
+/**
  * 서버 상태 코드를 화면 색 단계로 옮긴다. 서버에는 "보통"이 없으므로 쓰지 않고,
  * 세 번째 단계(정체·포화·만차)는 빨간 "매우 혼잡" 색으로 둔다. 모르는 코드는 "없음" 색이다.
  */
