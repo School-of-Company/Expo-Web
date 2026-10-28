@@ -25,7 +25,7 @@ export function parseAreaStatuses(data: unknown): AreaStatus[] | null {
 
 /**
  * 서버 상태 코드를 화면 색 단계로 옮긴다. 서버에는 "보통"이 없으므로 쓰지 않고,
- * 세 번째 단계(정체·포화·만차)는 빨간 "매우 혼잡" 색으로 둔다. 모르는 코드는 "없음" 색이다.
+ * 세 번째 단계(정체·포화·만차)는 빨간 "매우 혼잡" 색으로 둔다. 모르는 코드는 "없음" 색과 "확인 중"이다.
  */
 const LEVEL_BY_STATUS: Record<string, CongestionLevel> = {
   SMOOTH: "여유",
@@ -37,12 +37,17 @@ const LEVEL_BY_STATUS: Record<string, CongestionLevel> = {
   FULL: "매우 혼잡",
 };
 
-/** 아직 한 번도 보고되지 않은 유형에 보여 줄 글자. */
+/** 아직 보고되지 않았거나 모르는 상태 코드일 때 보여 줄 글자. */
 export const PENDING_TEXT = "확인 중";
 
+/** 헤더는 줄바꿈 없이 보여 주므로, 서버 문구가 길어도 이 글자 수에서 자른다. */
+const MAX_TEXT_LENGTH = 6;
+
 export function toLiveStatus(entry: AreaStatus | undefined): { level: CongestionLevel; text: string } {
-  if (!entry) return { level: "없음", text: PENDING_TEXT };
   // "constructor" 같은 상속된 키가 걸리지 않도록 자기 키만 본다.
-  const level = Object.hasOwn(LEVEL_BY_STATUS, entry.status) ? LEVEL_BY_STATUS[entry.status] : "없음";
-  return { level, text: entry.statusName };
+  // 모르는 코드는 서버 문구가 회색으로 보이지 않도록 "확인 중"으로 둔다.
+  if (!entry || !Object.hasOwn(LEVEL_BY_STATUS, entry.status)) return { level: "없음", text: PENDING_TEXT };
+  const name = entry.statusName;
+  const text = name.length > MAX_TEXT_LENGTH ? `${name.slice(0, MAX_TEXT_LENGTH)}…` : name;
+  return { level: LEVEL_BY_STATUS[entry.status], text };
 }
