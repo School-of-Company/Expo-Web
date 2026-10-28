@@ -2,9 +2,8 @@
 
 import { useSyncExternalStore } from "react";
 import { liveStatusItems } from "@/entities/congestion/@x/area-status";
+import { fetchAreaStatuses, openAreaStatusEvents } from "../api/areaStatuses";
 import { toLiveStatus, type AreaStatus, type AreaType } from "./areaStatus";
-
-const BASE_URL = (process.env.NEXT_PUBLIC_AREA_STATUS_URL ?? "https://parking.https.gsmsv.site").replace(/\/$/, "");
 
 // 헤더·모바일 메뉴·현황 페이지가 함께 쓰므로 조회 결과와 SSE 연결을 한 벌만 둔다.
 // 구독자가 하나라도 있는 동안만 연결을 유지하고, 모두 사라지면 닫는다.
@@ -16,11 +15,9 @@ const listeners = new Set<() => void>();
 async function refresh() {
   const request = ++latestRequest;
   try {
-    const res = await fetch(`${BASE_URL}/api/public/area-statuses`, { cache: "no-store" });
-    if (!res.ok) return;
-    const data = (await res.json()) as AreaStatus[];
+    const data = await fetchAreaStatuses();
     // 늦게 도착한 이전 응답이 최신 값을 덮지 않게 한다.
-    if (request !== latestRequest) return;
+    if (!data || request !== latestRequest) return;
     statuses = data;
     listeners.forEach((notify) => notify());
   } catch {
@@ -32,7 +29,7 @@ function subscribe(listener: () => void) {
   listeners.add(listener);
   if (listeners.size === 1) {
     void refresh();
-    source = new EventSource(`${BASE_URL}/api/public/events`);
+    source = openAreaStatusEvents();
     source.addEventListener("area-status-changed", () => void refresh());
     // 처음 연결과 재연결 직후에 다시 조회해, 연결이 끊긴 동안 놓친 변경을 메운다.
     source.onopen = () => void refresh();
