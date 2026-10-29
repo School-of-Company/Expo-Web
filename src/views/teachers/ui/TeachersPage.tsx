@@ -3,6 +3,9 @@ import { BoothBoard } from "@/widgets/booth-board";
 import { teachersNavItems } from "@/shared/config/teachers-nav";
 import { teacherBooths } from "@/entities/booth/model/data";
 
+/** 구역(A·B·C)이 프로그램 분야와 1:1이라 분야로 탭을 나눈다. 탭 이름이 곧 분야라 분야 열은 뺀다. */
+const byField = (field: string) => teacherBooths.filter((b) => b.field === field).map((b) => ({ ...b, field: undefined }));
+
 export default function TeachersPage() {
   return (
     <SectionPage
@@ -13,16 +16,15 @@ export default function TeachersPage() {
       showNav={false}
     >
       <BoothBoard
-        groups={[{ nameLabel: "부스명", booths: teacherBooths }]}
+        groups={["AI디지털 기반 에듀테크", "AI코스웨어", "AI·SW 관련 최신기술"].map((field) => ({
+          title: field,
+          nameLabel: "부스명",
+          booths: byField(field),
+        }))}
         listLabel="부스 안내"
         mapLabel="부스 배치도"
-        // TODO: 실제 배치도 에셋을 받으면 src만 교체한다.
-        map={{
-          src: "/booth-map-placeholder.png",
-          alt: "미래교육박람회 부스 배치도 (임시 이미지)",
-          width: 1600,
-          height: 1000,
-        }}
+        map={{ src: "/corp-booth-map.png", alt: "미래교육박람회 기업 부스 배치도", width: 5033, height: 3580 }}
+        tabbed
       />
     </SectionPage>
   );
