@@ -44,7 +44,7 @@ export const PENDING_TEXT = "확인 중";
 const MAX_TEXT_LENGTH = 6;
 
 /** 임시: true면 서버 값과 상관없이 모든 현황을 "여유"로 보여 준다. 실시간 표시를 되살릴 때 false로 바꾼다. */
-const FORCE_ALL_CLEAR = true;
+const FORCE_ALL_CLEAR = false;
 
 export function toLiveStatus(entry: AreaStatus | undefined): { level: CongestionLevel; text: string } {
   if (FORCE_ALL_CLEAR) return { level: "여유", text: "여유" };
