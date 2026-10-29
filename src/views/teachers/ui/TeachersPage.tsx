@@ -16,13 +16,7 @@ export default function TeachersPage() {
         groups={[{ nameLabel: "부스명", booths: teacherBooths }]}
         listLabel="부스 안내"
         mapLabel="부스 배치도"
-        // TODO: 실제 배치도 에셋을 받으면 src만 교체한다.
-        map={{
-          src: "/booth-map-placeholder.png",
-          alt: "미래교육박람회 부스 배치도 (임시 이미지)",
-          width: 1600,
-          height: 1000,
-        }}
+        map={{ src: "/corp-booth-map.png", alt: "미래교육박람회 기업 부스 배치도", width: 5033, height: 3580 }}
       />
     </SectionPage>
   );
