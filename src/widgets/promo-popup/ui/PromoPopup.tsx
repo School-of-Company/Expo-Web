@@ -3,6 +3,10 @@
 import { useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { EXTERNAL_APPLY_LINKS } from "@/shared/config/external-apply-links";
+
+/** 신청 주소(env)가 비어 있으면 사전등록 안내 페이지로 보낸다. */
+const REGISTER_URL = EXTERNAL_APPLY_LINKS.register.trim();
 
 const HIDE_KEY = "promo-popup-hidden-date";
 
@@ -11,7 +15,7 @@ const today = () => new Date().toLocaleDateString("sv-SE");
 
 /**
  * 메인 화면 진입 시 한 번 띄우는 기조 강연 홍보 팝업.
- * 이미지 속 "신청하기" 버튼 자리에 링크를 겹쳐 사전등록으로 보낸다. 네이티브 <dialog>가 포커스 가두기와 Esc 닫기를 처리한다.
+ * 이미지 속 "신청하기" 버튼 자리에 링크를 겹쳐 사전등록 신청 주소(env)로 바로 보낸다. 네이티브 <dialog>가 포커스 가두기와 Esc 닫기를 처리한다.
  */
 export default function PromoPopup() {
   const dialogRef = useRef<HTMLDialogElement>(null);
@@ -56,12 +60,23 @@ export default function PromoPopup() {
           className="h-auto max-h-[calc(100dvh-6rem)] w-full object-contain"
         />
         {/* 이미지 속 "신청하기" 버튼 위치(가로 27~73%, 세로 88~96%)에 맞춘 클릭 영역. */}
-        <Link
-          href="/apply/register"
-          onClick={close}
-          aria-label="사전등록 신청하기"
-          className="absolute left-[27%] top-[88%] h-[8%] w-[46%] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-50"
-        />
+        {REGISTER_URL ? (
+          <a
+            href={REGISTER_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={close}
+            aria-label="사전등록 신청하기"
+            className="absolute left-[27%] top-[88%] h-[8%] w-[46%]"
+          />
+        ) : (
+          <Link
+            href="/apply/register"
+            onClick={close}
+            aria-label="사전등록 신청하기"
+            className="absolute left-[27%] top-[88%] h-[8%] w-[46%]"
+          />
+        )}
       </div>
       <div className="flex items-center justify-between border-t border-border-default px-4 py-3 text-body-xs font-semibold text-fg-2">
         <label className="flex cursor-pointer items-center gap-2 transition-colors hover:text-fg-1">
