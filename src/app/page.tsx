@@ -2,6 +2,7 @@ import { timeline } from "@/entities/schedule/model/data";
 import JsonLd from "@/shared/ui/JsonLd";
 import { HOST_NAME, ORGANIZER_REF, SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "@/shared/config/site";
 import HomePage from "@/views/home/ui/HomePage";
+import { PromoPopup } from "@/widgets/promo-popup";
 
 /** "10.31(토)" + "09:30" → "2026-10-31T09:30:00+09:00" */
 function toIsoDateTime(date: string, time: string) {
@@ -58,6 +59,7 @@ export default function Page() {
     <>
       <JsonLd data={eventJsonLd} />
       <HomePage />
+      <PromoPopup />
     </>
   );
 }
