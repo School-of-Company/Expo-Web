@@ -10,11 +10,18 @@ export interface TrainingSession {
 
 export interface TrainingProgram {
   id: string;
-  brand: BrandKey;
+  /** 로고가 있는 협력사만 준다. 없으면 로고 칸 없이 제목만 보인다. */
+  brand?: BrandKey;
   title: string;
+  /** 제목 아래에 덧붙이는 한 줄 소개. */
+  tagline?: string;
   place: string;
+  /** 모든 회차를 맡는 강사. 회차 제목 아래에 보여 준다. */
+  instructor?: string;
   sessions: TrainingSession[];
 }
+
+const COOL_SCHOOL_TOPIC = "AI를 활용한 학교공간재구조화 및 2030교실 자동구성";
 
 /** 삼성·구글·애플이 각자 여러 회차를 이틀에 걸쳐 운영한다. 회사별 연수실은 회차와 상관없이 같다. */
 export const trainingPrograms: TrainingProgram[] = [
@@ -50,6 +57,22 @@ export const trainingPrograms: TrainingProgram[] = [
       { round: 1, date: "10.31.(토)", time: "16:00~17:00", title: "‘수업은 쉽게, 참여는 깊게’ iPad로 만드는 참여 중심 수업" },
       { round: 2, date: "11.1.(일)", time: "09:30~10:30", title: "‘수업은 쉽게, 참여는 깊게’ iPad로 만드는 참여 중심 수업" },
       { round: 3, date: "11.1.(일)", time: "13:00~14:00", title: "‘수업은 쉽게, 참여는 깊게’ iPad로 만드는 참여 중심 수업" },
+    ],
+  },
+  {
+    id: "cool-school",
+    title: "Cool School 연수",
+    tagline: "‘공간이 바뀌면 수업이 바뀐다.’ AI로 설계하는 우리 학교 2030 미래교실",
+    place: "AI교육원 2층 206호",
+    instructor: "오진연 (Cool School 대표 · 한국디지털교육협회 K디지털교실분과 위원장)",
+    sessions: [
+      { round: 1, date: "10.31.(토)", time: "11:30~12:00", title: COOL_SCHOOL_TOPIC },
+      { round: 2, date: "10.31.(토)", time: "12:00~12:30", title: COOL_SCHOOL_TOPIC },
+      { round: 3, date: "10.31.(토)", time: "15:00~15:30", title: COOL_SCHOOL_TOPIC },
+      { round: 4, date: "10.31.(토)", time: "15:30~16:00", title: COOL_SCHOOL_TOPIC },
+      { round: 5, date: "11.1.(일)", time: "11:00~11:30", title: COOL_SCHOOL_TOPIC },
+      { round: 6, date: "11.1.(일)", time: "12:00~12:30", title: COOL_SCHOOL_TOPIC },
+      { round: 7, date: "11.1.(일)", time: "14:30~15:00", title: COOL_SCHOOL_TOPIC },
     ],
   },
 ];

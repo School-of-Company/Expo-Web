@@ -29,15 +29,18 @@ export default function TeachersTrainingPage() {
           {trainingPrograms.map((p) => (
             <section key={p.id}>
               <h3 className="flex items-center gap-3 rounded-medium bg-bg-subtle px-4 py-2 text-body-s font-bold text-fg-1">
-                <span className="flex h-10 w-16 shrink-0 items-center justify-center overflow-hidden">
-                  <BrandMark brand={p.brand} className="origin-center scale-[0.66]" />
-                </span>
+                {p.brand && (
+                  <span className="flex h-10 w-16 shrink-0 items-center justify-center overflow-hidden">
+                    <BrandMark brand={p.brand} className="origin-center scale-[0.66]" />
+                  </span>
+                )}
                 {p.title}
                 <span className="ml-auto flex items-center gap-1 text-body-xs font-semibold text-fg-3">
                   <Icon name="map-pin" className="h-3.5 w-3.5 shrink-0" />
                   {p.place}
                 </span>
               </h3>
+              {p.tagline && <p className="mt-2 break-keep px-1 text-body-xs font-semibold text-fg-3">{p.tagline}</p>}
               <ul className="mt-3 flex flex-col gap-3">
                 {p.sessions.map((s) => (
                   <li key={s.round} className="rounded-large border border-border-default bg-bg-canvas p-4">
@@ -45,6 +48,7 @@ export default function TeachersTrainingPage() {
                       {s.round}회차 · {s.date} {s.time}
                     </p>
                     <p className="mt-1 break-keep text-body-s font-bold text-fg-1">{s.title}</p>
+                    {p.instructor && <p className="mt-1 break-keep text-body-xs text-fg-3">강사 {p.instructor}</p>}
                   </li>
                 ))}
               </ul>
@@ -79,8 +83,11 @@ export default function TeachersTrainingPage() {
                         className="whitespace-nowrap border-r border-gray-20 bg-bg-subtle px-4 py-3 text-center font-bold text-fg-1"
                       >
                         <span className="flex flex-col items-center gap-2">
-                          <BrandMark brand={p.brand} />
+                          {p.brand && <BrandMark brand={p.brand} />}
                           {p.title}
+                          {p.tagline && (
+                            <span className="max-w-44 whitespace-normal break-keep text-body-xs font-medium text-fg-3">{p.tagline}</span>
+                          )}
                         </span>
                       </th>
                     )}
@@ -92,7 +99,10 @@ export default function TeachersTrainingPage() {
                         {p.place}
                       </td>
                     )}
-                    <td className="break-keep px-4 py-3 text-fg-1">{s.title}</td>
+                    <td className="break-keep px-4 py-3 text-fg-1">
+                      {s.title}
+                      {p.instructor && <span className="mt-1 block text-body-xs text-fg-3">강사 {p.instructor}</span>}
+                    </td>
                   </tr>
                 )),
               )}
