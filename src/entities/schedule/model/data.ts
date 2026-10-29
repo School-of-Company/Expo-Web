@@ -52,7 +52,7 @@ export const timeline: TimelineItem[] = [
     time: "11:00~12:30",
     title: "기조강연",
     location: "3층 대강당",
-    detail: ["“AI 시대, 살아남기를 넘어 번영하기: 핵심 역량과 확장된 AI 리터러시”"],
+    detail: ["“AI 시대, 살아남기를 넘어 번영하기: 핵심 역량과 확장된 AI 리터러시”", "한양대학교 이상욱 교수"],
     date: "10.31(토)",
   },
   {
