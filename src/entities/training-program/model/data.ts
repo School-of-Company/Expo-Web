@@ -61,6 +61,7 @@ export const trainingPrograms: TrainingProgram[] = [
   },
   {
     id: "cool-school",
+    brand: "coolschool",
     title: "Cool School 연수",
     tagline: "‘공간이 바뀌면 수업이 바뀐다.’ AI로 설계하는 우리 학교 2030 미래교실",
     place: "AI교육원 2층 206호",
