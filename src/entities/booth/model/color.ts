@@ -5,6 +5,9 @@ const BOOTH_COLORS: Record<string, string> = {
   H: "#664fa6",
   S: "#f349a3",
   D: "#3aaccc",
+  A: "#a4cc39",
+  B: "#f6861f",
+  C: "#00c0f3",
 };
 
 /** 부스번호("E-01") 앞 글자로 배치도 색을 찾는다. 번호가 없거나 모르는 구역이면 undefined. */
