@@ -21,7 +21,7 @@ export default function StudentsPage() {
         ]}
         listLabel="체험부스 안내"
         mapLabel="부스 배치도"
-        map={{ src: "/booth-map.jpg", alt: "AI·SW 체험한마당 부스 배치도", width: 1440, height: 1294 }}
+        map={{ src: "/student-booth-map.png", alt: "AI·SW 체험한마당 부스 배치도", width: 5033, height: 3580 }}
         tabbed
       />
     </SectionPage>
