@@ -13,8 +13,6 @@ export interface TrainingProgram {
   /** 로고가 있는 협력사만 준다. 없으면 로고 칸 없이 제목만 보인다. */
   brand?: BrandKey;
   title: string;
-  /** 제목 아래에 덧붙이는 한 줄 소개. */
-  tagline?: string;
   place: string;
   /** 모든 회차를 맡는 강사. 회차 제목 아래에 보여 준다. */
   instructor?: string;
@@ -63,7 +61,6 @@ export const trainingPrograms: TrainingProgram[] = [
     id: "cool-school",
     brand: "coolschool",
     title: "Cool School 연수",
-    tagline: "‘공간이 바뀌면 수업이 바뀐다.’ AI로 설계하는 우리 학교 2030 미래교실",
     place: "AI교육원 2층 206호",
     instructor: "오진연 (Cool School 대표 · 한국디지털교육협회 K디지털교실분과 위원장)",
     sessions: [

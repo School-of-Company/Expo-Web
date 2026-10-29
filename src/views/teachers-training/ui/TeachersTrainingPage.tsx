@@ -40,7 +40,6 @@ export default function TeachersTrainingPage() {
                   {p.place}
                 </span>
               </h3>
-              {p.tagline && <p className="mt-2 break-keep px-1 text-body-xs font-semibold text-fg-3">{p.tagline}</p>}
               <ul className="mt-3 flex flex-col gap-3">
                 {p.sessions.map((s) => (
                   <li key={s.round} className="rounded-large border border-border-default bg-bg-canvas p-4">
@@ -85,9 +84,6 @@ export default function TeachersTrainingPage() {
                         <span className="flex flex-col items-center gap-2">
                           {p.brand && <BrandMark brand={p.brand} />}
                           {p.title}
-                          {p.tagline && (
-                            <span className="max-w-44 whitespace-normal break-keep text-body-xs font-medium text-fg-3">{p.tagline}</span>
-                          )}
                         </span>
                       </th>
                     )}
