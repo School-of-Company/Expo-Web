@@ -43,7 +43,11 @@ export const PENDING_TEXT = "확인 중";
 /** 헤더는 줄바꿈 없이 보여 주므로, 서버 문구가 길어도 이 글자 수에서 자른다. */
 const MAX_TEXT_LENGTH = 6;
 
+/** 임시: true면 서버 값과 상관없이 모든 현황을 "여유"로 보여 준다. 실시간 표시를 되살릴 때 false로 바꾼다. */
+const FORCE_ALL_CLEAR = true;
+
 export function toLiveStatus(entry: AreaStatus | undefined): { level: CongestionLevel; text: string } {
+  if (FORCE_ALL_CLEAR) return { level: "여유", text: "여유" };
   // "constructor" 같은 상속된 키가 걸리지 않도록 자기 키만 본다.
   // 모르는 코드는 서버 문구가 회색으로 보이지 않도록 "확인 중"으로 둔다.
   if (!entry || !Object.hasOwn(LEVEL_BY_STATUS, entry.status)) return { level: "없음", text: PENDING_TEXT };
