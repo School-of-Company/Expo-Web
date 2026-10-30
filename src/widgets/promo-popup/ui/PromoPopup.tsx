@@ -59,7 +59,7 @@ export default function PromoPopup() {
           priority
           className="h-auto max-h-[calc(100dvh-6rem)] w-full object-contain"
         />
-        {/* 이미지 속 "신청하기" 버튼 위치(가로 27~73%, 세로 88~96%)에 맞춘 클릭 영역. */}
+        {/* 이미지 속 "신청하기" 버튼 위치(가로 29~71%, 세로 91~98%)에 맞춘 클릭 영역. */}
         {REGISTER_URL ? (
           <a
             href={REGISTER_URL}
@@ -67,14 +67,14 @@ export default function PromoPopup() {
             rel="noopener noreferrer"
             onClick={close}
             aria-label="사전등록 신청하기"
-            className="absolute left-[27%] top-[88%] h-[8%] w-[46%]"
+            className="absolute left-[29%] top-[91%] h-[7%] w-[42%]"
           />
         ) : (
           <Link
             href="/apply/register"
             onClick={close}
             aria-label="사전등록 신청하기"
-            className="absolute left-[27%] top-[88%] h-[8%] w-[46%]"
+            className="absolute left-[29%] top-[91%] h-[7%] w-[42%]"
           />
         )}
       </div>
