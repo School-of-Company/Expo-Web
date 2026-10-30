@@ -56,6 +56,13 @@ export const timeline: TimelineItem[] = [
     date: "10.31(토)",
   },
   {
+    time: "11:30~16:10",
+    title: "교원 자율연수",
+    location: "206호",
+    detail: ["AI를 활용한 학교공간재구조화 및 2030교실 자동구성"],
+    date: "10.31(토)",
+  },
+  {
     time: "13:00~14:00",
     title: "교원 자율연수",
     location: "213호",
@@ -130,6 +137,13 @@ export const timeline: TimelineItem[] = [
     title: "중·고등학생 AI·SW골든벨",
     location: "3층 대강당",
     detail: ["중·고등학생 AI·SW골든벨 운영"],
+    date: "11.1(일)",
+  },
+  {
+    time: "11:00~15:00",
+    title: "교원 자율연수",
+    location: "206호",
+    detail: ["AI를 활용한 학교공간재구조화 및 2030교실 자동구성"],
     date: "11.1(일)",
   },
   {
