@@ -65,9 +65,9 @@ export const trainingPrograms: TrainingProgram[] = [
     instructor: "오진연 (Cool School 대표 · 한국디지털교육협회 K디지털교실분과 위원장)",
     sessions: [
       { round: 1, date: "10.31.(토)", time: "11:30~12:00", title: COOL_SCHOOL_TOPIC },
-      { round: 2, date: "10.31.(토)", time: "12:00~12:30", title: COOL_SCHOOL_TOPIC },
+      { round: 2, date: "10.31.(토)", time: "12:10~12:40", title: COOL_SCHOOL_TOPIC },
       { round: 3, date: "10.31.(토)", time: "15:00~15:30", title: COOL_SCHOOL_TOPIC },
-      { round: 4, date: "10.31.(토)", time: "15:30~16:00", title: COOL_SCHOOL_TOPIC },
+      { round: 4, date: "10.31.(토)", time: "15:40~16:10", title: COOL_SCHOOL_TOPIC },
       { round: 5, date: "11.1.(일)", time: "11:00~11:30", title: COOL_SCHOOL_TOPIC },
       { round: 6, date: "11.1.(일)", time: "12:00~12:30", title: COOL_SCHOOL_TOPIC },
       { round: 7, date: "11.1.(일)", time: "14:30~15:00", title: COOL_SCHOOL_TOPIC },
