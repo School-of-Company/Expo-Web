@@ -213,12 +213,7 @@ export default function Header({ searchIndex }: { searchIndex: SearchItem[] }) {
         </div>
       </header>
 
-      <MobileMenu
-        open={mobileOpen}
-        onClose={closeMobileMenu}
-        parkingHref={parkingGuideHref}
-        parkingExternal={isParkingGuideExternal}
-      />
+      <MobileMenu open={mobileOpen} onClose={closeMobileMenu} />
 
       <HeaderSearch open={searchOpen} onClose={() => setSearchOpen(false)} searchIndex={searchIndex} />
     </>
