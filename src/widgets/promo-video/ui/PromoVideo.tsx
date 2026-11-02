@@ -3,10 +3,8 @@
 import { useEffect, useRef, useState } from "react";
 import Icon from "@/shared/ui/Icon";
 
-// 2초 단위로 쪼갠 HLS(480p·720p·1080p). 첫 조각만 받아도 재생이 시작되고, 회선 속도에 맞춰 화질이 바뀐다.
 const PROMO_HLS_SRC = "/promo/index.m3u8";
 
-// Safari 전용 PiP API는 TypeScript 기본 타입에 없어서 직접 선언한다.
 type WebkitPresentationVideo = HTMLVideoElement & {
   webkitPresentationMode?: "inline" | "picture-in-picture" | "fullscreen";
   webkitSetPresentationMode?: (mode: "inline" | "picture-in-picture" | "fullscreen") => void;
@@ -14,7 +12,6 @@ type WebkitPresentationVideo = HTMLVideoElement & {
 
 export default function PromoVideo() {
   const videoRef = useRef<HTMLVideoElement>(null);
-  // 브라우저는 소리 있는 자동재생을 막으므로 음소거로 시작하고, 버튼으로 소리를 켠다.
   const [isMuted, setIsMuted] = useState(true);
 
   useEffect(() => {
@@ -23,7 +20,6 @@ export default function PromoVideo() {
     let destroy: (() => void) | undefined;
     let cancelled = false;
 
-    // Safari는 HLS를 기본 지원하고, 나머지 브라우저는 hls.js로 재생한다.
     if (video.canPlayType("application/vnd.apple.mpegurl")) {
       video.src = PROMO_HLS_SRC;
     } else {

@@ -39,7 +39,6 @@ export default function Icon({
   name: IconName;
   className?: string;
   strokeWidth?: number;
-  /** true면 외곽선 안을 같은 색으로 채운다. 안쪽 구멍(지도 핀의 원 등)은 비워 둔다. */
   filled?: boolean;
 }) {
   return (
