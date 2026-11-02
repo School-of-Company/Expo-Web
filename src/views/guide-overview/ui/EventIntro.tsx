@@ -1,4 +1,3 @@
-/** 포스터 옆에 두는 행사 소개. 화면 폭과 관계없이 정해 둔 자리에서 줄을 바꾸고, 나머지는 어절 단위로 흐르게 둔다. */
 
 function Sparkle({ className }: { className: string }) {
   return (
@@ -37,7 +36,7 @@ export default function EventIntro() {
             <br />
             학생 중심의 AI·SW 체험한마당과
             <br />
-            교원 중심의 미래교육박람회를 하나로 합쳐 운영합니다.
+            교원 중심의 미래교육박람회를 하나로 합쳐 운영했습니다.
           </p>
           <p>
             학생들은 AI·SW를 직접 체험하며 미래 사회의 주인공으로 자라나고, 선생님들은 새로운 기술을 수업에 담아 더 나은 수업을
@@ -46,7 +45,7 @@ export default function EventIntro() {
         </div>
 
         <p className="mt-4 break-keep text-body-xs font-bold text-primary-50 sm:mt-5 sm:text-body-s">
-          함께 배우고 성장하는 AI·디지털 미래교육의 현장에 여러분을 초대합니다.
+          함께 배우고 성장하는 AI·디지털 미래교육의 현장에 함께해 주셔서 감사합니다.
         </p>
       </div>
     </section>

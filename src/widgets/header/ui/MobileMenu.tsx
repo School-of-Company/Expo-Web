@@ -6,10 +6,6 @@ import { useEffect, useState } from "react";
 import { NAV_SECTIONS, type NavSection } from "@/shared/config/site-nav";
 import Icon from "@/shared/ui/Icon";
 
-/**
- * 토스처럼 빠르게 출발해 길게 감속하는 곡선(ease-out-expo 계열). 열 때는 이 곡선으로 느긋하게,
- * 닫을 때는 짧은 표준 곡선으로 패널 전체를 한 덩어리로 걷어낸다.
- */
 const EASE_ENTER = "ease-[cubic-bezier(0.16,1,0.3,1)]";
 const EASE_EXIT = "ease-[cubic-bezier(0.4,0,0.2,1)]";
 
@@ -23,19 +19,10 @@ interface MobileMenuProps {
   onClose: () => void;
 }
 
-/**
- * md 미만에서 햄버거 버튼으로 여는 드롭다운 메뉴.
- *
- * - 헤더 뒤에서 아래로 펼쳐지고, 메뉴 아래로는 어둡게 깐 현재 페이지가 비친다. 그 부분을 누르면 닫힌다.
- * - 메뉴가 화면보다 길어지면 메뉴 안에서만 스크롤되고, 열려 있는 동안 뒤쪽 페이지 스크롤은 잠근다.
- * - 섹션은 한 번에 하나만 펼치는 아코디언이며, 지금 보고 있는 페이지의 섹션을 처음부터 펼쳐 둔다.
- * - Esc, 링크 이동, md 이상으로 화면이 넓어지는 경우에 닫힌다.
- */
 export default function MobileMenu({ open, onClose }: MobileMenuProps) {
   const pathname = usePathname();
   const sections = NAV_SECTIONS.filter((section) => !section.external);
   const activeKey = sections.find((section) => isSectionActive(section, pathname))?.key ?? null;
-  // 사용자가 펼친 섹션(null이면 모두 접음). 아직 손대지 않았다면(undefined) 현재 섹션을 펼친다.
   const [openKey, setOpenKey] = useState<string | null | undefined>(undefined);
   // 다른 페이지로 옮기면 직접 펼쳤던 섹션을 잊고 새 현재 섹션을 펼친다. 컴포넌트를 다시 마운트하면
   // 닫히는 애니메이션이 사라지므로 key 대신 렌더 중에 상태를 맞춘다.
@@ -74,9 +61,8 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
       id="mobile-menu"
       aria-hidden={!open}
       inert={!open}
-      className={`fixed inset-x-0 bottom-0 top-[94px] z-40 overflow-hidden md:hidden ${open ? "" : "pointer-events-none"}`}
+      className={`fixed inset-x-0 bottom-0 top-[57px] z-40 overflow-hidden md:hidden ${open ? "" : "pointer-events-none"}`}
     >
-      {/* 열 때는 어두운 배경이 먼저 깔린 뒤 메뉴가 내려오고, 닫을 때는 메뉴가 먼저 올라간 뒤 배경이 걷힌다. */}
       <button
         type="button"
         tabIndex={-1}
@@ -122,11 +108,9 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
                     isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
                   }`}
                 >
-                  {/* 펼치는 도중에는 이 목록이 바깥 칸보다 늦게 커지므로, 회색 배경은 바깥 칸에 칠해 흰 틈이 보이지 않게 한다. */}
                   <ul className="overflow-hidden" inert={!isOpen}>
                     {section.sub.map((item) => {
                       const isCurrent = pathname === item.href;
-                      // 회색 배경은 펼치는 즉시 보이고, 항목 글자만 뒤따라 서서히 나타난다.
                       return (
                         <li
                           key={item.key}

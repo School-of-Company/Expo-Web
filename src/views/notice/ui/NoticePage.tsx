@@ -1,8 +1,8 @@
 import Link from "next/link";
-import SectionPage from "@/widgets/section-page/ui/SectionPage";
+import { SectionPage } from "@/widgets/section-page";
 import Pagination from "@/shared/ui/Pagination";
 import { noticeNavItems } from "@/shared/config/notice-nav";
-import { getNotices } from "@/entities/notice/api/notices";
+import { getNotices } from "@/entities/notice/server";
 
 const PAGE_SIZE = 10;
 
@@ -21,6 +21,7 @@ export default async function NoticePage({ page }: { page: number }) {
     >
       <h2 className="text-heading-s font-bold text-fg-1">공지사항</h2>
       <div className="mt-4 flex flex-col divide-y divide-gray-20 border-t-2 border-fg-1">
+        {pageItems.length === 0 && <p className="py-16 text-center text-body-s text-fg-3">등록된 공지사항이 없습니다.</p>}
         {pageItems.map((n) => (
           <Link
             key={n.id}

@@ -1,22 +1,10 @@
-/**
- * 개발자 후기 설문 응답 한 건. 설문 항목과 1:1로 맞춘다.
- * 설문의 이메일 주소는 연락용이라 공개 페이지에 싣지 않으므로 여기에도 두지 않는다.
- * 소속 개발팀은 응답을 어느 DeveloperProject.members에 넣는지로 나타낸다.
- */
 export interface Developer {
-  /** 이름 또는 닉네임. 본인이 고른 대로 적는다. */
   name: string;
-  /** 담당한 업무 또는 개발한 기능 */
   role: string;
-  /** 개발하면서 가장 기억에 남았던 순간은? */
   moment: string;
-  /** 개발하면서 어려웠던 점과 해결 과정 */
   challenge: string;
-  /** 이번 개발을 통해 느낀 점 */
   takeaway: string;
-  /** 깃허브 프로필 URL. 적지 않았으면 비워 둔다. */
   github?: string;
-  /** 설문 제출 시각(ISO 8601). 카드는 이 순서로 나열한다. */
   submittedAt: string;
 }
 
@@ -25,9 +13,6 @@ export interface DeveloperProject {
   name: string;
   members: Developer[];
 }
-
-// 프로젝트는 카드의 배지로 구분되며, 참여자가 없는 프로젝트는 목록에 나타나지 않는다.
-// 응답 본문은 설문 원문을 요약한 것이다.
 
 export const developerProjects: DeveloperProject[] = [
   {

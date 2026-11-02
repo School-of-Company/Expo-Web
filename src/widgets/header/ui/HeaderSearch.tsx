@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
-import type { SearchItem } from "@/shared/config/search-index";
+import type { SearchItem } from "../lib/search-index";
 import Icon from "@/shared/ui/Icon";
 import Badge from "@/shared/ui/Badge";
 
@@ -63,13 +63,15 @@ export default function HeaderSearch({
             autoFocus
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            type="text"
+            type="search"
+            aria-label="사이트 검색"
             placeholder="검색어를 입력하세요"
             className="w-full bg-transparent text-body-m text-fg-1 outline-none placeholder:text-fg-3"
           />
           <button
             type="button"
             onClick={handleClose}
+            aria-label="검색 닫기"
             className="shrink-0 rounded-xsmall bg-bg-subtle px-2.5 py-1 text-body-xs font-semibold text-fg-3 hover:text-fg-1"
           >
             ESC

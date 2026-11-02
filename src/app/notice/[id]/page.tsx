@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
-import { getNotice, getNotices } from "@/entities/notice/api/notices";
+import { getNotice, getNotices } from "@/entities/notice/server";
 import { HOST_REF, pageMetadata, SITE_URL } from "@/shared/config/site";
 import JsonLd from "@/shared/ui/JsonLd";
-import NoticeDetailPage from "@/views/notice-detail/ui/NoticeDetailPage";
+import { NoticeDetailPage } from "@/views/notice-detail";
 
 export async function generateStaticParams() {
   return (await getNotices()).map((n) => ({ id: n.id }));
@@ -21,7 +21,6 @@ export default async function Page(props: PageProps<"/notice/[id]">) {
   const { id } = await props.params;
   const notice = await getNotice(id);
   if (!notice) notFound();
-  // 공지 날짜 형식: "2026.08.20"
   const published = `${notice.date.replaceAll(".", "-")}T00:00:00+09:00`;
 
   return (

@@ -1,18 +1,6 @@
-import type { Booth } from "@/entities/booth/model/data";
-import { boothColor } from "@/entities/booth/model/color";
+import { boothColor, type Booth } from "@/entities/booth";
 import Badge from "@/shared/ui/Badge";
 
-/**
- * 부스 목록. 학생마당·교사마당이 같은 마크업을 쓰므로 공용으로 추출했다.
- *
- * 좁은 폭에서는 가로 스크롤 없이 읽히도록 부스별 카드로, 넓은 폭에서는 표로 보여준다.
- * 전환 기준은 화면 폭이 아니라 이 영역의 폭이다.
- *
- * 표에서는 셀 텍스트가 인접 셀로 넘치던 문제(#20)를 막기 위해 각 셀에 break-words를 준다.
- * 부스번호 열은 "C02"가 "C0/2"로 쪼개지지 않을 만큼 폭을 잡아 둔다.
- * 연번은 데이터에 두지 않고 목록 순서로 매긴다. 부스번호가 아직 없으면 칸을 비워 두고,
- * 프로그램 분야가 있는 목록에서만 분야 열을 더한다.
- */
 export default function BoothTable({ booths, caption, nameLabel = "부스 이름" }: { booths: Booth[]; caption: string; nameLabel?: string }) {
   const hasField = booths.some((b) => b.field);
 

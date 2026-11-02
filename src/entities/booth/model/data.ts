@@ -1,13 +1,10 @@
 export interface Booth {
-  /** 부스번호. 아직 배정 전이면 빈 문자열로 두고 칸을 비워 보여준다. */
   no: string;
   name: string;
-  /** 프로그램 분야. 분야를 나눠 받은 목록(교원 부스)에만 있다. */
   field?: string;
   title: string;
 }
 
-/** AI·SW 체험한마당 학생 부스. 초등 → 중등 → 고등 순으로 둔다(연번은 이 순서로 매긴다). */
 export const booths: Booth[] = [
   { no: "D-01", name: "광주문화초등학교", title: "나도 드론 조종사! 일일 드론 아카데미" },
   { no: "E-01", name: "광주수창초등학교", title: "BOLT! AI 로봇 스포츠 대작전" },
@@ -73,21 +70,18 @@ export const booths: Booth[] = [
   { no: "H-27", name: "조선대학교부속고등학교", title: "미션 클리어! AI 로봇 119 구조대" },
 ];
 
-/** 기업 연계 체험 프로그램 */
 export const companyBooths: Booth[] = [
   { no: "S-01", name: "플레이코딩", title: "찾아가는 인공지능 로봇버스" },
   { no: "S-02", name: "광주SW미래채움", title: "모여봐요 채움의 숲 : 나만의 AI 아일랜드" },
   { no: "S-03", name: "코더블", title: "자율주행 전기자동차 위즈오토!" },
 ];
 
-/** 전남 학교 초청 프로그램 */
 export const invitedSchoolBooths: Booth[] = [
   { no: "S-04", name: "화순초등학교", title: "게임으로 만나는 AI 세상" },
   { no: "S-05", name: "목포혜인여자중학교", title: "바이브코딩으로 피지컬 컴퓨팅(AI선풍기) 구현" },
   { no: "S-06", name: "예당고등학교", title: "미래의 나 · FUTURE ME — AI로 만나는 10년 뒤의 나" },
 ];
 
-/** AI코스웨어·에듀테크 체험 교원 부스. 부스 배치도의 번호 순서(A → B → C)대로 둔다. */
 export const teacherBooths: Booth[] = [
   { no: "A-01", name: "Apple premium Education Partner 블루포트", field: "AI디지털 기반 에듀테크", title: "수업은 쉽게, 참여는 깊게 - Apple 기기를 활용한 디지털 수업 체험 및 교원 교육 세션" },
   { no: "A-02", name: "구글 포 에듀케이션", field: "AI디지털 기반 에듀테크", title: "Google AI Educator Series" },

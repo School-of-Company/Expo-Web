@@ -47,7 +47,6 @@ export async function isAdmin() {
   return safeEqual(Buffer.from(sig, "hex"), sign(exp));
 }
 
-/** 관리자 페이지와 모든 Server Action 맨 앞에서 호출한다. */
 export async function requireAdmin() {
   if (!(await isAdmin())) redirect("/admin/login");
 }

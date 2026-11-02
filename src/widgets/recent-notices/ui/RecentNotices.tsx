@@ -1,8 +1,12 @@
 import Link from "next/link";
-import { getNotices } from "@/entities/notice/api/notices";
+import { getNotices } from "@/entities/notice/server";
 
 export default async function RecentNotices() {
   const recent = (await getNotices()).slice(0, 3);
+
+  if (recent.length === 0) {
+    return <p className="rounded-xlarge border border-border-default bg-bg-canvas px-6 py-10 text-center text-body-s text-fg-3">등록된 공지사항이 없습니다.</p>;
+  }
 
   return (
     <div className="divide-y divide-border-default rounded-xlarge border border-border-default bg-bg-canvas">

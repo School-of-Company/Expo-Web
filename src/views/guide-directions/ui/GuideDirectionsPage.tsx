@@ -1,6 +1,6 @@
 import Button from "@/shared/ui/Button";
 import Icon from "@/shared/ui/Icon";
-import { TEMP_PARKING } from "@/entities/parking/model/data";
+import { TEMP_PARKING } from "@/entities/parking";
 import { guideNavItems } from "@/shared/config/guide-nav";
 import { SectionPage } from "@/widgets/section-page";
 import KakaoMap from "./KakaoMap";

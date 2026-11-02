@@ -1,4 +1,3 @@
-/** 사전신청 섹션(LocalNav) 메뉴. 라우트는 SITE_NAVIGATION의 사전신청 하위 경로와 일치시킨다. */
 export const applyNavItems = [
   { key: "register", label: "[공통] 사전등록", shortLabel: "사전등록", href: "/apply/register" },
   { key: "lecture", label: "[공통] 기조 강연 신청", shortLabel: "기조 강연 신청", href: "/apply/lecture" },

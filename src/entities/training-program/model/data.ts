@@ -1,7 +1,6 @@
 import type { BrandKey } from "@/shared/ui/logos/BrandMark";
 
 export interface TrainingSession {
-  /** 회사 안에서의 회차. 1부터 매긴다. */
   round: number;
   date: string;
   time: string;
@@ -10,18 +9,15 @@ export interface TrainingSession {
 
 export interface TrainingProgram {
   id: string;
-  /** 로고가 있는 협력사만 준다. 없으면 로고 칸 없이 제목만 보인다. */
   brand?: BrandKey;
   title: string;
   place: string;
-  /** 모든 회차를 맡는 강사. 회차 제목 아래에 보여 준다. */
   instructor?: string;
   sessions: TrainingSession[];
 }
 
 const COOL_SCHOOL_TOPIC = "AI를 활용한 학교공간재구조화 및 2030교실 자동구성";
 
-/** 삼성·구글·애플이 각자 여러 회차를 이틀에 걸쳐 운영한다. 회사별 연수실은 회차와 상관없이 같다. */
 export const trainingPrograms: TrainingProgram[] = [
   {
     id: "samsung",

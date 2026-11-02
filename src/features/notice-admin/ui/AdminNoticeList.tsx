@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState, useTransition } from "react";
-import type { Notice } from "@/entities/notice/model/types";
+import type { Notice } from "@/entities/notice";
 import Button from "@/shared/ui/Button";
 import ConfirmDialog from "@/shared/ui/ConfirmDialog";
 import { deleteNotices } from "../api/actions";

@@ -21,7 +21,6 @@ export async function recordVisit(): Promise<VisitCounts> {
   return { today: Number(row.today), total: Number(row.total) };
 }
 
-/** 올리지 않고 지금 TODAY/TOTAL만 읽는다. */
 export async function getVisitCounts(): Promise<VisitCounts> {
   const [row] = await sql`
     select

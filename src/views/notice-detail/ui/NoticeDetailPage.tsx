@@ -1,10 +1,10 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import ZoomImage from "./ZoomImage";
-import SectionPage from "@/widgets/section-page/ui/SectionPage";
+import { SectionPage } from "@/widgets/section-page";
 import Icon from "@/shared/ui/Icon";
 import { noticeNavItems } from "@/shared/config/notice-nav";
-import { getNotice } from "@/entities/notice/api/notices";
+import { getNotice } from "@/entities/notice/server";
 
 export default async function NoticeDetailPage({ id }: { id: string }) {
   const notice = await getNotice(id);

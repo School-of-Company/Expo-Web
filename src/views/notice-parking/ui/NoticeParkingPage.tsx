@@ -1,8 +1,8 @@
-import SectionPage from "@/widgets/section-page/ui/SectionPage";
+import { SectionPage } from "@/widgets/section-page";
 import Icon from "@/shared/ui/Icon";
 import ParkingMapPreview from "./ParkingMapPreview";
 import { noticeNavItems } from "@/shared/config/notice-nav";
-import { PARKING_DAYS, TEMP_PARKING } from "@/entities/parking/model/data";
+import { PARKING_DAYS, TEMP_PARKING } from "@/entities/parking";
 
 const BUS_STOPS = [
   { stop: "자연과학고 정류장", walk: "7분", buses: ["송정19", "첨단23", "문흥53", "용전86", "운림35"] },

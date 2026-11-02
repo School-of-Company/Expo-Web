@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import type { Attachment } from "@/entities/notice/model/types";
+import type { Attachment } from "@/entities/notice";
 import AttachmentField from "./AttachmentField";
 
 export default function NoticeBody({ initialContent = "", initialAttachments = [] }: { initialContent?: string; initialAttachments?: Attachment[] }) {

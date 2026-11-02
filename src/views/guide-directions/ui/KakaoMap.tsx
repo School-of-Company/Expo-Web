@@ -6,7 +6,6 @@ import { useRef } from "react";
 const LAT = 35.189184;
 const LNG = 126.918027;
 
-/* 사용하는 카카오맵 SDK API만 최소한으로 타입 선언한다. */
 type LatLng = object;
 interface KakaoMaps {
   load(callback: () => void): void;
@@ -25,7 +24,6 @@ declare global {
   }
 }
 
-/** 행사장 위치를 마커로 표시하는 카카오 지도. 라우트 이동 후 재마운트될 때도 onReady로 다시 그린다. */
 export default function KakaoMap() {
   const containerRef = useRef<HTMLDivElement>(null);
 

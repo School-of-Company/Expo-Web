@@ -1,19 +1,15 @@
-import { faqs, faqPlainAnswer } from "@/entities/faq/model/data";
-import { getNotices } from "@/entities/notice/api/notices";
-import { EVENT_DATES, timeline } from "@/entities/schedule/model/data";
+import { faqs, faqPlainAnswer } from "@/entities/faq";
+import { getNotices } from "@/entities/notice/server";
+import { EVENT_DATES, timeline } from "@/entities/schedule";
 import { HOST_NAME, ORGANIZER_NAME, SITE_DESCRIPTION, SITE_NAME, SITE_URL, VENUE_ADDRESS } from "@/shared/config/site";
 import { NAV_SECTIONS } from "@/shared/config/site-nav";
 
-// sitemap 처럼 정적으로 만들고, 공지가 바뀌면 NOTICES_TAG 무효화로 다시 만든다.
 export const dynamic = "force-static";
+export const revalidate = 3600;
 
 /** "[학생] 골든벨 신청" → "골든벨 신청 (학생)". 대괄호가 겹치면 마크다운 링크가 깨진다. */
 const linkText = (label: string) => label.replace(/^\[(.+?)\]\s*(.+)$/, "$2 ($1)");
 
-/**
- * AI 검색·답변 서비스가 읽는 사이트 요약(https://llmstxt.org).
- * 화면과 같은 데이터에서 만들어, 일정·FAQ·공지가 바뀌면 함께 바뀐다.
- */
 export async function GET() {
   const notices = await getNotices();
 
