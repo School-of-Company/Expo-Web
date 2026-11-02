@@ -1,7 +1,6 @@
 import type { ReactNode } from "react";
-import Button from "./Button";
-import Badge from "./Badge";
-import ApplyCtaButton from "./ApplyCtaButton";
+import Badge from "@/shared/ui/Badge";
+import { ApplyCtaButton } from "@/features/apply-cta";
 
 interface ScheduleItem {
   label: string;
@@ -27,8 +26,7 @@ export default function ProgramInfoPanel({
   schedules?: ScheduleItem[];
   facts: FactItem[];
   notes: NoteItem[];
-  /** notice를 주면 신청 주소(env)가 비어 있거나 신청 기간이 아니면 404 대신 그 안내를 창으로 띄운다. */
-  cta: { href: string; label: string; external?: boolean; notice?: ReactNode; noticeTitle?: string; opensAt?: string; closesAt?: string };
+  cta: { label: string };
 }) {
   return (
     <div className="mt-4 flex flex-col gap-3">
@@ -70,21 +68,7 @@ export default function ProgramInfoPanel({
         ))}
       </div>
 
-      {cta.notice ? (
-        <ApplyCtaButton
-          href={cta.href}
-          label={cta.label}
-          notice={cta.notice}
-          noticeTitle={cta.noticeTitle ?? "신청 안내"}
-          opensAt={cta.opensAt}
-          closesAt={cta.closesAt}
-        />
-      ) : (
-        <Button href={cta.href} external={cta.external} size="l" fullWidth className="mt-3">
-          {cta.label}
-          <span aria-hidden="true">→</span>
-        </Button>
-      )}
+      <ApplyCtaButton label={cta.label} />
     </div>
   );
 }
