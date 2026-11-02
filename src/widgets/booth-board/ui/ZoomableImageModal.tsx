@@ -7,9 +7,7 @@ import Icon from "@/shared/ui/Icon";
 const MIN_SCALE = 1;
 const MAX_SCALE = 5;
 const SCALE_STEP = 0.5;
-/** 핀치 감도. 손가락 간격 비율을 이 지수만큼 줄여 반영해, 간격이 2배가 돼도 약 1.5배만 커진다. */
 const PINCH_SENSITIVITY = 0.6;
-/** 휠 deltaY 1px당 배율 변화량. 트랙패드 핀치(ctrlKey)는 delta가 작게 자주 들어와 따로 둔다. */
 const WHEEL_SENSITIVITY = 0.0015;
 const TRACKPAD_PINCH_SENSITIVITY = 0.008;
 
@@ -22,20 +20,12 @@ export interface ZoomableImage {
 
 const clampScale = (value: number) => Math.min(MAX_SCALE, Math.max(MIN_SCALE, value));
 
-/**
- * 이미지 확대 모달.
- *
- * - 버튼/휠로 확대·축소, 확대 상태에서 드래그로 이동
- * - 모바일에서는 두 손가락 거리로 확대·축소 (Pointer Events로 마우스와 함께 처리)
- * - 닫기 버튼 또는 Esc로 닫으며, 닫아도 호출한 쪽의 탭 상태는 그대로 유지된다
- */
 export default function ZoomableImageModal({ image, onClose }: { image: ZoomableImage; onClose: () => void }) {
   const [scale, setScale] = useState(MIN_SCALE);
   const [offset, setOffset] = useState({ x: 0, y: 0 });
 
   const dialogRef = useRef<HTMLDivElement>(null);
   const stageRef = useRef<HTMLDivElement>(null);
-  /** 화면에 닿아 있는 포인터들. 2개가 되면 핀치 줌으로 해석한다. */
   const pointers = useRef(new Map<number, { x: number; y: number }>());
   const pinchStart = useRef<{ distance: number; scale: number } | null>(null);
 
@@ -52,7 +42,6 @@ export default function ZoomableImageModal({ image, onClose }: { image: Zoomable
     });
   }, []);
 
-  // Esc로 닫고, 열려 있는 동안 뒤쪽 페이지가 스크롤되지 않게 잠근다.
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
@@ -115,7 +104,6 @@ export default function ZoomableImageModal({ image, onClose }: { image: Zoomable
       return;
     }
 
-    // 확대된 상태에서만 이동을 허용해 원본 크기일 때 이미지가 화면 밖으로 밀리지 않게 한다.
     if (scale > MIN_SCALE) {
       setOffset((o) => ({ x: o.x + (e.clientX - previous.x), y: o.y + (e.clientY - previous.y) }));
     }
@@ -191,7 +179,6 @@ export default function ZoomableImageModal({ image, onClose }: { image: Zoomable
             width={image.width}
             height={image.height}
             draggable={false}
-            preload
             className="max-h-full max-w-full select-none object-contain"
             style={{ width: "auto", height: "auto" }}
           />

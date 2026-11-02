@@ -1,16 +1,15 @@
-import SectionPage from "@/widgets/section-page/ui/SectionPage";
+import { SectionPage } from "@/widgets/section-page";
 import { BoothBoard } from "@/widgets/booth-board";
 import { teachersNavItems } from "@/shared/config/teachers-nav";
-import { teacherBooths } from "@/entities/booth/model/data";
+import { teacherBooths } from "@/entities/booth";
 
-/** 구역(A·B·C)이 프로그램 분야와 1:1이라 분야로 탭을 나눈다. 탭 이름이 곧 분야라 분야 열은 뺀다. */
 const byField = (field: string) => teacherBooths.filter((b) => b.field === field).map((b) => ({ ...b, field: undefined }));
 
 export default function TeachersPage() {
   return (
     <SectionPage
       title="AI코스웨어·에듀테크 체험 부스 안내"
-      desc="미래교육의 변화를 만나고, 2030 미래교실을 그려보세요!"
+      desc="미래교육의 변화와 2030 미래교실을 함께 그려 본 체험 부스입니다."
       navTitle="미래교육박람회"
       navItems={teachersNavItems}
       showNav={false}

@@ -6,7 +6,6 @@ interface QuickApplyItem {
   icon: IconName;
   title: string;
   desc: string;
-  /** 부스 안내처럼 눈에 띄어야 하는 항목은 아이콘만 노란색으로 채워 강조한다. */
   highlightIcon?: boolean;
 }
 
@@ -15,7 +14,6 @@ interface QuickApplyGroup {
   icon: IconName;
   title: string;
   desc: string;
-  /** 카드 배경. 위(from) → 아래(to) 방향 그라디언트. */
   gradient: readonly [string, string];
   items: QuickApplyItem[];
 }

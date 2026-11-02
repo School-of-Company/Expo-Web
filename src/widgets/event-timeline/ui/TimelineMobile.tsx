@@ -1,11 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { EVENT_DATES, timeline, type EventDate, type TimelineItem } from "@/entities/schedule/model/data";
+import { EVENT_DATES, timeline, type EventDate, type TimelineItem } from "@/entities/schedule";
 import Icon from "@/shared/ui/Icon";
 import { formatEventDate, GROUPED_TITLE, toMinutes } from "../lib/schedule";
 
-/** 이 시간 이상 이어지는 프로그램은 "종일 운영"으로 묶어 타임라인 위에 한 번만 보여준다. */
 const ALL_DAY_MINUTES = 4 * 60;
 const startOf = (time: string) => time.split("~")[0];
 const endOf = (time: string) => time.split("~")[1];
@@ -22,7 +21,6 @@ function buildDay(date: EventDate) {
     .map((item) => ({ kind: "item", item }));
 
   if (sessions.length > 0) {
-    // 접힌 줄은 첫 회차가 시작하는 시각 자리에 끼워 넣는다.
     const at = rows.findIndex((r) => r.kind === "item" && toMinutes(startOf(r.item.time)) > toMinutes(startOf(sessions[0].time)));
     rows.splice(at === -1 ? rows.length : at, 0, { kind: "group", title: GROUPED_TITLE, sessions });
   }
@@ -81,10 +79,6 @@ function SessionGroup({ title, sessions }: { title: string; sessions: TimelineIt
   );
 }
 
-/**
- * 좁은 폭 전용 일정표. 항목이 많아 카드로 늘어놓으면 스크롤이 길어지므로
- * 날짜 탭으로 하루씩 보여주고, 종일 운영 프로그램과 회차형 프로그램은 묶어서 줄 수를 줄인다.
- */
 export default function TimelineMobile() {
   const [active, setActive] = useState(0);
   const day = DAYS[active];
@@ -119,12 +113,10 @@ export default function TimelineMobile() {
             aria-label="종일 운영"
             className="flex items-center gap-4 rounded-large border border-border-default bg-bg-canvas bg-[radial-gradient(70%_120%_at_100%_100%,oklch(0.96_0.03_40),transparent_70%)] px-4 py-5 shadow-1"
           >
-            {/* 종일 운영은 모든 시간대에 걸치므로 왼쪽에 따로 세워 아래 시간표와 구분한다. */}
             <div className="shrink-0 self-stretch border-r border-border-default pr-4 flex flex-col justify-center">
               <p className="text-heading-xs font-bold text-primary-50">종일 운영</p>
               <p className="mt-1 text-body-xs font-medium leading-tight tabular-nums text-fg-3">
                 {startOf(day.allDay[0].time)}
-                {/* 좁은 폭에서는 오른쪽 목록에 자리를 내주려고 끝나는 시각을 아랫줄로 내린다. */}
                 <span className="block @min-[30rem]:inline"> ~ {endOf(day.allDay[0].time)}</span>
               </p>
             </div>

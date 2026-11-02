@@ -1,11 +1,11 @@
 import { Fragment } from "react";
 import Link from "next/link";
-import PromoVideo from "@/widgets/promo-video/ui/PromoVideo";
-import TimelineSection from "@/widgets/event-timeline/ui/TimelineSection";
-import QuickApplyGroups from "@/widgets/quick-apply/ui/QuickApplyGroups";
-import RecentNotices from "@/widgets/recent-notices/ui/RecentNotices";
+import { PromoVideo } from "@/widgets/promo-video";
+import { TimelineSection } from "@/widgets/event-timeline";
+import { QuickApplyGroups } from "@/widgets/quick-apply";
+import { RecentNotices } from "@/widgets/recent-notices";
 import { AdminShortcut } from "@/widgets/admin-shortcut";
-import Button from "@/shared/ui/Button";
+import { ApplyClosedButton } from "@/features/apply-cta";
 import Badge from "@/shared/ui/Badge";
 import Icon from "@/shared/ui/Icon";
 import { getBackgroundImage } from "@/shared/lib/getBackgroundImage";
@@ -29,7 +29,6 @@ export default function HomePage() {
   return (
     <div>
       <AdminShortcut />
-      {/* <img>가 아닌 배경으로 깔아 사진을 끌거나 저장할 수 없게 한다. 영상 로딩 전·모션 축소 시에는 이 이미지가 보인다. */}
       <section
         className="relative overflow-hidden border-b border-border-default bg-[#eef0fb] bg-cover bg-center"
         style={{ backgroundImage: heroBgImage }}
@@ -41,14 +40,13 @@ export default function HomePage() {
           muted
           loop
           playsInline
-          preload="auto"
+          preload="metadata"
           aria-hidden="true"
         />
         <div className="relative mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20">
           <div className="grid grid-cols-1 gap-8 lg:grid-cols-[2fr_3fr] xl:grid-cols-[3fr_5fr] lg:items-stretch">
             <div className="flex flex-col">
               <div>
-                {/* 영상과 나란히 놓이는 lg 이상에서는 세로형 로고, 한 줄로 쌓이는 좁은 화면에서는 가로형 로고를 쓴다. */}
                 <h1>
                   <span
                     role="img"
@@ -70,7 +68,6 @@ export default function HomePage() {
                 <p className="mt-2 max-w-xl text-balance break-keep text-[22px] font-extrabold leading-[1.3] text-primary-50 sm:text-[30px]">AI로 연결되는 배움, 함께 여는 미래</p>
               </div>
 
-              {/* 날짜 한 줄마다 오른쪽에 그날의 시작·종료 시각을 붙인다. */}
               <div className="mt-4 grid w-fit grid-cols-[auto_auto] items-center gap-x-5 gap-y-2 text-primary-50">
                 {HERO_DAYS.map((d) => (
                   <Fragment key={d.date}>
@@ -104,9 +101,7 @@ export default function HomePage() {
               ))}
             </div>
 
-            {/* 주기적으로 빛이 스치는 메인 CTA. 동작 줄이기 설정에서는 빛을 끈다. */}
-            <Button
-              href="/apply/register"
+            <ApplyClosedButton
               size="l"
               fullWidth
               className="relative overflow-hidden bg-linear-to-r from-primary-60 via-primary-50 to-primary-40 shadow-3 hover:from-primary-50 hover:via-primary-40 lg:h-full lg:rounded-xlarge lg:text-heading-s"
@@ -120,7 +115,7 @@ export default function HomePage() {
                 name="arrow-right"
                 className="h-6 w-6 transition-transform duration-200 ease-out group-hover:translate-x-1.5 motion-reduce:transition-none"
               />
-            </Button>
+            </ApplyClosedButton>
           </div>
         </div>
       </section>
@@ -128,7 +123,7 @@ export default function HomePage() {
       <section className="mx-auto max-w-7xl px-4 pb-4 pt-10 sm:px-6 sm:pt-14">
         <h2 className="text-heading-s font-bold text-fg-1">모두를 위한 AI미래교육</h2>
         <p className="mt-1 text-body-s text-fg-3">
-          AI로 연결되는 배움의 장, 학생, 교사, 지역사회가 함께 만드는 특별한 경험에 지금 참여하세요.
+          AI로 연결되는 배움의 장, 학생, 교사, 지역사회가 함께 만든 특별한 경험을 다시 살펴보세요.
         </p>
         <div className="mt-4">
           <QuickApplyGroups />

@@ -2,8 +2,8 @@
 
 import { revalidateTag } from "next/cache";
 import { redirect } from "next/navigation";
-import type { Attachment } from "@/entities/notice/model/types";
-import { NOTICES_TAG } from "@/entities/notice/api/notices";
+import type { Attachment } from "@/entities/notice";
+import { NOTICES_TAG } from "@/entities/notice/server";
 import { checkPassword, clearAdminSession, requireAdmin, setAdminSession } from "@/shared/lib/admin-auth";
 import { sql } from "@/shared/lib/db";
 

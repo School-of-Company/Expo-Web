@@ -5,12 +5,10 @@ import Button from "./Button";
 
 interface ConfirmDialogProps {
   open: boolean;
-  /** 행동 질문형: "공지를 삭제하시겠습니까?" */
   title: string;
   children?: ReactNode;
   confirmLabel?: string;
   cancelLabel?: string;
-  /** 되돌릴 수 없는 행동이면 확인 버튼을 빨간색으로 */
   danger?: boolean;
   pending?: boolean;
   onConfirm: () => void;

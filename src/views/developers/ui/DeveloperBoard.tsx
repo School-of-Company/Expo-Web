@@ -1,16 +1,14 @@
 "use client";
 
 import { useEffect, useRef, useState, type CSSProperties } from "react";
-import type { Developer, DeveloperProject } from "@/entities/developer/model/data";
+import type { Developer, DeveloperProject } from "@/entities/developer";
 
-/** 프로젝트별 대표색. 값은 styles/theme.css의 --dev-project-* 토큰에 있다. */
 const PROJECT_COLORS = ["var(--dev-project-1)", "var(--dev-project-2)", "var(--dev-project-3)"];
 
 type ToneStyle = CSSProperties & { "--tone": string };
 
 const prefersReducedMotion = () => typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-/** 0에서 목표값까지 숫자가 차오르는 효과. 동작 줄이기 설정이면 바로 목표값을 보여준다. */
 function CountUp({ value }: { value: number }) {
   const [shown, setShown] = useState(0);
 
@@ -53,7 +51,6 @@ function DeveloperCard({ developer, projectName, color, order }: CardProps) {
   const ref = useRef<HTMLLIElement>(null);
   const [visible, setVisible] = useState(false);
 
-  // 화면에 들어올 때 한 번만 아래에서 떠오르게 한다.
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
@@ -70,7 +67,6 @@ function DeveloperCard({ developer, projectName, color, order }: CardProps) {
     return () => observer.disconnect();
   }, []);
 
-  // 마우스 위치를 CSS 변수로 넘겨 카드 위에 프로젝트 색 빛이 따라다니게 한다.
   const handlePointerMove = (e: React.PointerEvent<HTMLLIElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();
     e.currentTarget.style.setProperty("--x", `${e.clientX - rect.left}px`);
@@ -133,10 +129,6 @@ function DeveloperCard({ developer, projectName, color, order }: CardProps) {
   );
 }
 
-/**
- * 모든 프로젝트의 소감을 한 목록으로 이어 보여준다.
- * 위쪽 필터로 프로젝트를 고르면 그 프로젝트의 카드만 보여준다.
- */
 export default function DeveloperBoard({ projects }: { projects: DeveloperProject[] }) {
   const [focused, setFocused] = useState<string | null>(null);
 
@@ -151,7 +143,6 @@ export default function DeveloperBoard({ projects }: { projects: DeveloperProjec
         color: PROJECT_COLORS[projectIndex % PROJECT_COLORS.length],
       })),
     )
-    // 프로젝트와 상관없이 설문을 제출한 순서대로 나열한다.
     .sort((a, b) => Date.parse(a.developer.submittedAt) - Date.parse(b.developer.submittedAt));
 
   const visibleCards = focused === null ? cards : cards.filter((card) => card.projectKey === focused);

@@ -1,6 +1,5 @@
 export interface Faq {
   q: string;
-  /** 문단은 빈 줄("\n\n")로 나누고, 강조할 부분은 **굵게**로 감싼다. 화면 밖(검색·구조화 데이터)에서는 faqPlainAnswer로 기호를 걷어 쓴다. */
   a: string;
   category: "공통" | "학생" | "교사";
 }
@@ -20,5 +19,4 @@ export const faqs: Faq[] = [
   },
 ];
 
-/** 강조 기호를 걷고 문단을 한 줄로 이은 답변. 검색 결과와 FAQPage 구조화 데이터에 쓴다. */
 export const faqPlainAnswer = (a: string) => a.replace(/\*\*/g, "").replace(/\n+/g, " ");

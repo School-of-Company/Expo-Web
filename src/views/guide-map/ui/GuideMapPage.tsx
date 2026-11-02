@@ -3,19 +3,19 @@
 import { useState } from "react";
 
 import { guideNavItems } from "@/shared/config/guide-nav";
+import { BoothMap } from "@/widgets/booth-board";
 import { SectionPage } from "@/widgets/section-page";
 
 const MAPS = [
-  { key: "ai-sw", label: "AI·SW 체험한마당" },
-  { key: "future-edu", label: "미래교육박람회" },
+  { key: "ai-sw", label: "AI·SW 체험한마당", map: { src: "/student-booth-map.png", alt: "AI·SW 체험한마당 부스 배치도", width: 5033, height: 3580 } },
+  { key: "future-edu", label: "미래교육박람회", map: { src: "/corp-booth-map.png", alt: "미래교육박람회 기업 부스 배치도", width: 5033, height: 3580 } },
 ] as const;
 
 export default function GuideMapPage() {
   const [mapKey, setMapKey] = useState<(typeof MAPS)[number]["key"]>(MAPS[0].key);
 
   return (
-    <SectionPage navTitle="박람회 안내"
-      navItems={guideNavItems} title="부스 배치도" desc="전시장 층별 부스 위치와 체험존 배치를 확인하세요.">
+    <SectionPage navTitle="박람회 안내" navItems={guideNavItems} title="부스 배치도" desc="AI·SW 체험한마당과 미래교육박람회 부스 위치를 확인하세요.">
       <div className="flex flex-col gap-3">
         <h2 className="text-heading-s font-bold text-fg-1">부스 배치도</h2>
         <div className="flex gap-1 self-start rounded-medium bg-bg-subtle p-1 text-body-s">
@@ -35,9 +35,8 @@ export default function GuideMapPage() {
         </div>
       </div>
 
-      {/* TODO: 배치도 이미지가 확정되면 플레이스홀더를 교체한다. */}
-      <div className="mt-4 flex h-72 items-center justify-center rounded-xlarge border border-dashed border-border-default bg-bg-canvas px-4 text-center text-body-s text-fg-3 sm:h-96">
-        {MAPS.find((map) => map.key === mapKey)?.label} 부스 배치도 이미지 영역 (추후 삽입 예정)
+      <div className="mt-4">
+        <BoothMap key={mapKey} map={MAPS.find((m) => m.key === mapKey)!.map} />
       </div>
     </SectionPage>
   );

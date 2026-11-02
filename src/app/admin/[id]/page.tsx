@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { getNotice } from "@/entities/notice/api/notices";
+import { getNotice } from "@/entities/notice/server";
 import { NoticeForm } from "@/features/notice-admin";
 import { requireAdmin } from "@/shared/lib/admin-auth";
 

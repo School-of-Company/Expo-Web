@@ -1,6 +1,5 @@
-import SectionPage from "@/widgets/section-page/ui/SectionPage";
-import ProgramInfoPanel from "@/shared/ui/ProgramInfoPanel";
-import { EXTERNAL_APPLY_LINKS } from "@/shared/config/external-apply-links";
+import { SectionPage } from "@/widgets/section-page";
+import { ProgramInfoPanel } from "@/widgets/program-info";
 
 const applyNotice = (
   <>
@@ -34,14 +33,7 @@ export default function StudentsAiTourPage() {
           { label: "운영방식", text: "회차별 16명 참여 가능" },
           { label: "신청안내", text: applyNotice },
         ]}
-        cta={{
-          href: EXTERNAL_APPLY_LINKS.aiTour,
-          label: "투어 사전 신청 및 조회",
-          external: true,
-          notice: <p className="text-body-s leading-relaxed text-fg-2">{applyNotice}</p>,
-          noticeTitle: "전시체험 투어 사전 신청 안내",
-          opensAt: "2026-10-26T08:30:00+09:00",
-        }}
+        cta={{ label: "투어 사전 신청 및 조회" }}
       />
     </SectionPage>
   );

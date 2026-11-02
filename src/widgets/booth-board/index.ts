@@ -1,3 +1,2 @@
-export { default as BoothBoard, type BoothGroup } from "./ui/BoothBoard";
-export { default as BoothTable } from "./ui/BoothTable";
-export type { ZoomableImage } from "./ui/ZoomableImageModal";
+export { default as BoothBoard } from "./ui/BoothBoard";
+export { default as BoothMap } from "./ui/BoothMap";

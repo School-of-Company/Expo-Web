@@ -1,5 +1,5 @@
 import { pageMetadata } from "@/shared/config/site";
-import NoticeParkingPage from "@/views/notice-parking/ui/NoticeParkingPage";
+import { NoticeParkingPage } from "@/views/notice-parking";
 
 export const metadata = pageMetadata("주차 안내", "AI미래교육박람회 행사장 주차 안내 - 주차 가능 장소와 이용 방법", "/notice/parking");
 
