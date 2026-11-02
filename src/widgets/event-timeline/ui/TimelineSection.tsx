@@ -1,11 +1,7 @@
-import { EVENT_DATES, timeline, type TimelineItem } from "@/entities/schedule/model/data";
+import { EVENT_DATES, timeline, type TimelineItem } from "@/entities/schedule";
 import { formatEventDate, GROUPED_TITLE, toMinutes } from "../lib/schedule";
 import TimelineMobile from "./TimelineMobile";
 
-/**
- * 회차형 프로그램은 "구분" 칸을 한 번만 쓰도록 회차를 붙여 둔다.
- * 묶음은 마지막 회차보다 늦게 시작하는 항목(폐막 등) 바로 앞에 둔다.
- */
 function orderDay(items: TimelineItem[]) {
   const sessions = items.filter((t) => t.title === GROUPED_TITLE);
   const others = items.filter((t) => t.title !== GROUPED_TITLE);
@@ -21,9 +17,7 @@ const groups = EVENT_DATES.map((date) => ({ date, items: orderDay(timeline.filte
 
 export default function TimelineSection() {
   return (
-    // 좌측 메뉴 유무에 따라 같은 화면 폭에서도 쓸 수 있는 폭이 달라서, 화면 폭이 아니라 이 영역 폭을 기준으로 카드/표를 전환한다.
     <div className="@container">
-      {/* 좁은 폭: 항목이 많아 날짜 탭과 묶음 표시로 줄 수를 줄인 전용 목록을 쓴다. */}
       <div className="@min-[48rem]:hidden">
         <TimelineMobile />
       </div>

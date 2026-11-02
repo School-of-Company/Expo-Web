@@ -4,15 +4,13 @@ import { Analytics } from "@vercel/analytics/next";
 
 import { SITE_DESCRIPTION, SITE_JSON_LD, SITE_KEYWORDS, SITE_NAME, SITE_SHORT_NAME, SITE_TITLE, SITE_URL } from "@/shared/config/site";
 
-import { getNotices } from "@/entities/notice/api/notices";
-import { buildSearchIndex } from "@/shared/config/search-index";
+import { getNotices } from "@/entities/notice/server";
 import DisableNativeDrag from "@/shared/ui/DisableNativeDrag";
 import JsonLd from "@/shared/ui/JsonLd";
 import { Footer } from "@/widgets/footer";
-import { Header } from "@/widgets/header";
+import { Header, buildSearchIndex } from "@/widgets/header";
 import { ScrollToTopButton } from "@/widgets/scroll-to-top";
 
-// Pretendard 가변 폰트 동적 서브셋: 굵기 전체를 파일 하나로, 페이지에 쓰인 글자가 든 조각(unicode-range)만 받는다.
 import "pretendard/dist/web/variable/pretendardvariable-dynamic-subset.css";
 import "./globals.css";
 
@@ -39,7 +37,6 @@ export const metadata: Metadata = {
     url: "/",
   },
   twitter: { card: "summary_large_image" },
-  // 검색 결과·AI 개요에 본문 발췌와 큰 이미지 미리보기를 제한 없이 쓰게 한다.
   robots: {
     index: true,
     follow: true,
@@ -48,7 +45,6 @@ export const metadata: Metadata = {
   verification: {
     // 인증 토큰은 페이지 HTML에 그대로 공개되는 값이라 코드에 둔다. 배포 환경 변수 설정 없이도 빠지지 않게 한다.
     google: "vu9Nq7yzfAXSdblQVwrg0UQIe8xgn_zg5oWUMlJDjdU",
-    // Bing 색인은 ChatGPT 검색·Copilot 이 쓰므로 웹마스터 도구 인증도 받는다.
     other: {
       "naver-site-verification": ["dac3966df1d212595cf0ea771039718423869050", "8d7839e3e0fcef2a108908c136b875eac41afd11"],
       ...(process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION && { "msvalidate.01": process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION }),
@@ -57,7 +53,7 @@ export const metadata: Metadata = {
 };
 
 export default async function RootLayout({ children }: LayoutProps<"/">) {
-  const searchIndex = buildSearchIndex(await getNotices());
+  const searchIndex = buildSearchIndex(await getNotices().catch(() => []));
 
   return (
     <html lang="ko" className="h-full antialiased">
@@ -76,7 +72,6 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
         <Footer />
         <ScrollToTopButton />
         <DisableNativeDrag />
-        {/* Vercel 대시보드에서 Analytics를 켜야 집계된다. 로컬 개발 중에는 보내지 않는다. */}
         <Analytics />
       </body>
       {isGaEnabled && <GoogleAnalytics gaId={GA_ID} />}

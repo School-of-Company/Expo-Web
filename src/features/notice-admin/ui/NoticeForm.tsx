@@ -1,4 +1,4 @@
-import type { Notice } from "@/entities/notice/model/types";
+import type { Notice } from "@/entities/notice";
 import Button from "@/shared/ui/Button";
 import Input from "@/shared/ui/Input";
 import { saveNotice } from "../api/actions";

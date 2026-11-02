@@ -1,6 +1,6 @@
-import { NAV_SECTIONS } from "./site-nav";
-import type { Notice } from "@/entities/notice/model/types";
-import { faqs, faqPlainAnswer } from "@/entities/faq/model/data";
+import { NAV_SECTIONS } from "@/shared/config/site-nav";
+import type { Notice } from "@/entities/notice";
+import { faqs, faqPlainAnswer } from "@/entities/faq";
 
 export interface SearchItem {
   title: string;

@@ -2,7 +2,7 @@
 
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import type { VisitCounts } from "@/entities/visit/model/types";
+import type { VisitCounts } from "@/entities/visit";
 
 /**
  * 푸터 TODAY/TOTAL 페이지뷰. 새로고침과 페이지 이동마다 한 번씩 센다.
@@ -35,7 +35,6 @@ export default function VisitCounter() {
           {i > 0 && <span aria-hidden className="h-3 w-px bg-white/15" />}
           <div className="flex items-center gap-1.5">
             <dt className="font-semibold tracking-wider text-white/60">{label}</dt>
-            {/* 숫자를 받기 전에는 자리만 잡아 두어 푸터 높이가 흔들리지 않게 한다. */}
             <dd>{value === undefined ? "-" : value.toLocaleString("ko-KR")}</dd>
           </div>
         </div>

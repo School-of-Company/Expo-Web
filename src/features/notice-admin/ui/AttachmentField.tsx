@@ -2,13 +2,11 @@
 
 import { upload } from "@vercel/blob/client";
 import { useRef, useState, type Dispatch, type SetStateAction } from "react";
-import type { Attachment } from "@/entities/notice/model/types";
+import type { Attachment } from "@/entities/notice";
 import Button from "@/shared/ui/Button";
 
 const MAX_EDGE = 1920;
 
-// 긴 변을 1920px로 줄이고 JPEG는 q0.88로 다시 인코딩한다. PNG는 무손실 그대로 줄이기만 한다.
-// 결과가 원본보다 크면 원본을 쓴다. GIF(애니메이션)·SVG 등 그 외 형식은 건드리지 않는다.
 async function optimizeImage(file: File): Promise<File> {
   if (file.type !== "image/jpeg" && file.type !== "image/png") return file;
   try {
@@ -49,7 +47,6 @@ export default function AttachmentField({
         if (file.type.startsWith("video/")) throw new Error("영상은 올릴 수 없습니다.");
         if (file.size > 20 * 1024 * 1024) throw new Error(`${file.name}: 20MB 이하만 올릴 수 있습니다.`);
       }
-      // 파일을 동시에 최적화·업로드한다. 진행률은 파일별 값의 평균.
       const percents = list.map(() => 0);
       const added = await Promise.all(
         list.map(async (file, i) => {

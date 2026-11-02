@@ -1,4 +1,4 @@
-import { getNotices } from "@/entities/notice/api/notices";
+import { getNotices } from "@/entities/notice/server";
 import { AdminNoticeList, LogoutButton } from "@/features/notice-admin";
 import { requireAdmin } from "@/shared/lib/admin-auth";
 

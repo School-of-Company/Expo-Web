@@ -16,7 +16,7 @@ export default function LocalNav({ title, items }: { title: string; items: Local
   const pathname = usePathname();
 
   return (
-    <nav className="shrink-0 sm:sticky sm:top-[72px] sm:w-60 sm:self-start sm:border-r sm:border-border-default sm:pr-2">
+    <nav aria-label={title} className="shrink-0 sm:sticky sm:top-[72px] sm:w-60 sm:self-start sm:border-r sm:border-border-default sm:pr-2">
       <p className="px-3 text-body-xs font-bold uppercase tracking-wide text-fg-3">{title}</p>
       <ul className="mt-2 grid grid-cols-[repeat(auto-fit,minmax(8.5rem,1fr))] gap-1 px-1 sm:mt-3 sm:flex sm:flex-col sm:gap-0.5 sm:px-0">
         {items.map((item) => {
@@ -50,7 +50,7 @@ export default function LocalNav({ title, items }: { title: string; items: Local
 
           return (
             <li key={item.key} className="shrink-0">
-              <Link href={item.href ?? "#"} className={className}>
+              <Link href={item.href ?? "#"} aria-current={isActive ? "page" : undefined} className={className}>
                 {content}
               </Link>
             </li>
