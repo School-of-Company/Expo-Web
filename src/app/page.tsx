@@ -1,10 +1,9 @@
-import { timeline } from "@/entities/schedule/model/data";
+import { timeline } from "@/entities/schedule";
 import JsonLd from "@/shared/ui/JsonLd";
 import { HOST_NAME, ORGANIZER_REF, SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "@/shared/config/site";
-import HomePage from "@/views/home/ui/HomePage";
+import { HomePage } from "@/views/home";
 import { PromoPopup } from "@/widgets/promo-popup";
 
-/** "10.31(토)" + "09:30" → "2026-10-31T09:30:00+09:00" */
 function toIsoDateTime(date: string, time: string) {
   const [month, day] = date.replace(/\(.\)/, "").split(".");
   return `2026-${month.padStart(2, "0")}-${day.padStart(2, "0")}T${time}:00+09:00`;
@@ -29,7 +28,7 @@ const eventJsonLd = {
   name: SITE_NAME,
   description: SITE_DESCRIPTION,
   startDate: "2026-10-31T09:30:00+09:00",
-  endDate: "2026-11-01T16:30:00+09:00",
+  endDate: "2026-11-01T16:00:00+09:00",
   eventStatus: "https://schema.org/EventScheduled",
   eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
   inLanguage: "ko",
@@ -38,7 +37,6 @@ const eventJsonLd = {
   location,
   organizer: ORGANIZER_REF,
   audience: { "@type": "EducationalAudience", educationalRole: ["student", "teacher", "parent"] },
-  // 세부 프로그램을 함께 실어 AI 검색이 "골든벨은 언제?" 같은 질문에 바로 답할 수 있게 한다.
   subEvent: timeline.map((item) => {
     const [start, end] = item.time.split("~");
     return {

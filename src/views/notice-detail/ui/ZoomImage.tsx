@@ -31,8 +31,10 @@ export default function ZoomImage({ src, alt }: { src: string; alt: string }) {
 
   return (
     <>
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src={src} alt={alt} onClick={() => setOpen(true)} className="mx-auto max-h-[70vh] max-w-full cursor-zoom-in rounded-small object-contain" />
+      <button type="button" onClick={() => setOpen(true)} aria-label={`${alt} 크게 보기`} className="mx-auto block cursor-zoom-in">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={src} alt={alt} loading="lazy" className="max-h-[70vh] max-w-full rounded-small object-contain" />
+      </button>
       {open &&
         createPortal(
         <div role="dialog" aria-modal="true" aria-label={alt} className="fixed inset-0 z-[200] flex flex-col bg-black/90">
@@ -47,7 +49,6 @@ export default function ZoomImage({ src, alt }: { src: string; alt: string }) {
               ✕
             </button>
           </div>
-          {/* 처음엔 화면에 맞춰 보여주고, 확대하면 이미지가 커져서 스크롤로 이동한다 */}
           <div className="min-h-0 flex-1 overflow-auto" onClick={(e) => e.target === e.currentTarget && close()}>
             <div className="flex min-h-full min-w-full" onClick={(e) => e.target === e.currentTarget && close()}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
