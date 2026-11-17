@@ -3,7 +3,10 @@ import type { Metadata } from "next";
 // hiaisw.kr 은 www 로 리다이렉트되므로 www 를 대표 주소로 쓴다.
 export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.hiaisw.kr").replace(/\/$/, "");
 
-export const SITE_NAME = "2026 전남광주통합특별시교육청 AI미래교육박람회";
+// 행사장 실시간 혼잡도 서버. 다른 서버를 볼 때는 CONGESTION_URL 로 덮어쓴다.
+export const CONGESTION_URL = (process.env.CONGESTION_URL?.trim() || "https://yoba.https.gsmsv.site").replace(/\/$/, "");
+
+export const SITE_NAME ="2026 전남광주통합특별시교육청 AI미래교육박람회";
 export const SITE_SHORT_NAME = "AI미래교육박람회";
 export const SITE_DESCRIPTION =
   "2026 AI 미래교육 박람회 공식 홈페이지. 전남광주통합특별시교육청이 여는 AI교육·SW교육 체험 부스, AI·SW 골든벨, AI교육원 전시체험 투어, 교원 연수, 기조 강연 (2026.10.31~11.1 개최, 광주 북구 AI교육원)";
