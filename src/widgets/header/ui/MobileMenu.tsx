@@ -61,7 +61,7 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
       id="mobile-menu"
       aria-hidden={!open}
       inert={!open}
-      className={`fixed inset-x-0 bottom-0 top-[57px] z-40 overflow-hidden md:hidden ${open ? "" : "pointer-events-none"}`}
+      className={`fixed inset-x-0 bottom-0 top-[94px] z-40 overflow-hidden md:hidden ${open ? "" : "pointer-events-none"}`}
     >
       <button
         type="button"

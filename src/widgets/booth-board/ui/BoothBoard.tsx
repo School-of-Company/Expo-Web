@@ -38,7 +38,7 @@ export default function BoothBoard({ groups, listLabel, mapLabel, map, tabbed = 
     <>
       <div className="relative mt-4 flex flex-col">
         <div
-          className={`sticky top-[57px] z-10 -mx-4 bg-bg-canvas px-4 pt-2 sm:-mx-6 sm:px-6 md:static md:mx-0 md:p-0 ${
+          className={`sticky top-[94px] z-10 -mx-4 bg-bg-canvas px-4 pt-2 sm:-mx-6 sm:px-6 md:static md:mx-0 md:p-0 ${
             tabbed ? "" : "border-b border-border-default pb-2 md:border-0"
           }`}
         >
