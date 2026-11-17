@@ -8,6 +8,7 @@ import Icon from "@/shared/ui/Icon";
 import { getBackgroundImage } from "@/shared/lib/getBackgroundImage";
 import HeaderSearch from "./HeaderSearch";
 import MobileMenu from "./MobileMenu";
+import CongestionStatus from "./CongestionStatus";
 import type { SearchItem } from "../lib/search-index";
 import logo from "../../../../public/logo.png";
 
@@ -76,6 +77,8 @@ export default function Header({ searchIndex }: { searchIndex: SearchItem[] }) {
           </Link>
 
           <div className="flex items-center gap-3">
+            <CongestionStatus className="max-md:hidden" />
+
             <button
               type="button"
               className="flex h-10 w-10 items-center justify-center text-fg-2 transition-colors duration-150 ease-out hover:text-primary-50"
@@ -109,6 +112,9 @@ export default function Header({ searchIndex }: { searchIndex: SearchItem[] }) {
             </button>
           </div>
         </div>
+
+        {/* md 미만은 로고 옆에 자리가 없어 헤더 아래 줄에 보여 준다. */}
+        <CongestionStatus className="h-9 border-t border-border-default px-4 sm:px-6 md:hidden" />
 
         <div
           className={`absolute inset-x-0 top-full overflow-hidden max-md:hidden border-b border-border-default bg-bg-canvas shadow-2 transition-opacity ease-out ${
