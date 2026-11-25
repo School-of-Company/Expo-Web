@@ -8,6 +8,9 @@ allowed-tools: Bash(git *:*), Bash(grep *:*), Bash(ls *:*), Bash(find *:*), Read
 
 ## Step 1 — Gather the Diff and This Project's Rules
 
+`BASE` is the repo's integration branch if it has one, otherwise its default branch — find it the way
+the `write-pr` skill's Step 1 does instead of assuming `develop` or `main`.
+
 ```bash
 git branch --show-current
 git diff --stat                          # uncommitted
@@ -24,21 +27,35 @@ is not.
 ## Step 2 — Review One Lens at a Time
 
 Do **not** read the diff once while trying to hold every concern at the same time. One pass holding
-bugs, security, tests, and performance reviews all four shallowly — attention gets split and the later
+bugs, security, tests, and performance reviews every concern shallowly — attention gets split and the later
 concerns get whatever is left.
 
 Instead make a separate pass per lens below, each reading the same diff with a single question in mind.
 Write down each pass's findings before starting the next, so an earlier lens doesn't bleed into a later
 one.
 
+Run only the lenses the diff actually touches — every pass re-reads the diff, so each skipped lens is a
+saved read:
+
+- **correctness** — whenever the diff changes logic
+- **security** — only if it touches input handling, auth, secrets, logging of values, or shell/path/query construction
+- **tests** — only if it adds or changes behavior, or touches test files
+- **performance** — only if it touches data access, loops over I/O, or a hot path
+- **error-handling** — only if it adds or changes `try`/`catch`, fallbacks, retries, async calls, or I/O
+- **lean** — only if it adds a meaningful amount of new code (a new helper, wrapper, option, or dependency)
+
+Say in the report which lenses were skipped and why.
+
 ## Step 3 — The Lenses
 
 | Lens | What it looks for |
 |---|---|
-**correctness** | Promise created but not awaited; a failure path that returns success; an exception swallowed into a generic 500; a status code contradicting the documented contract; off-by-one, empty collection, `null`, first and last iteration; a value read before it's set |
+**correctness** | Promise created but not awaited; a failure path that returns success; an exception swallowed into a generic 500; a status code contradicting the documented contract; off-by-one, empty collection, `null`, first and last iteration; a value read before it's set; an interface, protocol, or DTO changed without its implementations or callers updated |
 **security** | Input reaching a filesystem path, URL path, query, or shell command without validation; secrets or tokens in source, logs, or client-facing errors; an endpoint whose shape changed but not its authorization check; whether changing an id in the request can reach another user's data |
 **tests** | New behavior with no test; failure paths with no test; a test that would pass even if the code were wrong — the classic being an assertion that "X wins over Y" with fixtures that don't collide, which proves union and not precedence; a test that depends on another having run first |
 **performance** | Blocking I/O on an async path; a network or filesystem call inside a loop that could be batched; a query added without an index; an N+1. Skip this lens entirely when the diff has no data access or hot path |
+**error-handling** | An empty `catch`, or an error turned into `null`/`[]`/`false` with no trace; a fallback value returned when the real call failed, so the next bug appears far from its cause; a rethrow that drops the original cause or stack; a network, file, or database call with no timeout or error path; a multi-step write with no rollback. A handler that swallows on purpose and says why is a decision, not a finding |
+**lean** | Code that should not exist or should be smaller: dead code, an option nobody sets, an abstraction with one implementation, a near-copy of something that must change together, a dependency added for a few lines. **Name the existing helper or standard-library call** that replaces it (path or API) — no replacement named, no finding |
 
 For every pass, also check the rules from Step 1 and flag violations of those by name.
 
